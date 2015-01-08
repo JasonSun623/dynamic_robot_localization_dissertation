@@ -1,0 +1,19 @@
+git clone git@github.com:user/repo.git
+cd repo
+mkdir build
+
+make a symlink of the .bib file in the build directory
+	pwd=$(pwd) && ln -s $pwd/myrefs.bib $pwd/build/myrefs.bib
+
+Setup TexStudio to use out of source build files
+	Options -> Configure TexStudio -> Commands
+	- Prepend to %.tex in PdfLatex:
+		-output-directory=build
+	- All commands that use generated files in build directory must be replaced with
+		sh -c "cd build && [command]"
+		For example:
+			sh -c "cd build && bibtex %.aux"
+
+
+	Options -> Configure TexStudio -> Build
+	- Add the build folder to the Additional Search Paths (log and pdf)
