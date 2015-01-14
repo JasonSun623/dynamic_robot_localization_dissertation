@@ -1,0 +1,74 @@
+\documentclass[11pt,a4paper,twoside,openright]{report}
+
+\usepackage[utf8]{inputenc}
+
+%% MIEIC options
+%\usepackage[mieic]{styles/feupteses}
+\usepackage[mieic,juri]{styles/feupteses}
+%\usepackage[mieic,final]{styles/feupteses}
+%\usepackage[mieic,final,onpaper]{styles/feupteses}
+
+%% Additional options for feupteses.sty: 
+%% - onpaper: links are not shown (for paper versions)
+%% - backrefs: include back references from bibliography to citation place
+
+\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage{graphicx}
+\usepackage{animate}
+\usepackage{float}
+\usepackage{grffile}
+\usepackage{subfiles}
+
+\usepackage{color}
+\definecolor{cloudwhite}{cmyk}{0,0,0,0.025}
+
+\usepackage{listings}
+\lstset{ %
+ language=C,                        % choose the language of the code
+ basicstyle=\footnotesize\ttfamily,
+ keywordstyle=\bfseries,
+ numbers=left,                      % where to put the line-numbers
+ numberstyle=\scriptsize\texttt,    % the size of the fonts that are used for the line-numbers
+ stepnumber=1,                      % the step between two line-numbers. If it's 1 each line will be numbered
+ numbersep=8pt,                     % how far the line-numbers are from the code
+ frame=tb,
+ float=htb,
+ aboveskip=8mm,
+ belowskip=4mm,
+ backgroundcolor=\color{cloudwhite},
+ showspaces=false,                  % show spaces adding particular underscores
+ showstringspaces=false,            % underline spaces within strings
+ showtabs=false,                    % show tabs within strings adding particular underscores
+ tabsize=2,	                    % sets default tabsize to 2 spaces
+ captionpos=b,                      % sets the caption-position to bottom
+ breaklines=true,                   % sets automatic line breaking
+ breakatwhitespace=false,           % sets if automatic breaks should only happen at whitespace
+ escapeinside={\%*}{*)},            % if you want to add a comment within your code
+ morekeywords={*,var,template,new}  % if you want to add more keywords to the set
+}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{easylist}
+\usepackage{siunitx}
+\usepackage{url}
+\usepackage{caption}
+\usepackage{hyperref}
+	\hypersetup{colorlinks=false,pdfborder=0 0 0}
+\usepackage{cleveref}
+\usepackage{etoolbox}
+\usepackage[nonumberlist,acronym,xindy]{glossaries}
+
+
+\graphicspath{{figures/}}
+
+\makeglossaries
+\usepackage[xindy]{imakeidx}
+\setcounter{tocdepth}{3}
+\makeindex
+
+
+\newtoggle{showcommittee}
+\toggletrue{showcommittee}

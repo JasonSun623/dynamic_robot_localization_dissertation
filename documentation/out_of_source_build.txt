@@ -1,0 +1,49 @@
+- Install TexLive (https://www.tug.org/texlive/)
+- Clone git repository
+	git clone git@github.com:user/repository.git
+
+- Creating build/master.pdf using TeXstudio (http://texstudio.sourceforge.net/)
+	Move to repository directory
+		cd repository
+
+	Create a build directory and replicate (inside it) the directory layout in which there is the master file (to allow repository/build/tex/*.aux files to have the same relative paths on the main folder repository/tex/*.aux)
+	Make a symlink of the .bib file in the build directory
+		ln -s `pwd`/references/references.bib `pwd`/build/references/references.bib
+
+	Or execute ./clean.sh to create the directory layout and symlink
+
+	Setup TexStudio to use "out of source" build files
+		Options -> Configure TexStudio -> Commands
+		- Prepend to %.tex in PdfLatex:
+			-output-directory=build
+			For example:
+				pdflatex -synctex=1 -interaction=nonstopmode -output-directory=build %.tex
+		- All commands that use generated files in build directory must be replaced with
+			sh -c "cd build && [command]"
+			For example:
+				External PDF Viewer
+					sh -c "cd build && acroread %.pdf > /dev/null"
+				BibTeX
+					sh -c "cd build && bibtex %.aux"
+				BibTeX (-Bit)
+					sh -c "cd build && bibtex8 %.aux"
+				Makeglossaries
+					sh -c "cd build && makeglossaries %"
+
+		Options -> Configure TexStudio -> Build
+		- Add the build folder to the "Additional Search Paths" (log and pdf)
+			Log File | PDF file
+				build
+
+		Compile build/master.pdf from master tex file
+			Tools -> Compile (F6)
+			Tools -> Bibliography (F11)
+			Tools -> Index (F12)
+			Tools -> Gloasssary (F10)
+			Tools -> Build and view (F1)
+
+
+- Creating build/master.pdf using command line only
+	Execute
+		./clean.sh
+		./build.sh

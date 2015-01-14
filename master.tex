@@ -1,0 +1,87 @@
+% !TeX encoding = UTF-8
+% !TeX root = master.tex
+% !TeX spellcheck = en_US
+
+\input{tex/preamble}
+\input{macros/macros}
+\input{tex/glossaries}
+
+
+\begin{document}
+
+
+%---------------------------------------------------------------------------------------------------
+% Top matter | Information about author, supervisors and committee
+%---------------------------------------------------------------------------------------------------
+
+\title{Robot Self-Localization in Dynamic Environments}
+\author{Carlos Miguel Correia da Costa}
+\thesisdate{January 26, 2015}
+\copyrightnotice{Carlos Miguel Correia da Costa, 2015}
+\supervisor{Supervisor}{Armando Jorge Miranda de Sousa (Ph.D.)}
+\supervisor{Second Supervisor}{Germano Manuel Correia dos Santos Veiga (Ph.D.)}
+
+\iftoggle{showcommittee} {
+	\committeetext{Approved in oral examination by the committee:}
+	\committeemember{Chair}{Doctor Name of the President}
+	\committeemember{External Examiner}{Doctor Name of the Examiner}
+	\committeemember{Supervisor}{Doctor Name of the Supervisor}
+	\signature
+}
+
+\logo{uporto-feup.pdf}
+
+
+
+%---------------------------------------------------------------------------------------------------
+% Prolog
+%---------------------------------------------------------------------------------------------------
+
+\begin{Prolog}
+  \include{tex/prolog/abstract}
+  \include{tex/prolog/acknowledgements}
+  \include{tex/prolog/quote}
+  \cleardoublepage
+  \pdfbookmark[0]{Table of Contents}{contents}
+  \tableofcontents
+  \cleardoublepage
+  \pdfbookmark[0]{List of Figures}{figures}
+  \listoffigures
+  \cleardoublepage
+  \pdfbookmark[0]{List of Tables}{tables}
+  \listoftables
+%  \glsaddall
+  \printglossary[type=\acronymtype,title=Abbreviations]
+  \printglossary[title=Nomenclature]
+\end{Prolog}
+
+
+
+%---------------------------------------------------------------------------------------------------
+% Chapters
+%---------------------------------------------------------------------------------------------------
+
+\StartBody
+
+\include{tex/chapters/introduction}
+\include{tex/chapters/localization_methods}
+\include{tex/chapters/relevant_software_technologies}
+\include{tex/chapters/point_cloud_algorithms}
+\include{tex/chapters/localization_system}
+\include{tex/chapters/localization_system_evaluation}
+\include{tex/chapters/conclusions}
+
+
+
+%---------------------------------------------------------------------------------------------------
+% Appendixes, bibliography and index
+%---------------------------------------------------------------------------------------------------
+
+\appendix
+\include{tex/appendices/appendix1}
+
+\PrintBib{references/references}
+%\PrintIndex
+
+
+\end{document}

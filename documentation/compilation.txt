@@ -1,8 +1,0 @@
-%%========================================
-%% Commands: pdflatex mieic-en
-%%           bibtex mieic-en
-%%           makeindex mieic-en (only if creating an index) 
-%%           pdflatex mieic-en
-%% Alternative:
-%%          latexmk -pdf mieic-en.tex
-%%========================================
