@@ -22,28 +22,24 @@ A robot capable of operating safely and accurately in a dynamic environment can 
 
 \section{Project} \label{sec:introduction_project}
 
-\gls{carlos} is a European research project that aims to develop an autonomous robot capable of performing repetitive tasks alongside human co-workers in dynamic environments.
-
-The robot will operate in shipyards and will be designed to perform fit-out operations, such as stud welding and \gls{cad} drawing.
-
-Stud welding is a repetitive task that provides structural support for other components, such as heat insulation layers or electrical systems.
-
-\gls{cad} drawing will help human co-workers assemble components faster, because it will mark the exact position in which the systems must be installed.
-
-This dissertation aims to provide the localization system for this robot, in order to allow precise navigation in the environment.
+\gls{carlos} is a European research project that aims to develop an autonomous robot capable of performing repetitive tasks alongside human co-workers in dynamic environments. The robot will operate in shipyards and is intended to perform fit-out operations, such as stud welding and projection mapping of \gls{cad} drawings. Stud welding is a repetitive task that provides structural support for other components, such as heat insulation layers or electrical systems. Projection mapping of \gls{cad} drawings or other important information will help human co-workers assemble components faster, because it will mark the exact position in which they must be installed.
 
 
 
-\section{Motivation and objectives} \label{sec:introduction_goals}\
+\section{Motivation and objectives} \label{sec:introduction_goals}
 
-With the increase of competitiveness in the current globalized trading markets, companies are trying to reduce production costs and improve the productivity of their assets. One way to achieve these goals relies on robots to do the simple and repetitive jobs while giving humans more free time to perform the more complex and creative tasks.
+With the increase of competitiveness in the current globalized trading markets, companies are trying to reduce production costs and improve the productivity of their assets. Robots can help achieve these goals by performing the simple and repetitive jobs while giving humans more free time to perform the complex and creative tasks.
 
-For these robots be able to navigate autonomously in the environment, they need a precise and efficient localization system. This is critical because the robots must perform their tasks at the correct location, otherwise their work will be useless and may even create additional costs to repair the damage caused.
+Mobile platforms equipped with robotic arms provide a flexible way to automate a wide range of tasks that must be performed over large areas. However, before performing the intended operations they first need to know where they are and how they can reach the desired location. Moreover, given their limited computational resources and energy storages, they require efficient, reliable and accurate control systems capable to operate in real time.
 
-The main objective of this dissertation is the development of a modular, efficient and reliable localization system for dynamic environments, capable to run in real time on the robots on-board computer systems.
+
+
+\section{Contributions} \label{sec:introduction_contributions}
+
+This dissertation introduces an efficient, modular and extensible 3/6 DoF localization system for mobile robot platforms capable of operating accurately and reliably in dynamic environments. It is a multi-level registration pipeline that uses geometric features to estimate the initial position of a robot platform and point cloud registration algorithms to track its pose. The tracking subsystem can have two different configurations. One tuned for maximum efficiency used for the normal operation of the mobile platform and another for unlikely situations that may require more robust registration algorithms / configurations. It also supports incremental map update and can adjust its operation rate based on the estimated robot velocity. For critical operations, it provides a detailed analysis of the tracking quality and when initial pose estimation is required it gives the distribution of the acceptable poses, which can be very valuable information if there are several areas in the known map with very similar geometry.
 
 
 
 \section{Dissertation outline} \label{sec:introduction_structure}
 
-The remaining of this dissertation is split over 6 chapters. \Cref{chap:localization-methods} provides an overview of the main localization methods that can be used with today's technology. \cref{chap:relevant-sofware-technologies} introduces the frameworks used to build the localization system that is detailed in \cref{chap:localization-system}. \Cref{chap:point-cloud-algorithms} gives the theoretical foundations and algorithms that can be used to process and analyze point clouds. \Cref{chap:localization-system-evaluation} evaluates the results achieved with the localization system on the different testing conditions and environments. Finally, \cref{chap:conclusions-and-future-work} presents the conclusions of this dissertation and suggestions for future work.
+The remaining of this dissertation is split over 6 chapters. \Cref{chap:localization-methods} provides an overview of the main localization methods available for mobile robot platforms. \Cref{chap:relevant-sofware-technologies} introduces the frameworks used to build the localization system that is detailed in \cref{chap:localization-system}. \Cref{chap:point-cloud-algorithms} describes the theoretical foundations and algorithms that were used to process and analyze point clouds. \Cref{chap:localization-system-evaluation} evaluates the results achieved with the localization system in several testing environments. Finally, \cref{chap:conclusions-and-future-work} presents the conclusions of this dissertation and suggestions for future work.

@@ -1,30 +1,29 @@
 \documentclass[11pt,a4paper,twoside,openright]{report}
 
 \usepackage[utf8]{inputenc}
+\usepackage[portuguese,english]{babel}
+\selectlanguage{english}
 
-%% MIEIC options
-%\usepackage[mieic]{styles/feupteses}
-\usepackage[mieic,juri]{styles/feupteses}
-%\usepackage[mieic,final]{styles/feupteses}
-%\usepackage[mieic,final,onpaper]{styles/feupteses}
-
-%% Additional options for feupteses.sty: 
-%% - onpaper: links are not shown (for paper versions)
-%% - backrefs: include back references from bibliography to citation place
+\usepackage[mieic]{styles/feupteses}
+% Additional options for feupteses.sty:
+% - juri: prints line numbers
+% - final: final version
+% - onpaper: links are not shown (for paper versions)
+% - backrefs: include back references from bibliography to citation place
 
 \usepackage[lofdepth,lotdepth]{subfig}
 \usepackage{graphicx}
+\usepackage{flafter}
 \usepackage{animate}
 \usepackage{float}
 \usepackage{grffile}
-\usepackage{subfiles}
 
 \usepackage{color}
 \definecolor{cloudwhite}{cmyk}{0,0,0,0.025}
 
 \usepackage{listings}
 \lstset{ %
- language=C,                        % choose the language of the code
+ language=C++,                        % choose the language of the code
  basicstyle=\footnotesize\ttfamily,
  keywordstyle=\bfseries,
  numbers=left,                      % where to put the line-numbers
@@ -48,26 +47,27 @@
 }
 
 \usepackage{amsmath}
+\usepackage[algochapter,linesnumberedhidden]{algorithm2e}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{easylist}
 \usepackage{siunitx}
 \usepackage{url}
 \usepackage{caption}
+\usepackage{footnote}
 \usepackage{hyperref}
-	\hypersetup{colorlinks=false,pdfborder=0 0 0}
-\usepackage{cleveref}
+\usepackage[noabbrev,nameinlink]{cleveref}
 \usepackage{etoolbox}
 \usepackage[nonumberlist,acronym,xindy]{glossaries}
 
-
 \graphicspath{{figures/}}
+\setcounter{tocdepth}{3}
 
 \makeglossaries
-\usepackage[xindy]{imakeidx}
-\setcounter{tocdepth}{3}
-\makeindex
+%\usepackage[xindy]{imakeidx}
+%\makeindex
 
 
 \newtoggle{showcommittee}
