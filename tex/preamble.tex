@@ -11,7 +11,8 @@
 % - onpaper: links are not shown (for paper versions)
 % - backrefs: include back references from bibliography to citation place
 
-\usepackage[lofdepth,lotdepth]{subfig}
+%\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage{afterpage}
 \usepackage{graphicx}
 \usepackage{flafter}
 \usepackage{animate}
@@ -56,11 +57,17 @@
 \usepackage{siunitx}
 \usepackage{url}
 \usepackage{caption}
+\usepackage{subcaption} 
 \usepackage{footnote}
+\usepackage{footmisc}
 \usepackage{hyperref}
+\usepackage[all]{hypcap}
 \usepackage[noabbrev,nameinlink]{cleveref}
 \usepackage{etoolbox}
 \usepackage[nonumberlist,acronym,xindy]{glossaries}
+
+\usepackage{enumitem}
+\setlist{nolistsep}
 
 \graphicspath{{figures/}}
 \setcounter{tocdepth}{3}
