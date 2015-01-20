@@ -113,7 +113,7 @@ For 3D localization, it usually involves the intersection of 4 or more spheres, 
 
 \paragraph{\glsentryfirst{gnss}}
 
-Global localization systems such as the \gls{gps} or \gls{glonass}, allow 3D positioning in the planet Earth  using a trilateration method \cite{Knedlik2007}.
+\gls{gnss} such as the \gls{gps} or \gls{glonass}, allow 3D positioning in the planet Earth  using a trilateration method \cite{Knedlik2007}.
 
 In these systems, a constellation of satellites broadcasts a radio signal with information about its position along with the time of the message dispatch. Using this data and knowing the speed of the radio waves, the distances to the satellites can be computed.
 
@@ -326,5 +326,30 @@ Some techniques can be combined to improve the pose estimate or to make the loca
 
 For outside tasks, a \gls{gnss} approach can give accurate localization estimations with very little computation cost. On the other hand, indoor localization requires more advanced techniques in order to infer the current position based on the analysis of the robot surroundings. These techniques usually start with an estimation of the robot movement and then refine it with probabilistic or geometric methods.
 
-Table 1 presents an overview of the mentioned localization techniques.
+\Cref{tab:localization-methods_overview-self-localization-approaches} presents an overview of the mentioned localization techniques.
 
+
+\begin{sidewaystable}
+	\caption{Overview of self-localization approaches}
+	\tabulinesep = 0.9ex
+	\centering
+	\begin{tabu} { X[1.4,m,c] | X[m,c] X[m,c] X[m,c] X[m,c] X[6,m,c] }
+		\rowfont{\bfseries\itshape} Method & Ideal environment & Accuracy & Operational cost & Computational cost & Notes \\
+		\hline
+		Odometry			& Any		& Low		& Low		& Low		& Position estimation is affected by cumulative errors \\
+		Dead reckoning		& Any		& Low		& Low		& Low		& Pose estimation is affected by cumulative errors \\
+		\gls{lidar}			& Any		& High		& Medium	& High		& Needs an auxiliary method to perform global localization \\
+		\gls{radar}			& Any		& Medium	& High		& High		& Needs an auxiliary method to perform global localization \\
+		\gls{sonar}			& Any		& Medium	& Medium	& High		& Needs an auxiliary method to perform global localization \\
+		\gls{gnss}			& Outside	& Medium	& Low		& Low		& Requires a clear line of sight to at least 3 satellites \\
+		Signal strength		& Any		& Low		& Low		& Low		& Requires an accurate model for the signal attenuation \\
+		Celestial			& Outside	& Low		& Low		& Low		& Requires a clear view of the celestial objects and a nautical almanac \\
+		Landmark			& Any		& Medium	& Low		& Medium	& Requires a database of landmarks \\
+		\gls{icp}			& Indoors	& High		& Medium	& High		& Requires a 3D representation of the environment \\
+		\gls{mcl}			& Indoors	& Medium	& Medium	& Medium	& Inefficient for large areas \\
+		Kalman filters		& Any		& Medium	& Low		& Low		& Useful to improved estimations of other methods \\
+		Perfect Match		& Any		& Medium	& Low		& Low		& Not ideal for large or dynamic environments \\
+		\gls{slam}			& Indoors	& Medium	& Medium	& High		& Adapts well to dynamic environments \\
+	\end{tabu}
+	\label{tab:localization-methods_overview-self-localization-approaches}
+\end{sidewaystable}
