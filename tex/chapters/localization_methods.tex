@@ -24,7 +24,7 @@ Since these methods don't correct their estimations based on environment observa
 Odometry estimates the current pose by integrating the velocity of the robot over time. This velocity is usually calculated by measuring the number of rotations of the wheels (using optical encoders like the ones shown in \cref{fig:localization-methods_optic-encoders}). This method can provide a viable approximated location, as can be seen in \cite{Reinstein2013}.
 
 \afterpage{
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics*[width=0.7\textwidth]{localization_methods/optic_encoders}
 	\caption{Different types of optical encoders used to measure distances\protect\footnotemark}
@@ -32,6 +32,7 @@ Odometry estimates the current pose by integrating the velocity of the robot ove
 \end{figure}
 \footnotetext{\url{http://www.mindspring.com/~tom2000/Delphi/Codewheel.html}}
 }
+
 
 \subsection{Dead reckoning}
 
@@ -52,24 +53,23 @@ Exteroceptive methods use a range of sensors to analyze the environment and retr
 
 Since these systems rely on active interaction with the environment, they can be used without being affected by lighting interferences. Nevertheless, they should take in consideration the conditions in which the waves propagate and also the geometry of the environment, because it can affect the path that the waves take, and as a result, can lead to the decrease of precision in the measurements.
 
-\paragraph{Light waves}
+
+\subsubsection{Light waves}
 
 Light waves generated with lasers can estimate distances with high accuracy. Systems like \gls{lidar} take advantage of this fact and can be used to calculate a very detailed 3D point cloud of the environment (like the one showed in \cref{fig:localization-methods_lidar-scan}).
 
 Given the high velocity in which light propagates, these methods allow the mapping of the environment with low latency, which can be a critical requirement in robots that must react very fast to changes in their surroundings, such as autonomous cars \cite{Moras2010}.
 
-%\afterpage{
-\begin{figure}[h]
+\begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
-	\includegraphics[width=0.55\textwidth]{localization_methods/lidar_scan}
+	\includegraphics[width=0.48\textwidth]{localization_methods/lidar_scan}
 	\caption{\glsentrytext{lidar} scan\protect\footnotemark}
 	\label{fig:localization-methods_lidar-scan}
-\end{figure}
+\end{wrapfigure}
 \footnotetext{\url{http://blogs.scientificamerican.com/cocktail-party-physics/2012/03/12/l-is-for-lidar/}}
-%}
 
 
-\paragraph{Radio waves}
+\subsubsection{Radio waves}
 
 Similar to \gls{lidar}, radio waves can be used to calculate distances using the \gls{tof} technique. Systems like \gls{radar} provide an effective way to calculate the distance, altitude, direction and speed of objects that can be used as landmarks in navigation.
 
@@ -77,7 +77,8 @@ Like any electromagnetic wave localization method, it must take in consideration
 
 Since \gls{radar} has a less focused beam than \gls{lidar}, it can have considerable less accuracy, as can be seen in \cref{fig:localization_methods_radar-scan}. Nevertheless, it can be an effective method to avoid obstacles \cite{Wu2007}.
 
-\paragraph{Sound waves}
+
+\subsubsection{Sound waves}
 
 Other localization approach that can be used to map under water environments relies in the acoustic analysis of the reflections of sounds in the surrounding objects.
 
@@ -87,14 +88,14 @@ Like the previous methods, \gls{sonar} can actively scan the environment to calc
 \begin{savenotes}
 \begin{figure}[ht]
 	\centering
-	\begin{minipage}[h]{.495\textwidth}
+	\begin{minipage}[h]{.47\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{localization_methods/radar_scan}
 		\caption{\glsentrytext{radar} scan of two ships\protect\footnotemark}
 		\label{fig:localization_methods_radar-scan}
 	\end{minipage}\hfill
 	\footnotetext{\url{http://www.sintef.no/Projectweb/STSOps/News/Operational-Aspects-on-Decision-making-in-STS-Lightering/}}
-	\begin{minipage}[h]{.495\textwidth}
+	\begin{minipage}[h]{.47\textwidth}
 		\centering
 		\includegraphics*[width=\textwidth]{localization_methods/sonar_scan}
 		\caption{\glsentrytext{sonar} scan of two ships\protect\footnotemark}
@@ -105,13 +106,15 @@ Like the previous methods, \gls{sonar} can actively scan the environment to calc
 \end{savenotes}
 }
 
+
 \subsection{Trilateration methods}
 
 Trilateration is a geometric technique that can be employed in the calculation of absolute or relative positions using distances from known points.
 
 For 3D localization, it usually involves the intersection of 4 or more spheres, in which their radius is the distance to known positions.
 
-\paragraph{\glsentryfirst{gnss}}
+
+\subsubsection{\glsentryfirst{gnss}}
 
 \gls{gnss} such as the \gls{gps} or \gls{glonass}, allow 3D positioning in the planet Earth  using a trilateration method \cite{Knedlik2007}.
 
@@ -121,17 +124,18 @@ With at least 3 satellites distances, the 3D position can be calculated, since t
 
 Given that the correct measurement of the distances to the satellites relies in the accurate computation of the elapsed time between the message dispatch and its reception, it is critical that both the satellites and the receiver have synchronized clocks. This is achieved by using high precision atomic clocks in the satellites and a clock reset technique in the receiver. This reset methods rely on the fact that 3 satellite distances will only have a valid location if the clock of the receiver is synchronized. With this knowledge, the receiver can compute the necessary corrections to reset its internal clock to match the satellites time.
 
-%\afterpage{
-\begin{figure}[ht]
+\afterpage{
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{localization_methods/gnss}
+	\includegraphics[width=0.8\textwidth]{localization_methods/gnss}
 	\caption{Trilateration technique in a global localization system\protect\footnotemark}
 	\label{fig:localization-methods_gnss}
 \end{figure}
 \footnotetext{\url{https://www.e-education.psu.edu/geog160/node/1923}}
-%}
+}
 
-\paragraph{\glsentryfirst{dgps}}
+
+\subsubsection{\glsentryfirst{dgps}}
 
 The accuracy of the GPS position can be increased with the help of local broadcast stations. These stations are fixed and provide information about the corrections that can be made to the satellite signals in order to improve the localization precision.
 
@@ -139,11 +143,13 @@ These corrections are useful to mitigate some of the ambient interference that t
 
 The computation of the corrections \cite{Kim2007} is based on the fact that these stations are fixed, and as such, they can compare the location given by the satellite signals with their known location. With this position differential, the appropriate corrections can be calculated and broadcasted to the GPS receivers.
 
-\paragraph{\glsentryfirst{agps}}
+
+\subsubsection{\glsentryfirst{agps}}
 
 \gls{agps} systems are a common method used to speed up the \gls{ttff} of a \gls{gps} receiver. They usually rely on the cellphone network to provide location estimation and signal corrections \cite{R.1948}. This information can greatly reduce the \gls{ttff} when there are few satellites visible or their signal is very weak and only temporary available.
 
-\paragraph{Signal strength geolocation methods}
+
+\subsubsection{Signal strength geolocation methods}
 
 Signal strength geolocation \cite{Kobayashi2002}, also known as fingerprinting localization \cite{Bshara2010}, is an approximate method that can be used to calculate relative positions.
 
@@ -167,7 +173,7 @@ Having at least 3 circles of position, the latitude and longitude can be compute
 Although this method is less accurate than the more recent global localization systems (such as \gls{gps}), it can be used without human made infrastructures, and as such, is a viable solution in case of temporary disruption of the \gls{gps} signal.
 
 %\afterpage{
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{localization_methods/celestial_navigation}
 	\caption{Circle of position in celestial navigation\protect\footnotemark}
@@ -175,6 +181,7 @@ Although this method is less accurate than the more recent global localization s
 \end{figure}
 \footnotetext{\url{http://onboardintelligence.com/CelestialNav/Celnav2.aspx}}
 %}
+
 
 \subsection{Landmark methods}
 
@@ -210,7 +217,7 @@ The main steps for each iteration of \gls{icp} algorithm are presented below.
 
 
 %\afterpage{
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{localization_methods/icp}
 	\caption{ICP point cloud matching\protect\footnotemark}
@@ -224,13 +231,14 @@ The main steps for each iteration of \gls{icp} algorithm are presented below.
 
 Probabilistic methods aim to reduce the impact of sensor accumulated errors or even temporary malfunctions by using Bayesian estimations and Markov processes.
 
-\paragraph{\glsentryfirst{mcl}}
+
+\subsubsection{\glsentryfirst{mcl}}
 
 \gls{mcl} (also known as particle filter), is a global localization algorithm that estimates the position and orientation of a robot by analyzing and adjusting the distribution and weights of state particles on a given environment \cite{Bshara2010,Arulampalam2002,Blanco2010,Chen2003b,Fox1999,Saito2009}.
 
-It starts by randomly distributing the state particles on the map, and over time it changes their position and weight according to new sensor readings. The probable location of the robot will be in the area of the map that has the largest cluster of state particles. The figures below show the evolution of the state particles distribution during the robot movement in the environment, and illustrates how the new sensor readings changed the particles clusters \footnote{\url{http://www.cs.washington.edu/robotics/mcl/}}.
+It starts by randomly distributing the state particles on the map, and over time it changes their position and weight according to new sensor readings. The probable location of the robot will be in the area of the map that has the largest cluster of state particles. The figures below show the evolution of the state particles distribution during the robot movement in the environment, and illustrates how the new sensor readings changed the particles clusters\footnote{\url{http://www.cs.washington.edu/robotics/mcl/}}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
@@ -246,7 +254,7 @@ It starts by randomly distributing the state particles on the map, and over time
 	\end{minipage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
@@ -263,7 +271,7 @@ It starts by randomly distributing the state particles on the map, and over time
 \end{figure}
 
 
-\paragraph{Kalman filters}
+\subsubsection{Kalman filters}
 
 Kalman filters \cite{Kalman1960} are probabilistic algorithms that aim to estimate a given system state even when it is affected by noise or other errors. They perform linear quadratic estimations to achieve optimal results and can be efficiently implemented to be used in real time systems. They are recursive algorithms based on Marcov processes, and as a result, they only need to know the current system state in order to perform measurement corrections.
 
@@ -276,7 +284,7 @@ For the particular case of localization, these algorithms start with an initial 
 In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated position (red) is closer to the real position (blue) than the raw sensor measurements (green).
 
 %\afterpage{
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\textwidth]{localization_methods/ukf}
 	\caption{Unscented Kalman Filter\protect\footnotemark}
@@ -285,7 +293,8 @@ In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated 
 \footnotetext{\url{http://www.lzcheng.com/courseworks/kalmanfilter}}
 %}
 
-\paragraph{Perfect Match}
+
+\subsubsection{Perfect Match}
 
 The Perfect Match \cite{Lauer2006a,Pinto1963} is an efficient self-localization algorithm that is largely used in the Robocup Robotic Soccer Midsize League. Its main goal is to minimize the localization error by carefully analyzing the know map, and selecting the most probable current position using a gradient descent approach. To improve tracking accuracy, the algorithm also uses a stochastic weighted approach.
 
@@ -293,7 +302,7 @@ With the proper configuration, it can achieve a localization accuracy similar to
 
 An example of the position estimation can be seen in the figures below. \Cref{fig:localization-methods_pm-1} shows the probable locations when the robot detects a line on the floor, and \cref{fig:localization-methods_pm-2} illustrates their associated errors (brighter areas indicate smaller error). By using a gradient descent, the most probable location was selected (black circle).
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{.495\textwidth}
 		\centering
@@ -347,7 +356,7 @@ For outside tasks, a \gls{gnss} approach can give accurate localization estimati
 		Landmark			& Any		& Medium	& Low		& Medium	& Requires a database of landmarks \\
 		\gls{icp}			& Indoors	& High		& Medium	& High		& Requires a 3D representation of the environment \\
 		\gls{mcl}			& Indoors	& Medium	& Medium	& Medium	& Inefficient for large areas \\
-		Kalman filters		& Any		& Medium	& Low		& Low		& Useful to improved estimations of other methods \\
+		Kalman filters		& Any		& Medium	& Low		& Low		& Useful to improve estimations of other methods \\
 		Perfect Match		& Any		& Medium	& Low		& Low		& Not ideal for large or dynamic environments \\
 		\gls{slam}			& Indoors	& Medium	& Medium	& High		& Adapts well to dynamic environments \\
 	\end{tabu}

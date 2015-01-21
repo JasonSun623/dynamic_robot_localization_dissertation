@@ -45,5 +45,4 @@
 
 - Creating build/master.pdf using command line only
 	Execute
-		./clean.sh
 		./build.sh

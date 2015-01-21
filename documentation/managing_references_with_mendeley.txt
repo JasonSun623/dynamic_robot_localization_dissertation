@@ -1,0 +1,19 @@
+- Managing references.bib with Mendeley
+	- Install Mendeley
+		http://www.mendeley.com/download-mendeley-desktop/
+	- Mendely can create .bib files for each folder in its library
+		- Create a folder in Mendeley library and move/copy all the references that you intend to use into it
+		- Setup Mendeley bibtex export
+			- Tools -> Options -> BibTex
+				- Select "Escape LaTex special characters"
+				- Unselect "Use Journal Abbreviations"
+				- Select "Enable BibTex syncing"
+					- Select "Create one BibTex file per collection"
+					- Choose export folder (Path)
+		- Symlink the Mendley exported / synced .bib file to the references/references.bib file
+			cd repository
+			ln -s mendely_exported_file_with_full_path.bib `pwd`/references/references.bib
+		- Every time you want to add another reference to the dissertation
+			- Move the reference to the dissertation collection
+			- Copy BibTex citation entry (Ctrl + K | right click in reference -> copy as -> latex citation command)
+				- Mendely only adds the reference to the exported .bib file after you ask for a citation

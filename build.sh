@@ -43,6 +43,11 @@ glossaries() {
 
 
 
+if [ ! -d "build" ]; then
+  ./clean.sh
+fi
+
+
 # build chain
 compile
 bibliography
