@@ -47,7 +47,7 @@ Other sensors, such as accelerometers and gyroscopes, can also be used to improv
 Exteroceptive methods use a range of sensors to analyze the environment and retrieve the necessary information to perform localization.
 
 
-\subsection{\glsentrydesc{tof} methods}
+\subsection{\glsentrydesc{tof} methods}\label{sec:localization-methods_tof-methods}
 
 \gls{tof} or \gls{toa} methods can be used to calculate distances based on the amount of time that a given wave takes from the moment it is created to the moment it is received. This allows the construction of a 3D representation of the world that can be used in conjunction with geometric methods to estimate the pose of a robot.
 
@@ -107,7 +107,7 @@ Like the previous methods, \gls{sonar} can actively scan the environment to calc
 }
 
 
-\subsection{Trilateration methods}
+\subsection{Trilateration methods}\label{sec:localization-methods_trilateration-methods}
 
 Trilateration is a geometric technique that can be employed in the calculation of absolute or relative positions using distances from known points.
 
@@ -137,11 +137,11 @@ Given that the correct measurement of the distances to the satellites relies in 
 
 \subsubsection{\glsentryfirst{dgps}}
 
-The accuracy of the GPS position can be increased with the help of local broadcast stations. These stations are fixed and provide information about the corrections that can be made to the satellite signals in order to improve the localization precision.
+The accuracy of the \gls{gps} position can be increased with the help of local broadcast stations. These stations are fixed and provide information about the corrections that can be made to the satellite signals in order to improve the localization precision.
 
 These corrections are useful to mitigate some of the ambient interference that the satellite signals face. These interferences can range from simple signal reflection in the environment landscape to the more complex interactions with the atmosphere, which can change the speed and path of the radio signals.
 
-The computation of the corrections \cite{Kim2007} is based on the fact that these stations are fixed, and as such, they can compare the location given by the satellite signals with their known location. With this position differential, the appropriate corrections can be calculated and broadcasted to the GPS receivers.
+The computation of the corrections \cite{Kim2007} is based on the fact that these stations are fixed, and as such, they can compare the location given by the satellite signals with their known location. With this position differential, the appropriate corrections can be calculated and broadcasted to the \gls{gps} receivers.
 
 
 \subsubsection{\glsentryfirst{agps}}
@@ -220,7 +220,7 @@ The main steps for each iteration of \gls{icp} algorithm are presented below.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{localization_methods/icp}
-	\caption{ICP point cloud matching\protect\footnotemark}
+	\caption{\glsentrytext{icp} point cloud matching\protect\footnotemark}
 	\label{fig:localization-methods_icp}
 \end{figure}
 \footnotetext{\url{http://dynface4d.isr.uc.pt/database.php}}
@@ -296,7 +296,7 @@ In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated 
 
 \subsubsection{Perfect Match}
 
-The Perfect Match \cite{Lauer2006a,Pinto1963} is an efficient self-localization algorithm that is largely used in the Robocup Robotic Soccer Midsize League. Its main goal is to minimize the localization error by carefully analyzing the know map, and selecting the most probable current position using a gradient descent approach. To improve tracking accuracy, the algorithm also uses a stochastic weighted approach.
+The Perfect Match \cite{Lauer2006a,Pinto1963} is an efficient self-localization algorithm that is largely used in the Robocup Robotic Soccer Mid Size League. Its main goal is to minimize the localization error by carefully analyzing the know map, and selecting the most probable current position using a gradient descent approach. To improve tracking accuracy, the algorithm also uses a stochastic weighted approach.
 
 With the proper configuration, it can achieve a localization accuracy similar to the particle filter, while using about ten times less computations.
 

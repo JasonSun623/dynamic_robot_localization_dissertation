@@ -41,6 +41,20 @@ url = {http://books.google.com/books?hl=en\&lr=\&id=2Zn6AQAAQBAJ\&oi=fnd\&pg=PR7
 volume = {45},
 year = {2002}
 }
+@article{Vitter1984,
+abstract = {Several new methods are presented for selecting n records at random without replacement from a file containing N records. Each algorithm selects the records for the sample in a sequential manner\&mdash;in the same order the records appear in the file. The algorithms are online in that the records for the sample are selected iteratively with no preprocessing. The algorithms require a constant amount of space and are short and easy to implement. The main result of this paper is the design and analysis of Algorithm D, which does the sampling in O ( n )  time, on the average; roughly n uniform random variates are generated, and approximately n exponentiation operations (of the form a b , for real numbers a and b) are performed during the sampling. This solves an open problem in the literature. CPU timings on a large mainframe computer indicate that Algorithm D is significantly faster than the sampling algorithms in use today.},
+author = {Vitter, Jeffrey Scott},
+doi = {10.1145/358105.893},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Sampling/Faster Methods for Random Sampling.pdf:pdf},
+issn = {00010782},
+journal = {Communications of the ACM},
+number = {7},
+pages = {703--718},
+title = {{Faster methods for random sampling}},
+url = {http://dl.acm.org/citation.cfm?id=893},
+volume = {27},
+year = {1984}
+}
 @article{Zhou2011,
 abstract = {In this paper, we propose a system to cope with the problem of autonomous mobile robot navigation. It is able to perform path planning and localize the robot in the real world environment. The path planning is first carried out using the known map, and the laser range scanner is then used to localize the robot based on the ICP registration technique. During the robot motion, the potential field is taken into account for obstacle avoidance. For the path planning, the visibility graph is established based on the current position of the robot. The Dijkstra algorithm is then used to find the shortest path to the goal position. Experimental results for both the simulation and real world environment are presented.},
 author = {Zhou, Jia Heng and Lin, Huei Yung},
@@ -99,6 +113,19 @@ publisher = {Ieee},
 title = {{Integrated GPS navigation for civilian vehicles in challenging environment}},
 url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=4456382},
 year = {2007}
+}
+@article{Gelfand,
+abstract = { The iterative closest point (ICP) algorithm is a widely used method for aligning three-dimensional point sets. The quality of alignment obtained by this algorithm depends heavily on choosing good pairs of corresponding points in the two datasets. If too many points are chosen from featureless regions of the data, the algorithm converges slowly, finds the wrong pose, or even diverges, especially in the presence of noise or miscalibration in the input data. We describe a method for detecting uncertainty in pose, and we propose a point selection strategy for ICP that minimizes this uncertainty by choosing samples that constrain potentially unstable transformations.},
+author = {Gelfand, N. and Ikemoto, L. and Rusinkiewicz, S. and Levoy, M.},
+doi = {10.1109/IM.2003.1240258},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Registration/Geometrically Stable Sampling for the ICP Algorithm.pdf:pdf},
+isbn = {0-7695-1991-1},
+journal = {Fourth International Conference on 3-D Digital Imaging and Modeling, 2003. 3DIM 2003. Proceedings.},
+pages = {260--267},
+publisher = {Ieee},
+title = {{Geometrically stable sampling for the ICP algorithm}},
+url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1240258},
+year = {2003}
 }
 @article{Arulampalam2002,
 abstract = {Increasingly, for many application areas, it is becoming important
@@ -182,6 +209,17 @@ title = {{Calculating the perfect match: an efficient and accurate approach for 
 url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.68.253$\backslash$nhttp://link.springer.com/chapter/10.1007/11780519\_13$\backslash$nhttp://www.springerlink.com/index/V59M05J034N40228.pdf},
 volume = {4020},
 year = {2006}
+}
+@article{YangZhang2010,
+author = {{Yang Zhang}},
+doi = {10.1109/SURV.2010.021510.00088},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Outlier detection/Outlier Detection Techniques.pdf:pdf},
+journal = {IEEE Communications Surveys },
+pages = {159--170},
+title = {{Outlier Detection Techniques for Wireless Sensor Networks: A Survey}},
+url = {http://www.dbs.ifi.lmu.de/~zimek/publications/KDD2010/kdd10-outlier-tutorial.pdf},
+volume = {12},
+year = {2010}
 }
 @article{Besl1992,
 abstract = {The authors describe a general-purpose, representation-independent method for the accurate and computationally efficient registration of 3-D shapes including free-form curves and surfaces. The method handles the full six degrees of freedom and is based on the iterative closest point (ICP) algorithm, which requires only a procedure to find the closest point on a geometric entity to a given point. The ICP algorithm always converges monotonically to the nearest local minimum of a mean-square distance metric, and the rate of convergence is rapid during the first few iterations. Therefore, given an adequate set of initial rotations and translations for a particular class of objects with a certain level of 'shape complexity,' one can globally minimize the mean-square distance metric over all six degrees of freedom by testing each initial registration. One important application of this method is to register sensed data from unfixtured rigid objects with an ideal geometric model prior to shape inspection. Experimental results show the capabilities of the registration algorithm on point sets, curves, and surfaces.},
@@ -434,6 +472,19 @@ title = {{Evaluation of a factorized ICP based method for 3D mapping and localiz
 url = {http://www.atpjournal.sk/buxus/docs/casopisy/atp\_plus/plus\_2008\_1/plus29\_37.pdf},
 year = {2008}
 }
+@article{Sotoodeh2006,
+abstract = {Outlier detection in laser scanner point clouds is an essential process before the modelling step. However, the number of points in the generated point cloud is in the order of million points, so (semi) automatic approaches are necessary. Having introduced the sources of outliers in typical laser scanner point clouds, an outlier detection algorithm using a density based algorithm is addressed. The algorithm is chosen due to its unconstrained behaviour to the preliminary knowledge of the scanned scene and the independency to the varying density of the points. The algorithm efficiency is assessed by a test on an aerial laser scanner point cloud. The assessment is done with respect to a DSM obtained by photogrammetric methods. The type I and type II errors are estimated and the results are reported. Some examples in terrestrial laser scanner point clouds are also presented and the behaviour of the algorithm on the data sets are shown and discussed. Although the algorithm dose not detect all outlier clusters, the detection of single outliers and even cluster outliers with lower density than a predefined value seems satisfactory, specially the results in the boundary of occlusions. Detection of such outliers is important because if they remain in the data set, they may cause modelling errors in the next modelling step. 1.},
+author = {Sotoodeh, S},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Outlier detection/Outlier detection in laser scanner point clouds.pdf:pdf},
+journal = {Iaprs},
+keywords = {abstract,algorithm,an essential process before,an outlier detection algorithm,automatic approaches are necessary,generated point cloud is,having,however,in the order of,introduced the sources of,laser scanner,million points,of points in the,outlier detection,outlier detection in laser,outliers in typical laser,point cloud,scanner point clouds,scanner point clouds is,semi,so,the modelling step,the number,using a density based},
+number = {September},
+pages = {297--302},
+title = {{Outlier Detection in Laser Scanner Point Clouds}},
+url = {http://scholar.google.com/scholar?hl=en\&btnG=Search\&q=intitle:OUTLIER+DETECTION+IN+LASER+SCANNER+POINT+CLOUDS\#0},
+volume = {Volume XXX},
+year = {2006}
+}
 @article{Djehaich2013,
 author = {Djehaich, M. and Ziane, H. and Achour, N. and Tiar, R. and Ouadah, N.},
 doi = {10.1109/ISPS.2013.6581476},
@@ -445,6 +496,23 @@ pages = {116--121},
 title = {{SLAM-ICP with a Boolean method applied on a car-like robot}},
 url = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=6581476},
 year = {2013}
+}
+@article{Alexa2003,
+abstract = { We advocate the use of point sets to represent shapes. We provide a definition of a smooth manifold surface from a set of points close to the original surface. The definition is based on local maps from differential geometry, which are approximated by the method of moving least squares (MLS). The computation of points on the surface is local, which results in an out-of-core technique that can handle any point set. We show that the approximation error is bounded and present tools to increase or decrease the density of the points, thus allowing an adjustment of the spacing among the points to control the error. To display the point set surface, we introduce a novel point rendering technique. The idea is to evaluate the local maps according to the image resolution. This results in high quality shading effects and smooth silhouettes at interactive frame rates.},
+author = {Alexa, Marc and Behr, Johannes and Cohen-Or, Daniel and Fleishman, Shachar and Levin, David and Silva, Claudio T.},
+doi = {10.1109/TVCG.2003.1175093},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Surface reconstruction/Computing and Rendering Point Set Surfaces.pdf:pdf},
+isbn = {1077-2626},
+issn = {10772626},
+journal = {IEEE Transactions on Visualization and Computer Graphics},
+keywords = {3D acquisition,Moving least squares,Point sample rendering,Surface representation and reconstruction},
+month = jan,
+number = {1},
+pages = {3--15},
+title = {{Computing and rendering point set surfaces}},
+url = {http://ieeexplore.ieee.org/lpdocs/epic03/wrapper.htm?arnumber=1175093},
+volume = {9},
+year = {2003}
 }
 @article{Guarato2013,
 author = {Guarato, Francesco and Windmill, James F C and Gachagan, Anthony},
@@ -512,6 +580,38 @@ pages = {4011--4016},
 title = {{Angular velocity current statistical model based real-time celestial navigation for lunar rover}},
 url = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=6000880},
 year = {2011}
+}
+@phdthesis{Rusu2010a,
+abstract = {Environment models serve as important resources for an autonomous robot by providing it with the neces- sary task-relevant information about its habitat. Their use enables robots to perform their tasks more reliably, flexibly, and efficiently. As autonomous robotic platforms get more sophisticated manipulation capabilities, they also need more expressive and comprehensive environment models: forma- nipulation purposes their models have to include the objects present in the world, together with their position, form, and other aspects, as well as an interpretation of these objects with respect to the robot tasks. The dissertation presented in this article (Rusu, PhD the- sis, 2009) proposes Semantic 3D Object Models as a novel representation of the robot’s operating environment that sat- isfies these requirements and shows how these models can be automatically acquired from dense 3D range data.},
+author = {Rusu, Radu Bogdan},
+booktitle = {KI - K??nstliche Intelligenz},
+doi = {10.1007/s13218-010-0059-6},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Dissertations/Semantic 3D Object Maps for Everyday Manipulation in Human Living Environments.pdf:pdf},
+issn = {09331875},
+month = aug,
+number = {4},
+pages = {1--4},
+school = {Technische Universit\"{a}t M\"{u}nchen},
+title = {{Semantic 3D Object Maps for Everyday Manipulation in Human Living Environments}},
+url = {http://link.springer.com/10.1007/s13218-010-0059-6 http://link.springer.com/article/10.1007/s13218-010-0059-6},
+volume = {24},
+year = {2010}
+}
+@article{Wu2013,
+abstract = {As an important component of urban vegetation, street trees play an important role in maintenance of environmental quality, aesthetic beauty of urban landscape, and social service for inhabitants. Acquiring accurate and up-to-date inventory information for street trees is required for urban horticultural planning, and municipal urban forest management. This paper presents a new Voxel-based Marked Neighborhood Searching (VMNS) method for efficiently identifying street trees and deriving their morphological parameters from Mobile Laser Scanning (MLS) point cloud data. The VMNS method consists of six technical components: voxelization, calculating values of voxels, searching and marking neighborhoods, extracting potential trees, deriving morphological parameters, and eliminating pole-like objects other than trees. The method is validated and evaluated through two case studies. The evaluation results show that the completeness and correctness of our method for street tree detection are over 98\%. The derived morphological parameters, including tree height, crown diameter, diameter at breast height (DBH), and crown base height (CBH), are in a good agreement with the field measurements. Our method provides an effective tool for extracting various morphological parameters for individual street trees from MLS point cloud data.},
+author = {Wu, Bin and Yu, Bailang and Yue, Wenhui and Shu, Song and Tan, Wenqi and Hu, Chunling and Huang, Yan and Wu, Jianping and Liu, Hongxing},
+doi = {10.3390/rs5020584},
+file = {:media/Docs/SkyDrive/FEUP/5th year/DISS/Research/Papers/Occupancy map/A Voxel-Based Method for Automated Identification and Morphological Parameters Estimation.pdf:pdf},
+issn = {20724292},
+journal = {Remote Sensing},
+keywords = {Competing growing,Mobile Laser Scanning (MLS),Morphological parameters,Neighborhood search,Street trees,Vehicle-borne Laser Scanning (VLS),Voxel,point cloud data},
+month = jan,
+number = {2},
+pages = {584--611},
+title = {{A voxel-based method for automated identification and morphological parameters estimation of individual street trees from mobile laser scanning data}},
+url = {http://www.mdpi.com/2072-4292/5/2/584/},
+volume = {5},
+year = {2013}
 }
 @article{Chetverikov2002,
 abstract = { The problem of geometric alignment of two roughly preregistered, partially overlapping, rigid, noisy 3D point sets is considered. A new natural and simple, robustified extension of the popular Iterative Closest Point (ICP) algorithm (Besl and McKay, 1992) is presented, called the Trimmed ICP (TrICP). The new algorithm is based on the consistent use of the least trimmed squares (LTS) approach in all phases of the operation. Convergence is proved and an efficient implementation is discussed. TrICP is fast, applicable to overlaps under 50\%, robust to erroneous measurements and shape defects, and has easy-to-set parameters. ICP is a special case of TrICP when the overlap parameter is 100\%. Results of testing the new algorithm are shown.},
