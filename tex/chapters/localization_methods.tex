@@ -27,7 +27,7 @@ Odometry estimates the current pose by integrating the velocity of the robot ove
 \begin{figure}[H]
 	\centering
 	\includegraphics*[width=0.7\textwidth]{localization_methods/optic_encoders}
-	\caption{Different types of optical encoders used to measure distances\protect\footnotemark}
+	\caption[Different types of optical encoders used to measure distances]{Different types of optical encoders used to measure distances\protect\footnotemark}
 	\label{fig:localization-methods_optic-encoders}
 \end{figure}
 \footnotetext{\url{http://www.mindspring.com/~tom2000/Delphi/Codewheel.html}}
@@ -63,7 +63,7 @@ Given the high velocity in which light propagates, these methods allow the mappi
 \begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
 	\includegraphics[width=0.48\textwidth]{localization_methods/lidar_scan}
-	\caption{\glsentrytext{lidar} scan\protect\footnotemark}
+	\caption[\glsentrytext{lidar} scan]{\glsentrytext{lidar} scan\protect\footnotemark}
 	\label{fig:localization-methods_lidar-scan}
 \end{wrapfigure}
 \footnotetext{\url{http://blogs.scientificamerican.com/cocktail-party-physics/2012/03/12/l-is-for-lidar/}}
@@ -86,22 +86,22 @@ Like the previous methods, \gls{sonar} can actively scan the environment to calc
 
 \afterpage{
 \begin{savenotes}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{.47\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{localization_methods/radar_scan}
-		\caption{\glsentrytext{radar} scan of two ships\protect\footnotemark}
+		\caption[\glsentrytext{radar} scan of two ships]{\glsentrytext{radar} scan of two ships\protect\footnotemark}
 		\label{fig:localization_methods_radar-scan}
 	\end{minipage}\hfill
-	\footnotetext{\url{http://www.sintef.no/Projectweb/STSOps/News/Operational-Aspects-on-Decision-making-in-STS-Lightering/}}
+	\footnotetext{\scriptsize \url{http://www.sintef.no/Projectweb/STSOps/News/Operational-Aspects-on-Decision-making-in-STS-Lightering}}
 	\begin{minipage}[h]{.47\textwidth}
 		\centering
 		\includegraphics*[width=\textwidth]{localization_methods/sonar_scan}
-		\caption{\glsentrytext{sonar} scan of two ships\protect\footnotemark}
+		\caption[\glsentrytext{sonar} scan of two ships]{\glsentrytext{sonar} scan of two ships\protect\footnotemark}
 		\label{fig:localization_methods_sonar-scan}
 	\end{minipage}
-	\footnotetext{\url{http://stellwagen.noaa.gov/maritime/palmercrary.html}}
+	\footnotetext{\scriptsize \url{http://stellwagen.noaa.gov/maritime/palmercrary.html}}
 \end{figure}
 \end{savenotes}
 }
@@ -128,7 +128,7 @@ Given that the correct measurement of the distances to the satellites relies in 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{localization_methods/gnss}
-	\caption{Trilateration technique in a global localization system\protect\footnotemark}
+	\caption[Trilateration technique in a global localization system]{Trilateration technique in a global localization system\protect\footnotemark}
 	\label{fig:localization-methods_gnss}
 \end{figure}
 \footnotetext{\url{https://www.e-education.psu.edu/geog160/node/1923}}
@@ -176,7 +176,7 @@ Although this method is less accurate than the more recent global localization s
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{localization_methods/celestial_navigation}
-	\caption{Circle of position in celestial navigation\protect\footnotemark}
+	\caption[Circle of position in celestial navigation]{Circle of position in celestial navigation\protect\footnotemark}
 	\label{fig:localization-methods_celestial-navigation}
 \end{figure}
 \footnotetext{\url{http://onboardintelligence.com/CelestialNav/Celnav2.aspx}}
@@ -220,7 +220,7 @@ The main steps for each iteration of \gls{icp} algorithm are presented below.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{localization_methods/icp}
-	\caption{\glsentrytext{icp} point cloud matching\protect\footnotemark}
+	\caption[\glsentrytext{icp} point cloud matching]{\glsentrytext{icp} point cloud matching\protect\footnotemark}
 	\label{fig:localization-methods_icp}
 \end{figure}
 \footnotetext{\url{http://dynface4d.isr.uc.pt/database.php}}
@@ -287,7 +287,7 @@ In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\textwidth]{localization_methods/ukf}
-	\caption{Unscented Kalman Filter\protect\footnotemark}
+	\caption[Unscented Kalman Filter]{Unscented Kalman Filter\protect\footnotemark}
 	\label{fig:localization-methods_ukf}
 \end{figure}
 \footnotetext{\url{http://www.lzcheng.com/courseworks/kalmanfilter}}

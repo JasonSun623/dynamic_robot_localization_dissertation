@@ -4,10 +4,98 @@
 
 \section*{}
 
-FF
+This chapter details the architecture and \gls{ros} implementation of the proposed 3/6 \gls{dof} self-localization system. It starts with an overview of the main processing stages and then details the control flow and algorithms of each of the its modules.
 
 
 
-\section{FF}
+\section{Overview}
 
-FF
+The self-localization system has a modular software architecture and was implemented as several C++ templated shared libraries that can be easily used for other applications besides robot self-localization.
+
+It can used several sensing devices, such as \glspl{lidar} and RGB-D cameras and upon receiving new sensor data it updates the robot estimated pose in the environment (either in 3 or 6 DoF depending on the reference map). It was designed as a fully configurable and flexible system able to fit the needs of a wide range of mobile platforms. It can be configured as a simple tracking system, with or without pose recovery and can also have initial pose estimation using feature detection and matching. Moreover, it can also dynamically update the map if necessary.
+
+
+
+\section{Reference map}
+
+The reference point cloud can be loaded from a \gls{cad} file, point cloud file or dynamically arrive trough a \gls{ros} topic as either a 3 \gls{dof} occupancy grid or 6 \gls{dof} point cloud. This allows a localization supervisor to give only sections of a global map in order to use the least amount of memory and processing power (very large maps have deeper search structures, such as kd-trees, and should be avoided in order to improve the system efficiency).
+
+
+
+\section{Point cloud assembly}
+
+The laser assembler converts laser measurements in polar coordinates into Cartesian coordinates and projects the points using spherical interpolation in order to account for laser scan deformation that occurs when the robot is moving and rotating. It can merge scans from several lasers (sequentially or with a circular buffer) and it will publish the final point cloud after assembling a given number of scans or periodically after a specified duration. These assembly configurations can be changed at runtime through the use of the ROS dynamic reconfigure Application Programming Interface (API), which allows a localization supervisor to control the rate at which the localization system operates.
+
+
+
+\section{Filtering and down sampling}
+
+The time it takes to perform cloud registration is proportional to the amount of points in the ambient point cloud and in the reference map. As such, adjusting the level of detail of the point clouds by using voxel grids gives some control over the desired localization accuracy and the computational resources that will be required. This stage is also useful to mitigate the measurement errors of the depth sensors since the centroid of a voxel that contains points from several laser scans will be closer to the real surface (if the voxels have dimensions slightly larger than the expected laser measurement errors).
+
+
+
+\section{Outlier removal}
+
+FF.
+
+
+
+\section{Normal estimation}
+
+Most of feature detection, description and matching algorithms along with some registration methods rely on the point’s surface normal and curvature. As such, it was developed a robust 3 DoF normal estimation algorithm that uses Random Sample Consensus (RANSAC) [14] to fit lines to the sensor data and then orient the normals to the sensors origin. For 6 DoF data, the Principal Component Analysis (PCA) [15] or the Moving Least Squares (MLS) [16] approaches available in PCL can be used.
+
+
+
+\section{Keypoint detection}
+
+Keypoint detection aims to find interesting points in a given point cloud in order to compute the cloud registration faster or to perform feature description and matching. There are several approaches to find keypoints that have different definitions of what kind of points are worth analyzing. But they all should be able to detect the same keypoints given similar data and they aim to select the points that best describe the underlying point cloud geometry. Currently the localization system can use the Scale Invariant Feature Transform (SIFT) [17] algorithm on the points curvature or the Intrinsic Shape Signatures (ISS3D) [18] keypoint detector.
+
+
+
+\section{Keypoint description}
+
+Describing a keypoint usually involves analyzing its neighboring points and computing a given metric or histogram that quantifies the neighbor’s relative distribution, their normals angular relation, associated geometry or other metrics that are deemed useful. Several approaches were suggested over the years according to different recognition needs and they are the basis of feature matching algorithms used in the initial pose estimation.
+
+The localization system can use most of the keypoint descriptors available in PCL, namely the Point Feature Histogram (PFH), the Fast Point Feature Histogram (FPFH), the Signature of Histograms of Orientations (SHOT), the Shape Context 3D (SC3D), the Unique Shape Context (USC) and the Ensemble of Shape Functions (ESF).
+
+
+
+\section{Cloud registration}
+
+Point cloud registration is the process of finding the transformation matrix (usually translation and rotation only) that when applied to a given ambient cloud will minimize an error metric (such as the mean square error of the ambient point cloud in relation to a given reference point cloud). Several approaches were suggested over the years and they can be categorized as point or feature cloud registration.
+
+
+
+\section{Initial alignment with keypoint descriptors matching}
+
+Feature registration is the process of matching keypoint descriptors in order to find an initial alignment between two point clouds. The proposed localization system uses a feature registration method similar to the Sample Consensus Initial Alignment algorithm presented in [20]. It uses a sample consensus approach to select the best registration transformation after a given number of iterations. In each iteration a subsample of randomly selected descriptors from the ambient cloud is retrieved. Then for each of these descriptors, k best matching descriptors in the reference point cloud are searched and one of them is chosen randomly (this improves robustness against noise in the sensor data and changes in the environment that are not yet integrated into the map). Later after having filtered these correspondences between ambient and reference descriptors, the registration matrix is computed. If this registration matrix results in a point cloud overlap that has a minimum of inliers percentage (a point in the ambient cloud is an inlier if it has a point in the reference cloud closer than a given distance), then it is considered an acceptable initial pose and is saved (to allow a localization supervisor to analyze the distribution of the acceptable initial poses). In the end of all iterations, the best initial pose (if found) is refined with a point cloud registration algorithm.
+
+
+
+\section{Final alignment with point cloud error minimization}
+
+Point cloud registration algorithms such as the Iterative Closest Point [19] (with its several known variations like ICP point-to-point, ICP point-to-point non-linear, ICP point-to-plane and generalized ICP) and the Normal Distributions Transform [6] are among the most popular algorithms to register point clouds. They can achieve very accurate cloud registration but they require an approximate initial pose for the registration to successfully converge to a correct solution (otherwise they may achieve only partial cloud overlap or even fail to converge to a valid solution). To solve this problem, a complete autonomous registration pipeline must also include the computation of this initial alignment through the usage of feature registration.
+
+
+
+\section{Outlier detection}
+
+FF.
+
+
+
+\section{Localization validation}
+
+After a point cloud is registered, several metrics are calculated in order to evaluate if a valid pose can be retrieved using the registration matrix.
+
+The first computed metrics are the percentage of inliers and the root mean square error of these inliers. If a minimum number of points was registered and the inlier percentage and root mean square error are acceptable, then the registration is considered successful. However, these registered points can be agglomerated in a small area and may not be representative of the robot location. As such, a second metric is computed that takes into account the angular distribution of these inliers. This metric gives a measurement of how reliable is this registration and is based on the fact that there is high confidence in a given estimation when there are correctly registered points all around the robot.
+
+The last metrics are the corrections that the registration matrix introduced. Given that the localization system will be in tracking mode most of the time, it is possible to define how far a new pose can be in relation to the previous accepted location and discard new poses that exceed a given threshold. This is useful to discard pose corrections that are very unlikely to happen, such as the robot moving half a meter between poses when it is expected to move only at 30 cm/s. These situations can happen when there is a sudden decrease in the field of view (that can occur due to sensor occlusion or malfunction) or when  large unknown objects very similar to sections of the map appearinto the field of view of the robot.
+
+If all these metrics are within acceptable thresholds, then the robot pose can be computed by applying the matrix correction to the initial pose associated with the ambient sensor data. If any of these metrics are not acceptable, then the system can be configured to simply discard this pose estimation and try to estimate the pose in the next sensor data update or it can apply a tracking recovery attempt with a different registration algorithm (or the same algorithm with different parameters). If several consecutive pose estimations are discarded, the system can have a second level of recovery that can be configured to use the initial pose estimation algorithms in order to finally estimate the robot pose and reset the tracking state.
+
+
+
+\section{Dynamic map update}
+
+After performing a successful pose estimation, the localization system can be paired with OctoMap [21] in order to update the localization map by either integrating only the unknown objects or the full registered point cloud. Integrating only the unknown objects is the recommended approach when there is a known map and the environment is expected to change gradually. This is also more efficient as only the points that need to be integrated are processed and ray traced in OctoMap. On the other hand, integrating the full registered cloud can be desirable if the map of the environment is very incomplete, very outdated or expected to change considerably during the operation of the robot.

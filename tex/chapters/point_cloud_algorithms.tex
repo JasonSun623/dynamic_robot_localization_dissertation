@@ -40,7 +40,7 @@ A voxel grid is a three dimensional space partition data structure that splits t
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{point_cloud_algorithms/voxel_grid}
-	\caption{Voxel grid applied over trees point clouds \cite{Wu2013}}
+	\caption[Voxel grid applied over trees point clouds]{Voxel grid applied over trees point clouds \cite{Wu2013}}
 	\label{fig:point-cloud-algorithms_voxel-grid}
 \end{figure}
 
@@ -61,7 +61,7 @@ An octrees is a hierarchical space partition technique that adapts its tree data
 		\centering
 		\includegraphics[width=0.6\textwidth]{point_cloud_algorithms/octree_2}
 	\end{minipage}
-	\caption{Octree of a stag beetle\protect\footnotemark}
+	\caption[Octree of a stag beetle]{Octree of a stag beetle\protect\footnotemark}
 	\label{fig:point-cloud-algorithms_octree}
 \end{figure}
 \footnotetext{\url{http://blog.mpanknin.de/?p=753}}
@@ -77,19 +77,19 @@ The binary k-d tree is built by successively selecting the median point in each 
 
 %\afterpage{
 \begin{savenotes}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
 		\includegraphics[width=0.6\textwidth]{point_cloud_algorithms/kdtree_2d}
-		\caption{2-d tree\protect\footnotemark}
+		\caption[2-d tree]{2-d tree\protect\footnotemark}
 		\label{fig:point-cloud-algorithms_2d-tree}
 	\end{minipage}\hfill
 	\footnotetext{\url{http://en.wikipedia.org/wiki/K-d_tree}}
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
 		\includegraphics[width=0.65\textwidth]{point_cloud_algorithms/kdtree_3d}
-		\caption{3-d tree\protect\footnotemark}
+		\caption[3-d tree]{3-d tree\protect\footnotemark}
 		\label{fig:point-cloud-algorithms_3d-tree}
 	\end{minipage}
 	\footnotetext{\url{http://docs.pointclouds.org/trunk/group__kdtree.html}}
@@ -127,7 +127,7 @@ The point cloud downsampling is achieved by replacing each cluster with a single
 		\centering
 	\includegraphics[width=0.78\textwidth]{point_cloud_algorithms/voxel_grid_downsampling_2}
 	\end{minipage}
-	\caption{Table point cloud before (left) and after (right) voxel grid downsampling\protect\footnotemark}
+	\caption[Table point cloud before (left) and after (right) voxel grid downsampling]{Table point cloud before (left) and after (right) voxel grid downsampling\protect\footnotemark}
 	\label{fig:point-cloud-algorithms_voxel-grid-downsampling}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/voxel_grid.php}}
@@ -185,7 +185,7 @@ It is a robust filter that adapts itself to the point cloud density and is very 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{point_cloud_algorithms/statistical_outlier_removal}
-	\caption{Statistical outlier removal filter\protect\footnotemark}
+	\caption[Statistical outlier removal filter]{Statistical outlier removal filter\protect\footnotemark}
 	\label{fig:point-cloud-algorithms_statistical-outlier-removal}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/statistical_outlier.php}}
@@ -213,7 +213,7 @@ Surface reconstruction can also be useful when the point cloud is built from sev
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.57\textwidth]{point_cloud_algorithms/mls_smoothing}
-	\caption{Surface smoothing using moving least squares algorithm\protect\footnotemark}
+	\caption[Surface smoothing using moving least squares algorithm]{Surface smoothing using moving least squares algorithm\protect\footnotemark}
 	\label{fig:point-cloud-algorithms_mls-smoothing}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/resampling.php}}
@@ -223,7 +223,7 @@ Surface reconstruction can also be useful when the point cloud is built from sev
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.57\textwidth]{point_cloud_algorithms/mls_nomal_refinement}
-	\caption{Surface normals refinement using moving least squares algorithm \cite{Rusu2010a}}
+	\caption[Surface normals refinement using moving least squares algorithm]{Surface normals refinement using moving least squares algorithm \cite{Rusu2010a}}
 	\label{fig:point-cloud-algorithms_mls-nomal-refinement}
 \end{figure}
 %}
@@ -250,7 +250,109 @@ These algorithms analyze the neighborhood of a given point in order to compute t
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{point_cloud_algorithms/surface_normals}
-	\caption{Point neighborhood for normal estimation \cite{Rusu2010a}}
+	\caption[Point neighborhood for normal estimation]{Point neighborhood for normal estimation \cite{Rusu2010a}}
 	\label{fig:point-cloud-algorithms_surface-normals}
 \end{figure}
 
+
+
+\subsection{Keypoint detection}
+
+FF.
+
+
+\subsubsection{Intrinsic Shape Signatures}
+
+FF.
+
+
+\subsubsection{Harris keypoints}
+
+FF.
+
+
+\subsubsection{Normal Aligned Radial Features}
+
+FF.
+
+
+\subsection{Keypoint description}
+
+FF.
+
+
+\subsubsection{Point Feature Histograms}
+
+FF.
+
+
+\subsubsection{Fast Point Feature Histograms}
+
+FF.
+
+
+\subsubsection{Shape Context Estimation}
+
+FF.
+
+
+\subsubsection{Unique Shape context}
+
+FF.
+
+
+\subsubsection{SHOT estimation}
+
+FF.
+
+
+\subsubsection{Spin image estimation}
+
+FF.
+
+
+\subsubsection{Ensemble Shape Functions}
+
+FF.
+
+
+\subsubsection{Rotational Projection Statistics}
+
+FF.
+
+
+
+\section{Point cloud matching}
+
+FF
+
+
+\subsection{Feature matching}
+
+FF.
+
+
+\subsection{Iterative Closest Point}
+
+FF.
+
+
+\subsection{Normal Distributions Transform}
+
+FF.
+
+
+
+\section{Outlier detection}
+
+FF.
+
+
+\subsection{Euclidean segmentation}
+
+FF.
+
+
+\subsection{Cluster segmentation}
+
+FF.
