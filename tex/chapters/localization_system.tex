@@ -4,15 +4,21 @@
 
 \section*{}
 
-This chapter details the architecture and \gls{ros} implementation of the proposed 3/6 \gls{dof} self-localization system. It starts with an overview of the main processing stages and then details the control flow and algorithms within the localization pipeline.
+This chapter details the \gls{ros} implementation of the proposed 3/6 \gls{dof} self-localization system\footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization}}. It starts with an overview of the main processing stages and then details the control flow and algorithms within the localization pipeline.
 
 
 
 \section{Overview}
 
-The self-localization system has a modular software architecture and was implemented as several C++ templated shared libraries that can be easily used for other applications besides robot self-localization.
+The self-localization system was implemented as a \gls{ros} package and provides 3/6 \gls{dof} localization by publishing \emph{geometry\_msgs::PoseStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/PoseStamped.html}} and \emph{geometry\_msgs::TransformStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/TransformStamped.html}} messages along with a detailed analysis of the pose estimation and registered point cloud (split into inliers and outliers).
 
-It can used several sensing devices, such as \glspl{lidar} and RGB-D cameras and upon receiving new sensor data it updates the robot estimated pose in the environment (either in 3 or 6 DoF depending on the reference map). It was designed as a fully configurable and flexible system able to fit the needs of a wide range of mobile platforms. It can be configured as a simple tracking system, with or without pose recovery and can also have initial pose estimation using feature detection and matching. Moreover, it can also dynamically update the map if necessary.
+The system can receive sensor data through \emph{sensor\_msgs::PointCloud2}\footnote{\url{http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html}} messages and as a result it can directly use data from RGB-D and \gls{tof} cameras. To use \glspl{lidar}, it provides an assembler that can produce point clouds by merging measurements from several sensors using spherical interpolation. As such, if the \gls{lidar} sensors are mounted on tilting platforms, they can emulate a 3D sensor and retrieve a very detailed view of the environment.
+
+The self-localization system has a modular software architecture and was implemented as several C++ templated shared libraries that can be easily used for other applications besides robot self-localization. As can be seen in \cref{fig:localization-system_localization-system-overview}, it is an extensible and flexible system able to fit the needs of a wide range of mobile platforms. It can be configured as a tracking system, with or without pose recovery and can also have initial pose estimation using feature detection and matching. Moreover, it can also dynamically create and update the map if necessary.
+
+To allow fast deployment of robots in large environments it supports two configurable processing pipelines. One to process new reference maps and another to localize a mobile robot platform using ambient point clouds. This enables the loading of either processed or unprocessed referenced point clouds and allows a navigation supervisor to dynamically provide the relevant map sections based on the robot position (in order to reduce the computation resources needed).
+
+The next sections explain in detail the architecture and algorithms used in each of the processing modules present in \cref{fig:localization-system_localization-system-overview}.
 
 
 \begin{figure}[H]
@@ -21,6 +27,14 @@ It can used several sensing devices, such as \glspl{lidar} and RGB-D cameras and
 	\caption{Localization system overview}
 	\label{fig:localization-system_localization-system-overview}
 \end{figure}
+
+
+
+\section{Pipeline configuration}
+
+The self-localization system was designed to allow fast reconfiguration and parameterization through the use of yaml\footnote{\url{http://yaml.org/}} files and the \gls{ros} parameter server\footnote{\url{http://wiki.ros.org/Parameter\%20Server}}. This gives the possibility to quickly tune the localization system to the specific needs of a given mobile platform moving in a particular environment, in order to use the least amount of computational resources possible and without requiring any reprogramming or source code modification. Nevertheless, the system can use a generic configuration if hardware resources are not a concern.
+
+In a typical configuration (following the \emph{Yes} paths of the activity diagram in \cref{fig:localization-system_localization-system-overview}), the first time the localization system is used, it receives a raw reference point cloud that is preprocessed and saved to long term memory along with its associated keypoints and keypoint descriptors. This allows a much faster startup the next time the localization system is initialized. After having a reference point cloud, the localization system will estimate the robot pose periodically by analyzing the ambient point cloud sensor data. This data can be preprocessed with several filters and can be associated with computed surface normals. The robot pose estimation is performed by applying a matrix transformation correction to the current robot pose and is based on the registration of the ambient point cloud with the know map. This registration can use a tracking algorithm configuration tuned for efficiency and a second configuration for tracking recovery purposes. These tracking algorithms require a initial pose estimation, and as such, if one isn't available, a third configuration can be employed to estimate the global position of the robot based on geometric features of the environment. The switch between these configuration is based on the analysis of the registered cloud metrics, such as outlier percentage, inliers root mean square error, inliers angular distribution and the registration corrections performed to the ambient point cloud. After successfully performing the robot pose estimation, the map can be updated by either integrating the full registered point cloud, its inliers or its outliers. Finally, like most \gls{ros} nodes, the localization system will stop its execution when it receives a termination signal request.
 
 
 
@@ -363,15 +377,6 @@ FF.
 
 FF.
 
-
-\subsection{Euclidean segmentation}
-
-FF.
-
-
-\subsection{Cluster segmentation}
-
-FF.
 
 
 
