@@ -26,7 +26,7 @@ Odometry estimates the current pose by integrating the velocity of the robot ove
 \afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics*[width=0.7\textwidth]{localization_methods/optic_encoders}
+	\includegraphics*[width=0.5\textwidth]{localization_methods/optic_encoders}
 	\caption[Different types of optical encoders used to measure distances]{Different types of optical encoders used to measure distances\protect\footnotemark}
 	\label{fig:localization-methods_optic-encoders}
 \end{figure}
@@ -47,68 +47,7 @@ Other sensors, such as accelerometers and gyroscopes, can also be used to improv
 Exteroceptive methods use a range of sensors to analyze the environment and retrieve the necessary information to perform localization.
 
 
-\subsection{\glsentrydesc{tof} methods}\label{sec:localization-methods_tof-methods}
-
-\gls{tof} or \gls{toa} methods can be used to calculate distances based on the amount of time that a given wave takes from the moment it is created to the moment it is received. This allows the construction of a 3D representation of the world that can be used in conjunction with geometric methods to estimate the pose of a robot.
-
-Since these systems rely on active interaction with the environment, they can be used without being affected by lighting interferences. Nevertheless, they should take in consideration the conditions in which the waves propagate and also the geometry of the environment, because it can affect the path that the waves take, and as a result, can lead to the decrease of precision in the measurements.
-
-
-\subsubsection{Light waves}
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-	\centering
-	\includegraphics[width=0.48\textwidth]{localization_methods/lidar_scan}
-	\caption[\glsentrytext{lidar} scan]{\glsentrytext{lidar} scan\protect\footnotemark}
-	\label{fig:localization-methods_lidar-scan}
-\end{wrapfigure}
-\footnotetext{\url{http://blogs.scientificamerican.com/cocktail-party-physics/2012/03/12/l-is-for-lidar/}}
-
-Light waves generated with lasers can estimate distances with high accuracy. Systems like \gls{lidar} take advantage of this fact and can be used to calculate a very detailed 3D point cloud of the environment (like the one showed in \cref{fig:localization-methods_lidar-scan}).
-
-Given the high velocity in which light propagates, these methods allow the mapping of the environment with low latency, which can be a critical requirement in robots that must react very fast to changes in their surroundings, such as autonomous cars \cite{Moras2010}.
-
-
-
-\subsubsection{Radio waves}
-
-Similar to \gls{lidar}, radio waves can be used to calculate distances using the \gls{tof} technique. Systems like \gls{radar} provide an effective way to calculate the distance, altitude, direction and speed of objects that can be used as landmarks in navigation.
-
-Like any electromagnetic wave localization method, it must take in consideration ambient interferences and even jamming, in order to validate the obtained measures. Moreover, some types of materials with a given geometric configuration might be invisible to \gls{radar}, and as such, critical localization systems might have to employ some additional techniques to ensure the correct mapping of the robot surroundings.
-
-Since \gls{radar} has a less focused beam than \gls{lidar}, it can have considerable less accuracy, as can be seen in \cref{fig:localization-methods_radar-scan}. Nevertheless, it can be an effective method to avoid obstacles \cite{Wu2007}.
-
-
-\subsubsection{Sound waves}
-
-Other localization approach that can be used to map under water environments relies in the acoustic analysis of the reflections of sounds in the surrounding objects.
-
-Like the previous methods, \gls{sonar} can actively scan the environment to calculate the locations of the objects using a \gls{tof} technique (as can be seen in \cref{fig:localization-methods_sonar-scan}). Although this method is usually applied to underwater mapping, it can also be used in other sound propagation environments, such as air \cite{Guarato2013}.
-
-\afterpage{
-\begin{savenotes}
-\begin{figure}[H]
-	\centering
-	\begin{minipage}[h]{.47\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{localization_methods/radar_scan}
-		\caption[\glsentrytext{radar} scan of two ships]{\glsentrytext{radar} scan of two ships\protect\footnotemark}
-		\label{fig:localization-methods_radar-scan}
-	\end{minipage}\hfill
-	\footnotetext{\scriptsize \url{http://www.sintef.no/Projectweb/STSOps/News/Operational-Aspects-on-Decision-making-in-STS-Lightering}}
-	\begin{minipage}[h]{.47\textwidth}
-		\centering
-		\includegraphics*[width=\textwidth]{localization_methods/sonar_scan}
-		\caption[\glsentrytext{sonar} scan of two ships]{\glsentrytext{sonar} scan of two ships\protect\footnotemark}
-		\label{fig:localization-methods_sonar-scan}
-	\end{minipage}
-	\footnotetext{\scriptsize \url{http://stellwagen.noaa.gov/maritime/palmercrary.html}}
-\end{figure}
-\end{savenotes}
-}
-
-
-\subsection{Trilateration methods}\label{sec:localization-methods_trilateration-methods}
+\subsection{Trilateration methods}
 
 Trilateration is a geometric technique that can be employed in the calculation of absolute or relative positions using distances from known points.
 
@@ -125,7 +64,7 @@ With at least 3 satellites distances, the 3D position can be calculated, since t
 
 Given that the correct measurement of the distances to the satellites relies in the accurate computation of the elapsed time between the message dispatch and its reception, it is critical that both the satellites and the receiver have synchronized clocks. This is achieved by using high precision atomic clocks in the satellites and a clock reset technique in the receiver. This reset method relies on the fact that 3 satellite distances will only have a valid location if the clock of the receiver is synchronized. With this knowledge, the receiver can compute the necessary corrections to reset its internal clock to match the satellites time.
 
-\afterpage{
+%\afterpage{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{localization_methods/gnss}
@@ -133,7 +72,7 @@ Given that the correct measurement of the distances to the satellites relies in 
 	\label{fig:localization-methods_gnss}
 \end{figure}
 \footnotetext{\url{https://www.e-education.psu.edu/geog160/node/1923}}
-}
+%}
 
 
 \subsubsection{\glsentryfirst{dgps}}
@@ -176,7 +115,7 @@ Although this method is less accurate than the more recent global localization s
 %\afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.65\textwidth]{localization_methods/celestial_navigation}
+	\includegraphics[width=0.45\textwidth]{localization_methods/celestial_navigation}
 	\caption[Circle of position in celestial navigation]{Circle of position in celestial navigation\protect\footnotemark}
 	\label{fig:localization-methods_celestial-navigation}
 \end{figure}
