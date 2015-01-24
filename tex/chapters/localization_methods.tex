@@ -56,10 +56,6 @@ Since these systems rely on active interaction with the environment, they can be
 
 \subsubsection{Light waves}
 
-Light waves generated with lasers can estimate distances with high accuracy. Systems like \gls{lidar} take advantage of this fact and can be used to calculate a very detailed 3D point cloud of the environment (like the one showed in \cref{fig:localization-methods_lidar-scan}).
-
-Given the high velocity in which light propagates, these methods allow the mapping of the environment with low latency, which can be a critical requirement in robots that must react very fast to changes in their surroundings, such as autonomous cars \cite{Moras2010}.
-
 \begin{wrapfigure}{r}{0.5\textwidth}
 	\centering
 	\includegraphics[width=0.48\textwidth]{localization_methods/lidar_scan}
@@ -68,6 +64,11 @@ Given the high velocity in which light propagates, these methods allow the mappi
 \end{wrapfigure}
 \footnotetext{\url{http://blogs.scientificamerican.com/cocktail-party-physics/2012/03/12/l-is-for-lidar/}}
 
+Light waves generated with lasers can estimate distances with high accuracy. Systems like \gls{lidar} take advantage of this fact and can be used to calculate a very detailed 3D point cloud of the environment (like the one showed in \cref{fig:localization-methods_lidar-scan}).
+
+Given the high velocity in which light propagates, these methods allow the mapping of the environment with low latency, which can be a critical requirement in robots that must react very fast to changes in their surroundings, such as autonomous cars \cite{Moras2010}.
+
+
 
 \subsubsection{Radio waves}
 
@@ -75,14 +76,14 @@ Similar to \gls{lidar}, radio waves can be used to calculate distances using the
 
 Like any electromagnetic wave localization method, it must take in consideration ambient interferences and even jamming, in order to validate the obtained measures. Moreover, some types of materials with a given geometric configuration might be invisible to \gls{radar}, and as such, critical localization systems might have to employ some additional techniques to ensure the correct mapping of the robot surroundings.
 
-Since \gls{radar} has a less focused beam than \gls{lidar}, it can have considerable less accuracy, as can be seen in \cref{fig:localization_methods_radar-scan}. Nevertheless, it can be an effective method to avoid obstacles \cite{Wu2007}.
+Since \gls{radar} has a less focused beam than \gls{lidar}, it can have considerable less accuracy, as can be seen in \cref{fig:localization-methods_radar-scan}. Nevertheless, it can be an effective method to avoid obstacles \cite{Wu2007}.
 
 
 \subsubsection{Sound waves}
 
 Other localization approach that can be used to map under water environments relies in the acoustic analysis of the reflections of sounds in the surrounding objects.
 
-Like the previous methods, \gls{sonar} can actively scan the environment to calculate the locations of the objects using a \gls{tof} technique (as can be seen in \cref{fig:localization_methods_sonar-scan}). Although this method is usually applied to underwater mapping, it can also be used in other sound propagation environments, such as air \cite{Guarato2013}.
+Like the previous methods, \gls{sonar} can actively scan the environment to calculate the locations of the objects using a \gls{tof} technique (as can be seen in \cref{fig:localization-methods_sonar-scan}). Although this method is usually applied to underwater mapping, it can also be used in other sound propagation environments, such as air \cite{Guarato2013}.
 
 \afterpage{
 \begin{savenotes}
@@ -92,14 +93,14 @@ Like the previous methods, \gls{sonar} can actively scan the environment to calc
 		\centering
 		\includegraphics[width=\textwidth]{localization_methods/radar_scan}
 		\caption[\glsentrytext{radar} scan of two ships]{\glsentrytext{radar} scan of two ships\protect\footnotemark}
-		\label{fig:localization_methods_radar-scan}
+		\label{fig:localization-methods_radar-scan}
 	\end{minipage}\hfill
 	\footnotetext{\scriptsize \url{http://www.sintef.no/Projectweb/STSOps/News/Operational-Aspects-on-Decision-making-in-STS-Lightering}}
 	\begin{minipage}[h]{.47\textwidth}
 		\centering
 		\includegraphics*[width=\textwidth]{localization_methods/sonar_scan}
 		\caption[\glsentrytext{sonar} scan of two ships]{\glsentrytext{sonar} scan of two ships\protect\footnotemark}
-		\label{fig:localization_methods_sonar-scan}
+		\label{fig:localization-methods_sonar-scan}
 	\end{minipage}
 	\footnotetext{\scriptsize \url{http://stellwagen.noaa.gov/maritime/palmercrary.html}}
 \end{figure}
@@ -122,7 +123,7 @@ In these systems, a constellation of satellites broadcasts a radio signal with i
 
 With at least 3 satellites distances, the 3D position can be calculated, since the Earth can be used as the ${4}^{th}$ sphere (\cref{fig:localization-methods_gnss} shows a visual representation of the trilateration technique used in a global localization system).
 
-Given that the correct measurement of the distances to the satellites relies in the accurate computation of the elapsed time between the message dispatch and its reception, it is critical that both the satellites and the receiver have synchronized clocks. This is achieved by using high precision atomic clocks in the satellites and a clock reset technique in the receiver. This reset methods rely on the fact that 3 satellite distances will only have a valid location if the clock of the receiver is synchronized. With this knowledge, the receiver can compute the necessary corrections to reset its internal clock to match the satellites time.
+Given that the correct measurement of the distances to the satellites relies in the accurate computation of the elapsed time between the message dispatch and its reception, it is critical that both the satellites and the receiver have synchronized clocks. This is achieved by using high precision atomic clocks in the satellites and a clock reset technique in the receiver. This reset method relies on the fact that 3 satellite distances will only have a valid location if the clock of the receiver is synchronized. With this knowledge, the receiver can compute the necessary corrections to reset its internal clock to match the satellites time.
 
 \afterpage{
 \begin{figure}[H]
@@ -203,16 +204,14 @@ There are several variants that optimize different parts of the algorithm \cite{
 The main steps for each iteration of \gls{icp} algorithm are presented below.
 
 \begin{enumerate}
-\item  Selection of points in one or both point clouds (source and reference clouds)
-\item  Matching / pairing source points to reference points
-\item  Weighting the corresponding pairs
-\item  Rejecting low quality matches (outliers)
-\item  Assigning an error metric based on the point pairs
-
-\begin{enumerate}
-\item  Usually mean square error based on points distance
-\end{enumerate}
-
+	\item  Selection of points in one or both point clouds (source and reference clouds)
+	\item  Matching / pairing source points to reference points
+	\item  Weighting the corresponding pairs
+	\item  Rejecting low quality matches (outliers)
+	\item  Assigning an error metric based on the point pairs
+	\begin{enumerate}
+		\item  Usually mean square error based on points distance
+	\end{enumerate}
 \end{enumerate}
 
 
@@ -273,7 +272,7 @@ It starts by randomly distributing the state particles on the map, and over time
 
 \subsubsection{Kalman filters}
 
-Kalman filters \cite{Kalman1960} are probabilistic algorithms that aim to estimate a given system state even when it is affected by noise or other errors. They perform linear quadratic estimations to achieve optimal results and can be efficiently implemented to be used in real time systems. They are recursive algorithms based on Marcov processes, and as a result, they only need to know the current system state in order to perform measurement corrections.
+Kalman filters \cite{Kalman1960} are probabilistic algorithms that estimate a given system state even when it is affected by noise or other errors. They perform linear quadratic estimations to achieve optimal results and can be efficiently implemented to be used in real time systems. They are recursive algorithms based on Marcov processes, and as a result, they only need to know the current system state in order to perform measurement corrections.
 
 The \gls{ekf} \cite{Einicke1999,Ribeiro2004,Ivanjko2010,Liu2011} is a variant of the Kalman filter, designed to handle non-linear systems by performing linear approximations to the state variables. These approximations may lead to divergence in the estimations, and as such, the \gls{ekf} can't guarantee optimal results.
 
@@ -296,7 +295,7 @@ In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated 
 
 \subsubsection{Perfect Match}
 
-The Perfect Match \cite{Lauer2006a,Pinto1963} is an efficient self-localization algorithm that is largely used in the Robocup Robotic Soccer Mid Size League. Its main goal is to minimize the localization error by carefully analyzing the know map, and selecting the most probable current position using a gradient descent approach. To improve tracking accuracy, the algorithm also uses a stochastic weighted approach.
+The Perfect Match \cite{Lauer2006a,Pinto1963} is an efficient self-localization algorithm that is largely used in the Robocup Robotic Soccer Mid Size League. Its main goal is to minimize the localization error by carefully analyzing the know map and selecting the most probable current position using a gradient descent approach. To improve tracking accuracy, the algorithm also uses a stochastic weighted approach.
 
 With the proper configuration, it can achieve a localization accuracy similar to the particle filter, while using about ten times less computations.
 
@@ -354,7 +353,7 @@ For outside tasks, a \gls{gnss} approach can give accurate localization estimati
 		Signal strength		& Any		& Low		& Low		& Low		& Requires an accurate model for the signal attenuation \\
 		Celestial			& Outside	& Low		& Low		& Low		& Requires a clear view of the celestial objects and a nautical almanac \\
 		Landmark			& Any		& Medium	& Low		& Medium	& Requires a database of landmarks \\
-		\gls{icp}			& Indoors	& High		& Medium	& High		& Requires a 3D representation of the environment \\
+		\gls{icp}			& Indoors	& High		& Medium	& High		& Requires a detailed 3D representation of the environment \\
 		\gls{mcl}			& Indoors	& Medium	& Medium	& Medium	& Inefficient for large areas \\
 		Kalman filters		& Any		& Medium	& Low		& Low		& Useful to improve estimations of other methods \\
 		Perfect Match		& Any		& Medium	& Low		& Low		& Not ideal for large or dynamic environments \\

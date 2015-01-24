@@ -8,7 +8,7 @@ This chapter provides an overview about the motivations and objectives of this d
 
 
 
-\section{Context} \label{sec:introduction_context}
+\section{Context}\label{sec:introduction_context}
 
 Humanity has sought a reliable method of navigation ever since it started to explore the world. It began with simple landmark reference points for local travels, then perfected celestial navigation for global journeys, and when it finally conquered space, it deployed a global system for high accuracy localization. Autonomous robots face the same problem, because in order to be able to navigate with precision, they first need to know their location.
 
@@ -18,13 +18,13 @@ A robot capable of operating safely and accurately in a dynamic environment can 
 
 
 
-\section{Project} \label{sec:introduction_project}
+\section{Project}\label{sec:introduction_project}
 
 \gls{carlos}\footnote{\url{http://carlosproject.eu/}} is a European research project that aims to develop an autonomous robot capable of performing repetitive tasks alongside human co-workers in dynamic environments. The robot will operate in shipyards and is intended to perform fit-out operations, such as stud welding and projection mapping of \gls{cad} drawings. Stud welding is a repetitive task that provides structural support for other components, such as heat insulation layers or electrical systems. Projection mapping of \gls{cad} drawings or other important information will help human co-workers assemble components faster, because it will mark the exact position in which they must be installed.
 
 
 
-\section{Motivation and objectives} \label{sec:introduction_goals}
+\section{Motivation and objectives}\label{sec:introduction_goals}
 
 With the increase of competitiveness in the current globalized trading markets, companies are trying to reduce production costs and improve the productivity of their assets. Robots can help achieve these goals by performing the simple and repetitive jobs while giving humans more free time to perform the complex and creative tasks.
 
@@ -32,12 +32,12 @@ Mobile platforms equipped with robotic arms provide a flexible way to automate a
 
 
 
-\section{Contributions} \label{sec:introduction_contributions}
+\section{Contributions}\label{sec:introduction_contributions}
 
 This dissertation introduces an efficient, modular and extensible 3/6 \gls{dof} localization system for mobile robot platforms capable of operating accurately and reliably in dynamic environments. It is a multi-level registration pipeline that uses geometric features to estimate the initial position of a robot platform and point cloud registration algorithms to track its pose. The tracking subsystem can have two different configurations. One tuned for maximum efficiency used for the normal operation of the mobile platform and another for unlikely situations that may require more robust registration algorithms / configurations. It also supports incremental map update and can adjust its operation rate based on the estimated robot velocity. For critical operations, it provides a detailed analysis of the tracking quality and when initial pose estimation is required it gives the distribution of the acceptable poses, which can be very valuable information if there are several areas in the known map with very similar geometry.
 
 
 
-\section{Dissertation outline} \label{sec:introduction_structure}
+\section{Dissertation outline}\label{sec:introduction_structure}
 
-The remaining of this dissertation is split over 6 chapters. \Cref{chap:localization-methods} provides an overview of the main localization methods available for mobile robot platforms. \Cref{chap:relevant-sofware-technologies} introduces the frameworks used to build the localization system that is detailed in \cref{chap:localization-system}. \Cref{chap:point-cloud-algorithms} describes the theoretical foundations and algorithms that were used to process and analyze point clouds. \Cref{chap:localization-system-evaluation} evaluates the results achieved with the localization system in several testing environments. Finally, \cref{chap:conclusions-and-future-work} presents the conclusions of this dissertation and suggestions for future work.
+The remaining of this dissertation is split over 5 chapters. \Cref{chap:localization-methods} provides an overview of the main localization methods available for mobile robot platforms. \Cref{chap:relevant-sofware-technologies} introduces the main frameworks used to implement the self-localization system. \Cref{chap:localization-system} details the architecture and \gls{ros} implementation of the proposed 3/6 \gls{dof} self-localization system. \Cref{chap:localization-system-evaluation} evaluates the results achieved with the localization system in several testing environments. Finally, \cref{chap:conclusions-and-future-work} presents the conclusions of this dissertation and suggestions for future work.

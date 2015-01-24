@@ -4,7 +4,7 @@
 
 \section*{}
 
-Robot self-localization in complex environments is a multidisciplinary problem that requires advanced computer software systems. In order to speed up the implementation and deployment of the localization system, several frameworks and libraries were used. Among the most important were ROS for the system architecture, PCL for the point cloud processing and Gazebo for simulation and testing.
+Robot self-localization in complex environments is a multidisciplinary problem that requires advanced computer software systems. In order to speed up the implementation and deployment of the localization system, several frameworks and libraries were used. Among the most important were \gls{ros} for the system architecture, \gls{pcl} for the point cloud processing and Gazebo for simulation and testing.
 
 
 
@@ -17,7 +17,7 @@ Robot self-localization in complex environments is a multidisciplinary problem t
 	\label{fig:relevant-sofware-technologies_ros-logo}
 \end{wrapfigure}
 
-The \gls{ros}\footnote{\url{http://www.ros.org/}} \cite{Quigley2009} is a software framework designed to ease the development of robot systems. It provides seamless integration between hardware drivers and software modules, allowing a fast transition between simulation and deployment.
+\gls{ros}\footnote{\url{http://www.ros.org/}} \cite{Quigley2009} is a software framework designed to ease the development of robot systems. It provides seamless integration between hardware drivers and software modules, allowing a fast transition between simulation and deployment.
 
 It's an open source project that offers a distributed computing framework with several core libraries and development tools that aims to speedup software prototyping, testing and deployment.
 
@@ -46,9 +46,9 @@ The flexibility provided by \gls{ros} in both module integration and exchange ca
 
 A nodelet\footnote{\url{http://wiki.ros.org/nodelet}} is a special kind of node that aims to reduce the overhead of message exchange. This overhead can be significant when messages are very large, such as point clouds or video. To mitigate this problem, the nodelets exchange pointers to shared memory regions, instead of sending the entire messages between nodes.
 
-To achieve this overhead reduction, some architecture changes were required. The most important being the use of threads instead of processes, and the creation of a superclass that all nodelets must inherit. This leads to the creation of plugin libraries for each nodelet instead of an executable for each node.
+To achieve this overhead reduction, some architecture changes are required. The most important being the use of threads instead of processes, and the creation of a superclass that all nodelets must inherit. This leads to the creation of plugin libraries for each nodelet instead of an executable for each node.
 
-Another important change was the introduction of nodelet managers to allow loading and setup of nodelets in different threads inside the same process.
+Another important change is the introduction of nodelet managers to allow loading and setup of nodelets in different threads inside the same process.
 
 In terms of implementation, the transition from nodes to nodelets requires few code changes and can lead to a significant improvement of the overall system performance.
 
@@ -74,7 +74,7 @@ Currently, topics can use either the \gls{tcp} or \gls{udp} protocols to exchang
 
 The latest \gls{ros} build system is named catkin\footnote{\url{http://wiki.ros.org/catkin}}, and is the successor of the original rosbuild\footnote{\url{http://wiki.ros.org/rosbuild}} system. It combines CMake\footnote{\url{http://www.cmake.org/}} macros and Python scripts to allow building multiple dependent projects at the same time. It is a cross-platform build system, organized in packages and meta-packages (group of packages). Each package is a software module that can produce libraries or binaries from source code.
 
-Catkin was designed to deal with complex build configurations, which in the case of \gls{ros} packages involves a considerable amount of build dependencies for each project. As such, catkin provides a build system that can easily find, build and link both \gls{ros} and system dependencies. Moreover, it provides install targets to allow faster code releases and simplify builds from source for the final users.
+Catkin was designed to deal with complex build configurations, which in the case of \gls{ros} packages involves a considerable amount of build dependencies for each project. As such, catkin provides a build system that can easily find, build and link both \gls{ros} and system dependencies. Moreover, it provides install targets to allow faster code releases and simplifies builds from source for the final users.
 
 Other useful features of the catkin build system are the concepts of workspace and overlays. Catkin uses a workspace with out-of-source builds to keep the source code separate from the build files. This allows the code directory structure to be clean of compiler generated files that are platform dependent. Moreover, it simplifies the concurrent usage of packages (overlay), because catkin gives priority to workspace packages (in relation to system packages). This is particularly useful when it is necessary to modify and test some package that has been released and is installed in the system (without having to uninstall the stable release of that package).
 
@@ -118,7 +118,7 @@ Gazebo\footnote{\url{http://gazebosim.org/}} is a 3D multi-robot simulator capab
 \Cref{fig:relevant-sofware-technologies_gazebo-ros-integration} shows how Gazebo can be used instead of a real robot, without requiring any implementation code modification (because it implements the same \gls{ros} interfaces that the hardware drivers use).
 
 %\afterpage{
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{relevant_sofware_technologies/gazebo_ros_integration}
 	\caption[Integration of \glsentrytext{ros} and Gazebo]{Integration of \glsentrytext{ros} and Gazebo\protect\footnotemark}
@@ -129,7 +129,7 @@ Gazebo\footnote{\url{http://gazebosim.org/}} is a 3D multi-robot simulator capab
 
 
 
-\section{PCL}
+\section{\glsentrytext{pcl}}
 
 \begin{wrapfigure}{r}{0.25\textwidth}
 	\centering
@@ -140,10 +140,10 @@ Gazebo\footnote{\url{http://gazebosim.org/}} is a 3D multi-robot simulator capab
 
 The \gls{pcl}\footnote{\url{http://pointclouds.org/}} \cite{Rusu2011} is an open source project that provides algorithms for processing point clouds. These algorithms can be used to filter and register point clouds as well as perform object segmentation, recognition and tracking.
 
-\Cref{fig:relevant-sofware-technologies_pcl-dependency-graph} gives an overview of the main modules currently available in \gls{pcl} and \cref{chap:point-cloud-algorithms} provides a more detailed description of the algorithms that are relevant for a localization system.
+\Cref{fig:relevant-sofware-technologies_pcl-dependency-graph} gives an overview of the main modules currently available in \gls{pcl}.
 
 %\afterpage{
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{relevant_sofware_technologies/pcl_dependency_graph}
 	\caption[\glsentrydesc{pcl}]{\glsentrydesc{pcl}\protect\footnotemark}
