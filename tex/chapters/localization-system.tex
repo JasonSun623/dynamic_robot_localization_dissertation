@@ -10,15 +10,13 @@ This chapter details the \gls{ros} implementation of the proposed 3/6 \gls{dof} 
 
 \section{Overview}
 
-The self-localization system was implemented as a \gls{ros} package and provides 3/6 \gls{dof} localization by publishing \emph{geometry\_msgs::PoseStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/PoseStamped.html}} and \emph{geometry\_msgs::TransformStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/TransformStamped.html}} messages along with a detailed analysis of the pose estimation and registered point cloud (split into inliers and outliers).
+The self-localization system was implemented as a \gls{ros} package and provides 3/6 \gls{dof} localization by publishing \emph{geometry\_msgs::PoseStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/PoseStamped.html}} and \emph{geometry\_msgs::TransformStamped}\footnote{\url{http://docs.ros.org/api/geometry_msgs/html/msg/TransformStamped.html}} messages along with a detailed analysis of the pose estimation and registered point cloud (split into inliers and outliers). Moreover, it also gives detailed analysis of the computation runtime of each of its modules in order to pinpoint which algorithms are using more computation resources, which is very useful information when configuring or upgrading the system.
 
-The system can receive sensor data through \emph{sensor\_msgs::PointCloud2}\footnote{\url{http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html}} messages and as a result it can directly use data from RGB-D and \gls{tof} cameras. To use \glspl{lidar} it provides an assembler that can produce point clouds by merging measurements from several sensors using spherical interpolation. As such, if the \gls{lidar} sensors are mounted on tilting platforms, they can emulate a 3D sensor and retrieve a very detailed view of the environment.
+The \gls{ros} implementation can receive sensor data through \emph{sensor\_msgs::PointCloud2}\footnote{\url{http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html}} messages and as a result it can directly use data from RGB-D and \gls{tof} cameras. To use \glspl{lidar} it provides an assembler that can produce point clouds by merging measurements from several sensor scans using spherical interpolation. As such, if the \gls{lidar} sensors are mounted on tilting platforms, they can emulate a 3D sensor and retrieve a very detailed view of the environment.
 
-The self-localization system has a modular software architecture and was implemented as several C++ templated shared libraries that can be easily used for other applications besides robot self-localization. As can be seen in \cref{fig:localization-system_localization-system-overview}, it is an extensible and flexible system able to fit the needs of a wide range of mobile platforms. It can be configured as a tracking system, with or without pose recovery and can also have initial pose estimation using feature detection and matching. Moreover, it can also dynamically create and update the map if necessary.
+The self-localization system has a modular software architecture and was implemented as several C++ templated shared libraries that can be easily used for other applications besides robot self-localization. As can be seen in \cref{fig:localization-system_localization-system-overview}, it is an extensible and flexible system able to fit the needs of a wide range of mobile platforms. It can be configured as a tracking system, with or without pose recovery and can also have initial pose estimation using feature detection and matching. Moreover, it can dynamically create and update the map if necessary.
 
-To allow fast deployment of robots in large environments it supports two configurable processing pipelines. One to process new reference maps and another to localize a mobile robot platform using ambient point clouds. This enables the loading of either processed or unprocessed referenced point clouds and allows a navigation supervisor to dynamically provide the relevant map sections based on the robot position (in order to reduce the computation resources needed).
-
-The next sections explain in detail the architecture and algorithms used in each of the processing modules present in \cref{fig:localization-system_localization-system-overview}.
+It supports two configurable processing pipelines in order to allow fast deployment of robots in large environments. One to process new reference maps and another to localize a mobile robot platform using ambient point clouds. This enables the loading of either processed or unprocessed referenced point clouds and allows a navigation supervisor to dynamically provide the relevant map sections based on the robot position (in order to reduce the computation resources needed).
 
 
 \begin{figure}[H]
@@ -34,13 +32,23 @@ The next sections explain in detail the architecture and algorithms used in each
 
 The self-localization system was designed to allow fast reconfiguration\footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization/blob/hydro-devel/yaml/schema/drl_configs.yaml}} and parameterization through the use of yaml\footnote{\url{http://yaml.org/}} files and the \gls{ros} parameter server\footnote{\url{http://wiki.ros.org/Parameter\%20Server}}. This gives the possibility to quickly tune the localization system to the specific needs of a given mobile platform moving in a particular environment, in order to use the least amount of computational resources possible and without requiring any reprogramming or source code modification. Nevertheless, the system can use a generic configuration if hardware resources are not a concern.
 
-In a typical configuration (following the \emph{Yes} paths of the activity diagram in \cref{fig:localization-system_localization-system-overview}), the first time the localization system is used, it receives a raw reference point cloud that is preprocessed and saved to long term memory along with its associated keypoints and keypoint descriptors. This allows a much faster startup the next time the localization system is initialized. After having a reference point cloud, the localization system will estimate the robot pose periodically by analyzing the ambient point cloud sensor data. This data can be preprocessed with several filters and can be associated with computed surface normals. The robot pose estimation is performed by applying a matrix transformation correction to the current robot pose and is based on the registration of the ambient point cloud with the know map. This registration can use a tracking algorithm configuration tuned for efficiency and a second configuration for tracking recovery purposes. These tracking algorithms require a initial pose estimation, and as such, if one isn't available, a third configuration can be employed to estimate the global position of the robot based on geometric features of the environment. The switch between these configuration is based on the analysis of the registered cloud metrics, such as outlier percentage, inliers root mean square error, inliers angular distribution and the registration corrections performed to the ambient point cloud. After successfully performing the robot pose estimation, the map can be updated by either integrating the full registered point cloud, its inliers or its outliers. Finally, like most \gls{ros} nodes, the localization system will stop its execution when it receives a termination signal request.
+In a typical configuration (following the \emph{Yes} paths of the activity diagram in \cref{fig:localization-system_localization-system-overview}), the first time the localization system is used, it receives a raw reference point cloud that is preprocessed and saved to long term memory along with its associated keypoints and keypoint descriptors. This allows a much faster startup the next time the localization system is initialized. After having a reference point cloud, the localization system will estimate the robot pose periodically by analyzing the ambient point cloud sensor data. This data can be preprocessed with several filters and can be associated with computed surface normals. The robot pose estimation is performed by applying a matrix transformation correction to the current robot pose and is based on the registration of the ambient point cloud with the know map. This registration can use a tracking algorithm configuration tuned for efficiency and a second configuration for tracking recovery purposes. These tracking algorithms require a initial pose estimation, and as such, if one isn't available, a third configuration can be employed to estimate the global position of the robot based on geometric features of the environment. The switch between these configuration is based on the analysis of the registered cloud metrics, such as outlier percentage, inliers root mean square error, inliers angular distribution and the registration corrections performed on the ambient point cloud. After successfully performing the robot pose estimation, the map can be updated by either integrating the full registered point cloud, its inliers or its outliers. Finally, like most \gls{ros} nodes, the localization system will stop its execution when it receives a termination signal request.
+
+The next sections explain in detail the architecture and algorithms used in each of the processing modules present in \cref{fig:localization-system_localization-system-overview}.
+
+
+
+\section{Reference map}
+
+The reference point cloud can be loaded from a \gls{cad} file, point cloud file or dynamically arrive trough a \gls{ros} topic as either a 3 \gls{dof} \emph{nav\_msgs::OccupancyGrid}\footnote{\url{http://docs.ros.org/api/nav_msgs/html/msg/OccupancyGrid.html}} or 6 \gls{dof} \emph{sensor\_msgs::PointCloud2}\footnote{\url{http://docs.ros.org/api/sensor_msgs/html/msg/PointCloud2.html}}. This allows a localization supervisor to give only sections of a global map in order to use the least amount of memory and processing power (very large maps have deeper search structures, such as kd-trees, and should be avoided in order to improve the system efficiency).
 
 
 
 \section{Point cloud assembly}
 
-The self-localization system can use any sensor that provides point clouds, namely RGB-D / \gls{tof} cameras and \glspl{lidar}. Each of these types of sensors have very different operation rates as well as the amount of points that are produced in each environment analysis.
+The self-localization system can use any sensor that provides point clouds, namely RGB-D / \gls{tof} cameras, \glspl{lidar} and stereo vision systems. Each of these types of sensors have very different operation rates and measurement accuracy. As such, the localization system allows the assembly of several ambient scans using a circular buffer in order to reduce the impact of sensor noise.
+
+For \glspl{lidar}, the system provides a \emph{sensor\_msgs::LaserScan}\footnote{\url{http://docs.ros.org/api/sensor_msgs/html/msg/LaserScan.html}} assembler\footnote{\url{https://github.com/carlosmccosta/laserscan_to_pointcloud}} that converts laser measurements in polar coordinates into Cartesian coordinates and projects the points using spherical interpolation (in order to account for laser scan deformation that occurs when the robot is moving and rotating). It can merge scans from several lasers sensors and it will publish the final point cloud after assembling a given number of scans or periodically after a specified duration. These assembly configurations can be changed at runtime based on the robot velocity (for example, when the robots moves slower, more laser scans are assembled for each published point cloud) or through the use of the \gls{ros} dynamic reconfigure \gls{api}, which allows a navigation supervisor to control the rate at which the localization system operates.
 
 
 
@@ -51,20 +59,20 @@ Most of the point cloud algorithms use neighbor searches to analyze the surround
 
 \subsection{Voxel grids}
 
-A voxel grid is a three dimensional space partition data structure that splits the Euclidean space into regular voxels (volume pixel). It can be built very fast but is not very efficient for sparse point clouds. \Cref{fig:point-cloud-algorithms_voxel-grid} shows how the voxel size affects the level of detail of point clouds.
+A voxel grid is a three dimensional space partition data structure that splits the Euclidean space into regular voxels (volume pixel). It can be built very fast but is not very efficient for sparse point clouds. \Cref{fig:localization_system_voxel-grid} shows voxel grids with different voxel size.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{localization-system/voxel-grid}
+	\includegraphics[width=0.7\textwidth]{localization-system/voxel-grid}
 	\caption[Voxel grid applied over trees point clouds]{Voxel grid applied over trees point clouds \cite{Wu2013}}
-	\label{fig:point-cloud-algorithms_voxel-grid}
+	\label{fig:localization_system_voxel-grid}
 \end{figure}
 
 
 
 \subsection{Octrees}
 
-An octrees is a hierarchical space partition technique that adapts its tree data structure to the distribution of points in the cloud. It accomplishes this by recursively dividing each voxel in 8 octants until the tree depth is reached or when there is no more points in that region of space. This can be seen in \cref{fig:point-cloud-algorithms_octree} in which areas with no points have large voxels while areas with high point density have much smaller voxels.
+An octrees is a hierarchical space partition technique that adapts its tree data structure to the distribution of points in the cloud. It accomplishes this by recursively dividing each voxel in 8 octants until the tree depth is reached or when there is no more points in that region of space. This can be seen in \cref{fig:localization_system_octree} in which areas with no points have large voxels while areas with high point density have much smaller voxels.
 
 %\afterpage{
 \begin{figure}[H]
@@ -78,7 +86,7 @@ An octrees is a hierarchical space partition technique that adapts its tree data
 		\includegraphics[width=0.6\textwidth]{localization-system/octree-2}
 	\end{minipage}
 	\caption[Octree of a stag beetle]{Octree of a stag beetle\protect\footnotemark}
-	\label{fig:point-cloud-algorithms_octree}
+	\label{fig:localization_system_octree}
 \end{figure}
 \footnotetext{\url{http://blog.mpanknin.de/?p=753}}
 %}
@@ -87,9 +95,9 @@ An octrees is a hierarchical space partition technique that adapts its tree data
 
 \subsection{k-d trees}
 
-A k dimensional tree is a space partition technique that can organize points with k dimensions. It is a generic data structure that can be used for 2D and 3D points (examples in \cref{fig:point-cloud-algorithms_2d-tree} and \cref{fig:point-cloud-algorithms_3d-tree}) as well as any other type of data that have an arbitrary number of dimensions (such as point cloud feature descriptors).
+A k dimensional tree is a space partition technique that can organize points with k dimensions. It is a generic data structure that can be used for 2D and 3D points (examples in \cref{fig:localization_system_2d-tree} and \cref{fig:localization_system_3d-tree}) as well as any other types of data that have an arbitrary number of dimensions (such as point cloud feature descriptors).
 
-The binary k-d tree is built by successively selecting the median point in each axis until all points are inserted in the tree (the selection of the next axis is performed in a circular way, which in the case of three dimensional data means that after processing the z axis, the x axis would be selected).
+The binary k-d tree is built by successively selecting the median point in each axis until all points are inserted in the tree (the selection of the next axis is performed in a circular way, which in the case of three dimensional data, means that after processing the z axis, the x axis would be selected).
 
 %\afterpage{
 \begin{savenotes}
@@ -97,16 +105,16 @@ The binary k-d tree is built by successively selecting the median point in each 
 	\centering
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
-		\includegraphics[width=0.6\textwidth]{localization-system/kdtree-2d}
+		\includegraphics[width=0.55\textwidth]{localization-system/kdtree-2d}
 		\caption[2-d tree]{2-d tree\protect\footnotemark}
-		\label{fig:point-cloud-algorithms_2d-tree}
+		\label{fig:localization_system_2d-tree}
 	\end{minipage}\hfill
 	\footnotetext{\url{http://en.wikipedia.org/wiki/K-d_tree}}
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
-		\includegraphics[width=0.65\textwidth]{localization-system/kdtree-3d}
+		\includegraphics[width=0.6\textwidth]{localization-system/kdtree-3d}
 		\caption[3-d tree]{3-d tree\protect\footnotemark}
-		\label{fig:point-cloud-algorithms_3d-tree}
+		\label{fig:localization_system_3d-tree}
 	\end{minipage}
 	\footnotetext{\url{http://docs.pointclouds.org/trunk/group__kdtree.html}}
 \end{figure}
@@ -115,23 +123,11 @@ The binary k-d tree is built by successively selecting the median point in each 
 
 
 
-\section{Reference map}
-
-The reference point cloud can be loaded from a \gls{cad} file, point cloud file or dynamically arrive trough a \gls{ros} topic as either a 3 \gls{dof} occupancy grid or 6 \gls{dof} point cloud. This allows a localization supervisor to give only sections of a global map in order to use the least amount of memory and processing power (very large maps have deeper search structures, such as kd-trees, and should be avoided in order to improve the system efficiency).
-
-
-
-\section{Point cloud assembly}
-
-The laser assembler converts laser measurements in polar coordinates into Cartesian coordinates and projects the points using spherical interpolation in order to account for laser scan deformation that occurs when the robot is moving and rotating. It can merge scans from several lasers (sequentially or with a circular buffer) and it will publish the final point cloud after assembling a given number of scans or periodically after a specified duration. These assembly configurations can be changed at runtime through the use of the ROS dynamic reconfigure Application Programming Interface (API), which allows a localization supervisor to control the rate at which the localization system operates.
-
-
-
 \section{Filtering and down sampling}
 
-The time it takes to perform cloud registration is proportional to the amount of points in the ambient point cloud and in the reference map. As such, adjusting the level of detail of the point clouds by using voxel grids gives some control over the desired localization accuracy and the computational resources that will be required. This stage is also useful to mitigate the measurement errors of the depth sensors since the centroid of a voxel that contains points from several laser scans will be closer to the real surface (if the voxels have dimensions slightly larger than the expected laser measurement errors).
+The time it takes to perform cloud registration is proportional to the amount of points in the ambient point cloud and in the reference map. As such, adjusting the level of detail of the point clouds by using voxel grids gives some control over the desired localization accuracy and the computational resources that will be required. This stage is also useful to mitigate the measurement errors of the depth sensors, since the centroid of a voxel that contains points from several scans will be closer to the real surface (if the voxels have dimensions slightly larger than the expected measurement errors).
 
-Point cloud data that comes from laser sensors can have a considerable amount of noise and an unnecessary level of detail. To cope with these problems, several preprocessing algorithms can be applied, ranging from simple point cloud downsampling to the more advanced outlier removal and surface reconstruction methods.
+The localization system allows the application of several preprocessing algorithms (algorithm type / configuration and execution order customizable). The next sections detail some of these methods that can be used to filter and downsample point clouds.
 
 
 \subsection{Point cloud downsampling}
@@ -141,9 +137,9 @@ Downsampling methods aim to reduce the number of points while maintaining the su
 
 \subsubsection{Voxel grid sampling}
 
-A voxel grid is a uniform space partition technique that can be used to cluster points according to their Euclidean coordinates. As can be seen in \cref{fig:point-cloud-algorithms_voxel-grid-downsampling}, it is a very effective method to control the level of detail of a point cloud because it gives the ability to specify the maximum number of points that a region in space should have.
+A voxel grid is a uniform space partition technique that can be used to cluster points according to their Euclidean coordinates. As can be seen in \cref{fig:localization_system_voxel-grid-downsampling}, it is a very effective method to control the level of detail of a point cloud because it gives the ability to specify the maximum number of points that a region of space should have.
 
-The point cloud downsampling is achieved by replacing each cluster with a single point. The selection of this point can be very fast if the voxel center is used, but computing the centroid of the cluster yields better results because it represents the underlying surface with more accuracy and it attenuates errors in the sensors measurements.
+The point cloud downsampling is achieved by replacing each voxel cluster with a single point. The selection of this point can be very fast if the voxel center is used, but computing the centroid of the cluster yields better results because it represents the underlying surface with more accuracy and it attenuates errors in the sensors measurements.
 
 
 %\afterpage{
@@ -151,14 +147,14 @@ The point cloud downsampling is achieved by replacing each cluster with a single
 	\centering
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
-			\includegraphics[width=0.78\textwidth]{localization-system/voxel-grid-downsampling-1}
+			\includegraphics[width=0.97\textwidth]{localization-system/voxel-grid-downsampling-1}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{.495\textwidth}
 		\centering
-	\includegraphics[width=0.78\textwidth]{localization-system/voxel-grid-downsampling-2}
+	\includegraphics[width=0.97\textwidth]{localization-system/voxel-grid-downsampling-2}
 	\end{minipage}
 	\caption[Table point cloud before (left) and after (right) voxel grid downsampling]{Table point cloud before (left) and after (right) voxel grid downsampling\protect\footnotemark}
-	\label{fig:point-cloud-algorithms_voxel-grid-downsampling}
+	\label{fig:localization_system_voxel-grid-downsampling}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/voxel_grid.php}}
 %}
@@ -172,18 +168,18 @@ Random sampling \cite{Vitter1984} is a fast downsampling method that randomly se
 
 \subsection{Outlier removal}
 
-Laser range finders can perform measurements with millimeter accuracy, but they have some limitations that can lead to the creation of outliers \cite{Sotoodeh2006}.
+Some depth sensors can perform measurements with high accuracy, but they have some limitations that can lead to the creation of outliers \cite{Sotoodeh2006}.
 
-One of those limitations can produce shadow points around objects boundaries. This is due to the fact that a portion of the laser beam may hit the object boundary and other part may hit other areas in the object background. And given that most laser range finders use a weighted sum of several beams, this can yield measurements that are not associated with any real object (outliers). \Cref{fig:point-cloud-algorithms_voxel-grid-downsampling} shows a considerable amount of these shadow points close to the front table legs. Another issue is related to the angle in which the laser beam hits the objects. If the incidence angle is very low, then it may be difficult to detect if the beam had ambient reflections. This can significant increase the measurements noise or even lead to the creation of outliers. Other less common problem is associated with the material properties of the surfaces. For example, objects with very high or very low reflectance, such as metals or glass, can increase the measurements noise. Moreover depending on the combination of surface geometry, material and incidence angle, some objects may even be undetectable by laser range finders.
+One of those limitations can produce shadow points around objects boundaries. This is due to the fact that a portion of the laser beam may hit the object boundary and other part may hit other areas in the object background. And given that most laser range finders use a weighted sum of several beams, this can yield measurements that are not associated with any real object (outliers). \Cref{fig:localization_system_voxel-grid-downsampling} shows a considerable amount of these shadow points close to the front table legs. Another issue is related to the angle in which the depth sensor sees the objects areas. If the incidence angle is very low, then it may be difficult to compute its distance and detect if the beam had ambient reflections. This can significant increase the measurements noise or even lead to the creation of outliers. Other common problem is associated with the material properties of the surfaces. For example, objects with very high or very low reflectance, such as metals or glass, can increase the measurements noise. Moreover depending on the combination of surface geometry, material and incidence angle, some objects may even be undetectable by depth sensors.
 
-Given the negative effect that outliers have in object segmentation and registration algorithms, they should be removed in a preprocessing stage. There are several approaches to perform outlier detection and removal \cite{YangZhang2010}, ranging from simple distance thresholds to more robust statistical analysis. The next sections present some of then that can be useful in a localization system.
+Given the negative effect that outliers have in surface normal computation and registration algorithms, they should be removed in a preprocessing stage. There are several approaches to perform outlier detection and removal \cite{YangZhang2010}, ranging from simple distance thresholds to more robust statistical analysis. The next sections present some of then that can be useful in a localization system.
 
 
 \subsubsection{Distance filter}
 
-Given that laser range finders have a maximum distance for their measurements, it is wise to remove points that are close or beyond this limit. Moreover, it may be useful to remove points that are too close to the sensor, because they may belong to the robot itself and not the environment.
+Given that depth sensors have a maximum recommended distance for their measurements, it is wise to remove points that are close or beyond this limit. Moreover, it may be useful to remove points that are too close to the sensor, because they may belong to the robot itself and not the environment.
 
-This can be achieved by applying a minimum and maximum threshold to the distances returned by the laser sensor (before converting then to Euclidean points).
+This can be achieved by applying a minimum and maximum threshold to the distances returned by the depth sensor.
 
 
 \subsubsection{Passthrough filter}
@@ -202,29 +198,26 @@ The radius outlier removal filter deletes points that don't have a minimum numbe
 
 The statistical outlier removal filter \cite{Rusu2010a} performs a global analysis of the distances between points and discards the ones that don't follow the global distance distribution.
 
-It is a robust filter that adapts itself to the point cloud density and is very effective in removing shadow points. To do so, it computes the mean distance that each point has to a given number of neighbors and builds a global distance distribution (example in \cref{fig:point-cloud-algorithms_statistical-outlier-removal}). Then, assuming that the distribution is Gaussian, it discards the points that have a distance higher than a given threshold (that is a percentage of the standard deviation of the distance distribution).
+It is a robust filter that adapts itself to the point cloud density and is very effective in removing shadow points. To do so, it computes the mean distance that each point has to a given number of neighbors and builds a global distance distribution (example in \cref{fig:localization_system_statistical-outlier-removal}). Then, assuming that the distribution is Gaussian, it discards the points that have a distance higher than a given threshold (that is a percentage of the standard deviation of the distance distribution).
 
 %\afterpage{
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{localization-system/statistical-outlier-removal}
 	\caption[Statistical outlier removal filter]{Statistical outlier removal filter\protect\footnotemark}
-	\label{fig:point-cloud-algorithms_statistical-outlier-removal}
+	\label{fig:localization_system_statistical-outlier-removal}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/statistical_outlier.php}}
 %}
 
 
-\subsection{Surface and object reconstruction and resampling}
+\subsection{Surface and object reconstruction and resampling}\label{subsec:localization_system_surface-reconstruction-resampling}
 
-Depending on the level of sensor noise and amount of outliers present in a given point cloud, it may be necessary to employ surface reconstruction techniques to fill gaps in sensor data or correct measurements errors. The next sections introduce some of the most common techniques to achieve these goals.
+Depending on the level of sensor noise and amount of outliers present in a given point cloud, it may be necessary to employ surface reconstruction techniques to fill gaps in sensor data or correct measurements errors.
 
+Moving least squares \cite{Alexa2003} is a surface reconstruction algorithm that uses higher order bivariate polynomials to fit surfaces to a given set of points. It can be used to fill possible gaps in sensor data, smooth the point cloud (shown in \cref{fig:localization_system_mls-smoothing}), refine surface normals (shown in \cref{fig:localization_system_mls-nomal-refinement}) and perform downsampling or upsampling.
 
-\subsubsection{Moving Least Squares}\label{sec:point-cloud-algorithms_mls}
-
-Moving least squares \cite{Alexa2003} is a surface reconstruction algorithm that uses higher order bivariate polynomials to fit surfaces to a given set of points. It can be used to fill possible gaps in sensor data, smooth the point cloud (shown in \cref{fig:point-cloud-algorithms_mls-smoothing}), refine surface normals (shown in \cref{fig:point-cloud-algorithms_mls-nomal-refinement}) and perform downsampling or upsampling.
-
-Surface reconstruction can also be useful when the point cloud is built from several laser scans with different origins and registered with some alignment errors. In \cref{fig:point-cloud-algorithms_mls-nomal-refinement} can be seen that the normal estimation is not very accurate in the regions of overlap between different scans. This can be solved by estimating the normals using the surfaces computed by the moving least squares algorithm instead of using the point's neighbors.
+Surface reconstruction can also be useful when the point cloud is built from several ambient scans with different origins and registered with some alignment errors. In \cref{fig:localization_system_mls-nomal-refinement} can be seen that the normal estimation is not very accurate in the overlapping regions between different scans. This can be solved by estimating the normals using the surfaces computed by the moving least squares algorithm instead of using the point's neighbors.
 
 
 %\afterpage{
@@ -232,7 +225,7 @@ Surface reconstruction can also be useful when the point cloud is built from sev
 	\centering
 	\includegraphics[width=0.57\textwidth]{localization-system/mls-smoothing}
 	\caption[Surface smoothing using moving least squares algorithm]{Surface smoothing using moving least squares algorithm\protect\footnotemark}
-	\label{fig:point-cloud-algorithms_mls-smoothing}
+	\label{fig:localization_system_mls-smoothing}
 \end{figure}
 \footnotetext{\url{http://pointclouds.org/documentation/tutorials/resampling.php}}
 %}
@@ -242,7 +235,7 @@ Surface reconstruction can also be useful when the point cloud is built from sev
 	\centering
 	\includegraphics[width=0.57\textwidth]{localization-system/mls-nomal-refinement}
 	\caption[Surface normals refinement using moving least squares algorithm]{Surface normals refinement using moving least squares algorithm \cite{Rusu2010a}}
-	\label{fig:point-cloud-algorithms_mls-nomal-refinement}
+	\label{fig:localization_system_mls-nomal-refinement}
 \end{figure}
 %}
 
@@ -250,26 +243,26 @@ Surface reconstruction can also be useful when the point cloud is built from sev
 
 \section{Normal estimation}
 
-Most of feature detection, description and matching algorithms along with some registration methods rely on the point’s surface normal and curvature. As such, it was developed a robust 3 DoF normal estimation algorithm that uses Random Sample Consensus (RANSAC) [14] to fit lines to the sensor data and then orient the normals to the sensors origin. For 6 DoF data, the Principal Component Analysis (PCA) [15] or the Moving Least Squares (MLS) [16] approaches available in PCL can be used.
+Most of feature detection, description and matching algorithms along with some registration methods rely on the point's surface normal and curvature. These algorithms analyze the neighborhood of a given point in order to compute the line / surface normal, and as such, the correct specification of what points should be included in the estimation is crucial to achieve accurate results. This depends on the environment geometry and the level of detail that is required, and is usually done by specifying a radius distance (example in \cref{fig:localization_system_surface-normals}) or by limiting the number of neighboring points to use.
+
+The next sections describe some of the methods that are supported for 3/6 \gls{dof} sensor data.
 
 
-\subsection{3D surface normal estimation}
+\subsection{Line normal estimation}
 
-Surface normals provide information about the orientation of their underlying geometry and are widely used as the basis for other point descriptors. They can be computed using plane fitting methods or using more advanced techniques such as the one presented in \cref{sec:point-cloud-algorithms_mls}.
+Line normals give information about the spatial disposition and orientation of a given cluster of collinear points. They can be computed using \gls{ransac} methods \cite{Fischler1981} and their orientation can be corrected using the sensor's origin.
 
-These algorithms analyze the neighborhood of a given point in order to compute the surface normal, and as such, the correct specification of what points should be included in the estimation is crucial to achieve accurate results. This depends on the environment geometry and the level of detail that is required, and is usually done by specifying a radius distance (example in \cref{fig:point-cloud-algorithms_surface-normals}) or by limiting the number of neighbor points to use.
+
+\subsection{Surface normal estimation}
+
+Surface normals provide information about the orientation of the underlying geometry of a given point cluster. They can be computed using plane fitting methods or using more advanced techniques such as \gls{pca} \cite{Jolliffe2002} or the one presented in \cref{subsec:localization_system_surface-reconstruction-resampling}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{localization-system/surface-normals}
 	\caption[Point neighborhood for normal estimation]{Point neighborhood for normal estimation \cite{Rusu2010a}}
-	\label{fig:point-cloud-algorithms_surface-normals}
+	\label{fig:localization_system_surface-normals}
 \end{figure}
-
-
-\subsection{2D normal line normal estimation}
-
-FF.
 
 
 
