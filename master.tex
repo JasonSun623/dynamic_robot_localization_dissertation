@@ -38,9 +38,9 @@
 %---------------------------------------------------------------------------------------------------
 
 \begin{Prolog}
-  \include{tex/prolog/abstract}
-  \include{tex/prolog/acknowledgements}
-  \include{tex/prolog/quote}
+  \input{tex/prolog/abstract}
+  \input{tex/prolog/acknowledgements}
+  \input{tex/prolog/quote}
   \cleardoublepage
   \pdfbookmark[0]{Table of Contents}{contents}
   \tableofcontents
@@ -64,13 +64,12 @@
 
 \StartBody
 
-\include{tex/chapters/introduction}
-\include{tex/chapters/localization_methods}
-\include{tex/chapters/relevant_software_hardware_technologies}
-%\include{tex/chapters/point_cloud_algorithms}
-\include{tex/chapters/localization_system}
-\include{tex/chapters/localization_system_evaluation}
-\include{tex/chapters/conclusions}
+\input{tex/chapters/introduction}
+\input{tex/chapters/localization_methods}
+\input{tex/chapters/relevant_software_hardware_technologies}
+\input{tex/chapters/localization_system}
+\input{tex/chapters/localization_system_evaluation}
+\input{tex/chapters/conclusions}
 
 
 
@@ -79,7 +78,7 @@
 %---------------------------------------------------------------------------------------------------
 
 \appendix
-\include{tex/appendices/appendix1}
+\input{tex/appendices/appendix1}
 
 \PrintBib{references/references}
 %\PrintIndex

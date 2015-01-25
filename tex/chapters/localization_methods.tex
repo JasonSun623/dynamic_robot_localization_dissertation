@@ -136,11 +136,11 @@ It is a simplification of the method that will be presented in the next section,
 
 Point cloud localization methods can be used to perform relative localization by finding the best point cloud match between the environment and the know map (\cref{fig:localization-methods_icp} shows its application to small objects). These methods require a 2D or 3D representation of the environment and tend to be used in conjunction with proprioceptive methods (to have an estimation of movement), and also with probabilistic methods (when the point cloud acquisition location is not known).
 
-One of the most used algorithms for 3D point cloud matching is the \gls{icp} \cite{Besl1992,Jez2008,Zhang1992,Bouaziz2013,Chetverikov2002,Djehaich2013,Zhou2011}. It is an iterative algorithm that finds the translation and rotation transformations that minimizes the distances of the corresponding points on both clouds.
+One of the most used algorithms for 3D point cloud matching is the \gls{icp} \cite{Besl1992,Jez2008,Zhang1992,Bouaziz2013,Chetverikov2002,Djehaich2013,Zhou2011}. It is an iterative algorithm that finds the translation and rotation transformation that minimizes the distances of the corresponding points on both clouds. If finishes when the matching error is below a given threshold or when the maximum allowed iterations is reached.
 
 There are several variants that optimize different parts of the algorithm \cite{Rusinkiewicz2001}.
 
-The main steps for each iteration of \gls{icp} algorithm are presented below.
+The main steps for each iteration of the \gls{icp} algorithm are presented below.
 
 \begin{enumerate}
 	\item  Selection of points in one or both point clouds (source and reference clouds)
