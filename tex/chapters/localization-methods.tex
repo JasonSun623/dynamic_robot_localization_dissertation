@@ -26,7 +26,7 @@ Odometry estimates the current pose by integrating the velocity of the robot ove
 \afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics*[width=0.5\textwidth]{localization_methods/optic_encoders}
+	\includegraphics*[width=0.5\textwidth]{localization-methods/optic-encoders}
 	\caption[Different types of optical encoders used to measure distances]{Different types of optical encoders used to measure distances\protect\footnotemark}
 	\label{fig:localization-methods_optic-encoders}
 \end{figure}
@@ -67,7 +67,7 @@ Given that the correct measurement of the distances to the satellites relies in 
 %\afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{localization_methods/gnss}
+	\includegraphics[width=0.8\textwidth]{localization-methods/gnss}
 	\caption[Trilateration technique in a global localization system]{Trilateration technique in a global localization system\protect\footnotemark}
 	\label{fig:localization-methods_gnss}
 \end{figure}
@@ -115,7 +115,7 @@ Although this method is less accurate than the more recent global localization s
 %\afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.45\textwidth]{localization_methods/celestial_navigation}
+	\includegraphics[width=0.45\textwidth]{localization-methods/celestial-navigation}
 	\caption[Circle of position in celestial navigation]{Circle of position in celestial navigation\protect\footnotemark}
 	\label{fig:localization-methods_celestial-navigation}
 \end{figure}
@@ -157,7 +157,7 @@ The main steps for each iteration of the \gls{icp} algorithm are presented below
 %\afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.75\textwidth]{localization_methods/icp}
+	\includegraphics[width=0.75\textwidth]{localization-methods/icp}
 	\caption[\glsentrytext{icp} point cloud matching]{\glsentrytext{icp} point cloud matching\protect\footnotemark}
 	\label{fig:localization-methods_icp}
 \end{figure}
@@ -180,13 +180,13 @@ It starts by randomly distributing the state particles on the map, and over time
 	\centering
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
-		\animategraphics[width=\textwidth,loop,autoplay]{4}{localization_methods/mcl/frame-}{0}{39}
+		\animategraphics[width=\textwidth,loop,autoplay]{4}{localization-methods/mcl/frame-}{0}{39}
 		\caption{\glsentrytext{mcl} particle distribution animation}
 		\label{fig:localization-methods_mcl1}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
-		\includegraphics*[width=\textwidth]{localization_methods/mcl_2}
+		\includegraphics*[width=\textwidth]{localization-methods/mcl-2}
 		\caption{\glsentrytext{mcl} redistribution of particles}
 		\label{fig:localization-methods_mcl2}
 	\end{minipage}
@@ -196,13 +196,13 @@ It starts by randomly distributing the state particles on the map, and over time
 	\centering
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{localization_methods/mcl_3}
+		\includegraphics[width=\textwidth]{localization-methods/mcl-3}
 		\caption{\glsentrytext{mcl} position refinement}
 		\label{fig:localization-methods_mcl3}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{.49\textwidth}
 		\centering
-		\includegraphics*[width=\textwidth]{localization_methods/mcl_4}
+		\includegraphics*[width=\textwidth]{localization-methods/mcl-4}
 		\caption{\glsentrytext{mcl} position estimation}
 		\label{fig:localization-methods_mcl4}
 	\end{minipage}
@@ -224,7 +224,7 @@ In \cref{fig:localization-methods_ukf} can be seen that the \gls{ukf} estimated 
 %\afterpage{
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{localization_methods/ukf}
+	\includegraphics[width=0.9\textwidth]{localization-methods/ukf}
 	\caption[Unscented Kalman Filter]{Unscented Kalman Filter\protect\footnotemark}
 	\label{fig:localization-methods_ukf}
 \end{figure}
@@ -244,13 +244,13 @@ An example of the position estimation can be seen in the figures below. \Cref{fi
 	\centering
 	\begin{minipage}[h]{.495\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{localization_methods/pm_1}
+		\includegraphics[width=\textwidth]{localization-methods/pm-1}
 		\caption{Position estimates}
 		\label{fig:localization-methods_pm-1}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{.495\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{localization_methods/pm_2}
+		\includegraphics[width=\textwidth]{localization-methods/pm-2}
 		\caption{Positions associated error}
 		\label{fig:localization-methods_pm-2}
 	\end{minipage}
