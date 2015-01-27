@@ -54,7 +54,7 @@ For \glspl{lidar}, the system provides a \emph{sensor\_msgs::LaserScan}\footnote
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{localization-system/laser-assembly}
-	\caption{Laser assembly (red points) with tilting platform}
+	\caption{Laser scans assembled with tilting platform (red points)}
 	\label{fig:localization-system_section_laser_assembly}
 \end{figure}
 
@@ -299,9 +299,9 @@ The localization system can use most of the keypoint descriptors available in \g
 Point cloud registration is the process of finding the transformation matrix (usually translation and rotation only) that when applied to a given ambient cloud will minimize an error metric (such as the mean square error of the ambient point cloud in relation to a given reference point cloud). Several approaches were suggested over the years and they can be categorized as point or feature cloud registration.
 
 
-\subsection{Initial alignment with keypoints descriptor matching}
+\subsection{Initial alignment with keypoints descriptor matching}\label{subsec:localization-system_feature-registration}
 
-Feature registration is the process of matching keypoint descriptors in order to find an initial alignment between two point clouds. The proposed localization system uses a feature registration method similar to the \gls{sacia} algorithm presented in \cite{Rusu2009}. It uses a \gls{ransac} approach to select the best registration transformation after a given number of iterations. In each iteration a subsample of randomly selected descriptors from the ambient cloud is retrieved. Then for each of these descriptors, $k$ best matching descriptors in the reference point cloud are searched and one of them is chosen randomly (this improves robustness against noise in the sensor data and changes in the environment that are not yet integrated into the map). Later after having filtered these correspondences between ambient and reference descriptors, the registration matrix is computed. If this registration matrix results in a point cloud overlap that has a minimum of inliers percentage (a point in the ambient cloud is an inlier if it has a point in the reference cloud closer than a given distance), then it is considered an acceptable initial pose and is saved (to allow a localization supervisor to analyze the distribution of the acceptable initial poses). In the end of all iterations, the best initial pose (if found) is refined with a point cloud registration algorithm.
+Feature registration is the process of matching keypoint descriptors in order to find an initial alignment between two point clouds. The proposed localization system uses a feature registration method similar to the \gls{sacia} algorithm presented in \cite{Rusu2009}. It uses a \gls{ransac} approach to select the best registration transformation after a given number of iterations. In each iteration a subsample of randomly selected descriptors from the ambient cloud is retrieved. Then for each of these descriptors, $k$ best matching descriptors in the reference point cloud are searched (using a kd-tree) and one of them is chosen randomly (this improves robustness against noise in the sensor data and changes in the environment that are not yet integrated into the map). Later after having filtered these correspondences between ambient and reference descriptors, the registration matrix is computed. If this registration matrix results in a point cloud overlap that has a minimum of inliers percentage (a point in the ambient cloud is an inlier if it has a point in the reference cloud closer than a given distance), then it is considered an acceptable initial pose and is saved (to allow a localization supervisor to analyze the distribution of the acceptable initial poses). In the end of all iterations, the best initial pose (if found) is refined with a point cloud registration algorithm.
 
 
 \subsection{Final alignment with point cloud error minimization}
@@ -316,9 +316,19 @@ Detecting which points of the environment are not part of the reference point cl
 
 A given ambient point can be classified as outlier if the corresponding closest point in the reference cloud is farther way than a given distance threshold. These calculation can be done efficiently by using the reference point cloud kd-tree. In \cref{fig:localization-system_outlier-detection} is an example of a ambient point cloud retrieved with a tilting laser and registered with an indoor map (yellow points). After registration, the ambient point cloud was split into inliers (red points) and outliers (blue points).
 
-\begin{figure}[H]
+
+\begin{figure}
 	\centering
-	\includegraphics[width=0.95\textwidth]{localization-system/outlier-detection}
+	\begin{subfigure}[h]{0.497\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{localization-system/outlier-detection-gazebo}
+		\caption{Gazebo overview}
+	\end{subfigure}
+	\begin{subfigure}[h]{0.497\textwidth}
+		\centering
+		\includegraphics[width=0.94\textwidth]{localization-system/outlier-detection}
+		\caption{RViz overview}
+	\end{subfigure}\hfill
 	\caption{Point cloud registration with outlier detection}
 	\label{fig:localization-system_outlier-detection}
 \end{figure}

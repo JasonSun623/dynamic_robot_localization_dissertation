@@ -4,6 +4,9 @@
 
 \section*{}
 
-The implementation of an efficient and reliable self-localization method will allow the deployment of robots in dynamic environments to help human co-workers improve the overall productivity and reduce the time and costs of manufacturing.
+The proposed localization system is able to maintain pose tracking with less than one cm in translation error at several velocities even in cluttered and dynamic environments. Moreover, when tracking is lost or no initial pose is given, the system is able to find a valid global pose estimate by switching to more robust registration algorithms that use feature matching. This approach achieved fast pose tracking and reliable initial pose estimation while also providing the distribution of the accepted initial poses before registration refinement, which can be very valuable information for a navigation supervisor when the robot is in an ambiguous region that can be registered in similar zones in the known map. The system also allows dynamic reconfiguration of the number of laser scans to assemble in order to mitigate laser measurement errors and can adapt its rate of operation according to the robot estimated velocity.
 
-There are several approaches that can be used to estimate a robot pose according to the target environment and accuracy requirements. This dissertation tackled this problem by providing a modular and configurable localization system that can be used for pose tracking and initial localization estimation.
+The sub centimeter accuracy achieved by the proposed localization system along with the dynamic map update capability and the need of no artificial landmarks will allow the fast deployment of mobile manipulators capable to operate safely and accurately in cluttered environments.
+
+
+The current implementation of the self-localization system can be further improved with loop closing algorithms \cite{Grisetti2012} and \gls{gpu} support \cite{Tamaki2010} in order to become a \gls{slam} system and allow the creation of high accuracy environment maps in real time. Moreover, it cloud be extended to support image based localization \cite{Labb2014} and semantic perception \cite{Rusu2010a} and mapping of the environment \cite{Santos2013}.
