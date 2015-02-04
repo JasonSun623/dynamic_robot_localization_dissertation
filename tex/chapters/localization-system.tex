@@ -155,11 +155,11 @@ The point cloud downsampling is achieved by replacing each voxel cluster with a 
 	\centering
 	\begin{minipage}[h]{0.495\textwidth}
 		\centering
-			\includegraphics[width=0.98\textwidth]{localization-system/voxel-grid-downsampling-1}
+			\includegraphics[width=0.995\textwidth]{localization-system/voxel-grid-downsampling-1}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{.495\textwidth}
 		\centering
-	\includegraphics[width=0.98\textwidth]{localization-system/voxel-grid-downsampling-2}
+	\includegraphics[width=0.995\textwidth]{localization-system/voxel-grid-downsampling-2}
 	\end{minipage}
 	\caption[Table point cloud before (left) and after (right) voxel grid downsampling]{Table point cloud before (left) and after (right) voxel grid downsampling\protect\footnotemark}
 	\label{fig:localization_system_voxel-grid-downsampling}
@@ -172,6 +172,13 @@ The point cloud downsampling is achieved by replacing each voxel cluster with a 
 \subsubsection{Random sampling}
 
 Random sampling \cite{Vitter1984} is a fast downsampling method that randomly selects points from the input cloud until the specified number of samples is reached. This has the advantage of using real measures instead of downsampled approximations, but also means it is more sensible to sensor measurements noise. However, for outdoor environments or very complex scenes, using the real measurements can be preferable than using cluster centroids because the voxels may not have the necessary resolution or may have a prohibitive computational cost.
+
+
+\subsubsection{Covariance sampling}
+
+Covariance sampling \cite{Gelfand} is a subsampling method that aims to create a stable downsampled point cloud to be registered with \gls{icp} algorithms. It incrementally builds the downsampled point cloud while trying to keep the 6 eigenvalues of the covariance matrix as close to each other as possible.
+
+The resultant point cloud has the desired number of points and is stable enough to be matched with \gls{icp} point to plane algorithms.
 
 
 \subsection{Outlier removal}
@@ -306,7 +313,7 @@ Feature registration is the process of matching keypoint descriptors in order to
 
 \subsection{Final alignment with point cloud error minimization}
 
-Point cloud registration algorithms such as \gls{icp} \cite{Besl1992} (with its several known variations \cite{Rusinkiewicz2001,Pomerleau2013} like \gls{icp} point-to-point, \gls{icp} point-to-point non-linear, \gls{icp} point-to-plane and generalized \gls{icp} \cite{Segal2009}) and the \gls{ndt} \cite{Magnusson2009} are among the most popular algorithms to register point clouds. They can achieve very accurate cloud registration but they require an approximate initial pose for the registration to successfully converge to a correct solution (otherwise they may achieve only partial cloud overlap or even fail to converge to a valid solution).
+Point cloud registration algorithms (introduced in \cref{subsec:localization-methods_point-cloud-methods}) such as \gls{icp} \cite{Besl1992} (with its several known variations \cite{Rusinkiewicz2001,Pomerleau2013} like \gls{icp} point-to-point, \gls{icp} point-to-point non-linear, \gls{icp} point-to-plane and generalized \gls{icp} \cite{Segal2009}) and the \gls{ndt} \cite{Magnusson2009} are among the most popular algorithms to register point clouds. They can achieve very accurate cloud registration but they require an approximate initial pose for the registration to successfully converge to a correct solution (otherwise they may achieve only partial cloud overlap or even fail to converge to a valid solution).
 
 
 

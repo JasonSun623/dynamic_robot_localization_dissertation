@@ -132,7 +132,7 @@ In these methods a database of markers / environment geometry is stored along wi
 It is a simplification of the method that will be presented in the next section, and it is useful for environments that have unique geometry in key positions of the navigation map.
 
 
-\subsection{Point cloud methods}
+\subsection{Point cloud methods}\label{subsec:localization-methods_point-cloud-methods}
 
 Point cloud localization methods can be used to perform relative localization by finding the best point cloud match between the environment and the know map (\cref{fig:localization-methods_icp} shows its application to small objects). These methods require a 2D or 3D representation of the environment and tend to be used in conjunction with proprioceptive methods (to have an estimation of movement), and also with probabilistic methods (when the point cloud acquisition location is not known).
 
@@ -285,9 +285,6 @@ For outside tasks, a \gls{gnss} approach can give accurate localization estimati
 		\hline
 		Odometry			& Any		& Low		& Low		& Low		& Position estimation is affected by cumulative errors \\
 		Dead reckoning		& Any		& Low		& Low		& Low		& Pose estimation is affected by cumulative errors \\
-		\gls{lidar}			& Any		& High		& Medium	& High		& Needs an auxiliary method to perform global localization \\
-		\gls{radar}			& Any		& Medium	& High		& High		& Needs an auxiliary method to perform global localization \\
-		\gls{sonar}			& Any		& Medium	& Medium	& High		& Needs an auxiliary method to perform global localization \\
 		\gls{gnss}			& Outside	& Medium	& Low		& Low		& Requires a clear line of sight to at least 3 satellites \\
 		Signal strength		& Any		& Low		& Low		& Low		& Requires an accurate model for the signal attenuation \\
 		Celestial			& Outside	& Low		& Low		& Low		& Requires a clear view of the celestial objects and a nautical almanac \\
