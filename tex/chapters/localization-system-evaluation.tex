@@ -186,63 +186,62 @@ The robot movement paths present in the next sections illustrate the synchronize
 \clearpage
 \subsection{Jarvis robot tests}
 
-\input{tex/chapters/localization-system-evaluation/jarvis-robot-circular-path-5cm-per-sec-velocity-1-scan.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-robot-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex}
-\clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-robot-circular-path-5cm-per-sec-velocity-1-scan.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-robot-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex} \clearpage
+
 
 \subsection{Jarvis simulator tests}
 
-
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-5cm-per-sec-velocity-2-scans.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-50cm-per-sec-velocity-2-scans.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-100-per-sec-velocity-1-scan.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-50-30-50-20cm-per-sec-velocity-2-scans.tex}
-\clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-200-30-200-30cm-per-sec-velocity-2-scans.tex}
-\clearpage
-
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=\textwidth]{localization-system-evaluation/jarvis-circular-path-50cm-per-sec-velocity-1-scan-stage}
-%	\caption{Rounded path using simulated Jarvis robot at 50 cm/s}
-%	\label{fig:localization-system-evaluation_jarvis-circular-path-50cm-per-sec-velocity-1-scan-stage}
-%\end{figure}
-%
-%\begin{figure}[H]
-%	\centering
-%	\includegraphics[width=\textwidth]{localization-system-evaluation/jarvis-complex-path-with-outliers-200cm-per-sec-velocity-2-scans-stage}
-%	\caption{Complex path using simulated Jarvis robot at 200-30-200-30 cm/s}
-%	\label{fig:localization-system-evaluation_jarvis-complex-path-with-outliers-200cm-per-sec-velocity-2-scans-stage}
-%\end{figure}
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-5cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-50cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-100-per-sec-velocity-1-scan.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-50-30-50-20cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-200-30-200-30cm-per-sec-velocity-2-scans.tex} \clearpage
 
 
 \subsection{Guardian simulator tests}
 
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-static-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-static-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-dynamic-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
+\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-dynamic-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
+
+
+\subsection{Initial pose estimation tests}
+
+\Crefrange{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}{fig:localization-system-evaluation_jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-2} show the accepted initial pose estimations using the global localization subsystem presented in \cref{subsec:localization-system_feature-registration}.
+
+The blue circles presented in \cref{fig:localization-system-evaluation_jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-1} represent the keypoints of the ambient point cloud in the robot start up position, while the violet circles are the reference point cloud keypoints. The green circles are the ambient point cloud laser measurements after performing the initial pose estimation and registration refinement.
+
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{localization-system-evaluation/ship-interior-cluttered-dinamic-30cm-per-sec}
-	\caption{Wall path using Guardian robot at 30 cm/s in dynamic environment}
-	\label{fig:localization-system-evaluation_ship-interior-cluttered-dinamic-30cm-per-sec}
+	\includegraphics[width=0.6\textwidth]{localization-system-evaluation/tests-3dof/initial_pose_estimation/ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}
+	\caption{Initial pose estimation using feature matching in Guardian static environment}
+	\label{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{localization-system-evaluation/ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}
-	\caption{Initial pose estimation using feature matching}
-	\label{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}
+	\includegraphics[width=0.7\textwidth]{localization-system-evaluation/tests-3dof/initial_pose_estimation/jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-1}
+	\caption{Initial pose estimation using feature matching in Jarvis environment}
+	\label{fig:localization-system-evaluation_jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{localization-system-evaluation/tests-3dof/initial_pose_estimation/jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-2}
+	\caption{Initial pose estimation distribution in Jarvis environment}
+	\label{fig:localization-system-evaluation_jarvis-initial-pose-estimation-sift-fpfh-ransac-gicp-2}
 \end{figure}
 
 
 
 \subsection{Results discussion}
 
-The results achieved with the proposed localization system showed sub centimeter pose tracking and reliable initial pose estimation. As expected, the simulator tests at lower velocities had less mean error than the ones at higher speeds while requiring slightly less computation time. Also, the tests on the Jarvis robot had more mean error than the corresponding simulator tests. This is due to laser scan deformation that couldn't be simulated and also because the simulators were only able to add Gaussian noise to the laser measurements. To compensate the simulators limitations, the error in odometry and laser measurements in simulation was deliberately higher than the expected values for the physical platforms. This explains why the localization system needed more time to perform the pose estimations in the simulator tests. It can also be seen that adding unknown objects increased the mean error and required computation time while adding dynamic objects increased these values even further (given that a moving object appears in a laser scan as a deformed version of its static shape).
+The results achieved with the proposed 3 \gls{dof} localization system showed sub centimeter pose tracking and reliable initial pose estimation. As expected, the simulator tests at lower velocities had less mean error than the ones at higher speeds while requiring slightly less computation time. Also, the tests on the Jarvis robot had more mean error than the corresponding simulator tests. This is due to laser scan deformation that couldn't be simulated and also because the simulators were only able to add Gaussian noise to the laser measurements. To compensate the simulators limitations, the error in odometry and laser measurements in simulation was deliberately higher than the expected values for the physical platforms. This explains why the localization system needed more time to perform the pose estimations in the simulator tests. It can also be seen that adding unknown objects increased the mean error and required computation time while adding dynamic objects increased these values even further (given that a moving object appears in a laser scan as a deformed version of its static shape).
 
 The ability to switch registration algorithms at runtime based on the quality of the estimated pose proved to be an efficient and flexible architecture choice, since it allowed high precision pose tracking with fast registration algorithms and occasional pose tracking recovery with more robust methods (which happened more often in the tests at higher velocities, in which the odometry was significantly worse). The initial pose estimation using feature matching was very reliable and successfully found the robot location even in low feature surroundings (as can be seen in \cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}). Moreover, the output of the accepted initial pose estimations allows the detection of similar map locations by a navigation supervisor, which can then plot a path to disambiguate the initial pose guess and avoid dangerous operations at a wrong position. The statistical error of the lasers was mitigated by merging several laser scans before performing a point cloud registration. This is based on the fact that a considerable amount of laser noise follows a Gaussian distribution, and as such, the effective measurement error can be significantly reduced by retrieving the centroids of a voxel grid applied over the laser data. However, assembling too much laser scans can lead to worse pose tracking if the robot is moving at high speeds, because the lasers would be projected into the map frame with a high position error (because odometry accuracy decreases when the robot speed increases and the localization system will not correct it). As such, the laser assembler has dynamic reconfiguration of the number of laser scans to assemble (or the period of assembly time) based on the robot estimated velocity. This feature besides improving the pose tracking it also allows a navigation supervisor to regulate the rate at which the localization system operates. This can be very useful for mobile manipulators because the localization system can have a high update rate when the robot is moving fast and a low update rate when it is moving slower or when it is stopped. This allows a more efficient usage of the platform hardware resources while also improving the localization system accuracy. The dynamic map update capability helped lowering the point cloud registration time while also increasing the accuracy by a small margin. Moreover, it improved the robustness of the initial pose estimations and allowed better path planning for the navigation system.
 
