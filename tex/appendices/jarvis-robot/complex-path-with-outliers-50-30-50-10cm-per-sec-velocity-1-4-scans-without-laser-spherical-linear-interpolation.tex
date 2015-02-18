@@ -1,0 +1,216 @@
+\subsection{Complex path using the Jarvis robot at 50-30-50-10 cm/s without laser spherical linear interpolation}\label{subsec:appendix-a_jarvis-robot-tests_complex-path-using-the-jarvis-robot-at-50-30-50-10-cm-s-without-laser-spherical-linear-interpolation}
+
+The figures in this section show the results of a test performed with same configurations as the previous section, but now without using laser spherical linear interpolation.
+
+
+%Animated paths
+\begin{figure}[H]
+	\centering
+	\animategraphics[width=\textwidth,loop,autoplay,controls]{1}{appendices/tests-3dof/jarvis-robot/complex-path-with-outliers-50-30-50-10cm-per-sec-velocity-1-4-scans/images-drl/image}{1}{60}
+	\caption{Laser scans from previous test using laser spherical linear interpolation}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\animategraphics[width=\textwidth,loop,autoplay,controls]{1}{appendices/tests-3dof/jarvis-robot/\currfilebase/images-drl/image}{1}{60}
+	\caption{Laser scans without using laser spherical linear interpolation}
+\end{figure}
+
+
+%Laser assembly
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.99\textwidth]{appendices/tests-3dof/jarvis-robot/complex-path-with-outliers-50-30-50-10cm-per-sec-velocity-1-4-scans/drl-cumulative}
+	\caption{Laser scans assembled in the previous test using laser spherical linear interpolation}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.99\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/drl-cumulative}
+	\caption{Laser scans assembled without using laser spherical linear interpolation}
+\end{figure}
+
+
+
+%Paths
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/robot-movement-path-with-odometry}
+	\caption{Poses estimated by the ground truth, localization system and odometry}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/robot-movement-path-position-evolution-x}
+	\caption{Evolution of x position over time}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/robot-movement-path-position-evolution-y}
+	\caption{Evolution of y position over time}
+\end{figure}
+
+
+%Distance derivatives
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/robot-movement-path-position-differences}
+	\caption{Distance traveled between consecutive pose estimations}
+\end{figure}
+
+
+%Angular derivatives
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/robot-movement-path-angular-differences}
+	\caption{Angular differences between consecutive pose estimations}
+\end{figure}
+
+
+%Translation errors
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-error-millimeters}
+	\caption{Localization system translation errors}
+\end{figure}
+
+
+%Translation errors components
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-error-components-millimeters}
+	\caption{Localization system translation errors components}
+\end{figure}
+
+
+%Translation errors distributions
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.73\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-error-millimeters-distributions}
+	\caption{Probability distributions for the localization system translation errors}
+\end{figure}
+
+
+
+%Angular errors axis
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-error-axis}
+	\caption{Localization system rotation errors axis}
+\end{figure}
+
+
+%Angular errors
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-error-degrees}
+	\caption{Localization system rotation errors}
+\end{figure}
+
+
+%Angular errors distributions
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-error-degrees-distributions}
+	\caption{Probability distributions for the localization system rotation errors}
+\end{figure}
+
+
+%Translation corrections
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-correction-millimeters}
+	\caption{Translation corrections performed by the localization system}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-corrections-components-millimeters}
+	\caption{Translation corrections components performed by the localization system}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/translation-correction-millimeters-distributions}
+	\caption{Probability distributions for the translation corrections performed by the localization system}
+\end{figure}
+
+
+%Rotation corrections axis
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-correction-axis}
+	\caption{Rotation corrections (axis) performed by the localization system}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-correction-degrees}
+	\caption{Rotation corrections performed by the localization system}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.69\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/rotation-correction-degrees-distributions}
+	\caption{Probability distributions for the rotation corrections performed by the localization system}
+\end{figure}
+
+
+%Registered points (inliers / outliers)
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/pointclouds-size}
+	\caption{Point clouds size in several of the localization system processing stages}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/registered-points}
+	\caption{Number of registered points}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.71\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/outlier-percentage-distributions}
+	\caption{Probability distributions for the ambient point cloud outlier percentage}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/registered-points-angular-distribution}
+	\caption{Angular distribution percentage of registered points}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/root-mean-square-error-inliers}
+	\caption{Root Mean Square Error of the inliers}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/root-mean-square-error-inliers-distributions}
+	\caption{Probability distributions for the Root Mean Square Error of the inliers}
+\end{figure}
+
+
+%Computation times
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.72\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/computation-times-milliseconds}
+	\caption{Localization system computation times}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.72\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/computation-times-milliseconds-pointcloud-registration-time-distributions}
+	\caption{Probability distributions for the point cloud registration time}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.72\textwidth]{appendices/tests-3dof/jarvis-robot/\currfilebase/graphs/computation-times-milliseconds-global-time-distributions}
+	\caption{Probability distributions for the localization system global computation time}
+\end{figure}

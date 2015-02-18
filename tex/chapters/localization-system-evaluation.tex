@@ -10,14 +10,14 @@ This chapter presents several test scenarios that were devised to evaluate the i
 
 \section{Testing platforms}
 
-The localization system was tested on laser sensor data retrieved from two different robots and executed on the same computer in order to allow a direct comparison of computation time. This computer was a Clevo P370EM3 laptop (with a Intel Core i7 3630QM CPU at 2.4GHz, 16 GB of RAM DDR3, NVidia GTX680M graphics card and a Samsung 840 Pro SSD) and it was running Ubuntu 12.04 along with \gls{ros} Hydro, \gls{pcl} 1.7 and Gazebo 1.9.
+The localization system was tested on laser sensor data retrieved from three different mobile robot platforms and executed on the same computer in order to allow a direct comparison of computation time. This computer was a Clevo P370EM3 laptop (with a Intel Core i7 3630QM CPU at 2.4GHz, 16 GB of RAM DDR3, NVidia GTX680M graphics card and a Samsung 840 Pro SSD) and it was running Ubuntu 12.04 along with \gls{ros} Hydro, \gls{pcl} 1.7 and Gazebo 1.9.
 
 The sensor data was recorded into rosbags, and is publicly available at\footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization_tests}} along with all the detailed results and experiments videos, in order to allow future comparisons with other localization systems. The hardware specifications of the \glspl{lidar} used is presented in \cref{tab:localization-system-evaluation_laser-hardware-specifications} and the laser points after downsampling and registration can be seen on the movement paths figures as green circles (inliers) and red circles (outliers).
 
 
 \subsection{Jarvis platform}
 
-The Jarvis platform is an autonomous ground vehicle equipped with a SICK NAV 350 laser for self-localization (mounted about 2 meters from the floor) and a SICK S3000 laser for collision avoidance (mounted about 0.20 meters from the floor). It uses a tricycle locomotion system with two back wheels and a steerable wheel at the front. In \cref{fig:localization-system-evaluation_jarvis} the robot is performing a delivery task with the package on top of a moving support. The 3 \gls{dof} ground truth is provided by the SICK NAV350 system, uses 6 laser reflectors with 9 cm of diameter (shown as blue circles in \cref{fig:localization-system-evaluation_jarvis-robot-circular-path-5cm-per-sec-velocity-1-scan,fig:localization-system-evaluation_jarvis-robot-complex-path-with-outliers-5cm-per-sec-velocity-2-scans}) and is certified for robot docking operations with precision up to 4 millimeters.
+The Jarvis platform is an autonomous ground vehicle equipped with a SICK NAV 350 laser for self-localization (mounted about 2 meters from the floor) and a SICK S3000 laser for collision avoidance (mounted about 0.20 meters from the floor). It uses a tricycle locomotion system with two back wheels and a steerable wheel at the front. In \cref{fig:localization-system-evaluation_jarvis} the robot is performing a delivery task with the package on top of a moving support. The 3 \gls{dof} ground truth was provided by the SICK NAV350 system, uses 6 laser reflectors with 9 cm of diameter and is certified for robot docking operations with precision up to 4 millimeters.
 
 \begin{figure}[H]
 	\centering
@@ -27,30 +27,42 @@ The Jarvis platform is an autonomous ground vehicle equipped with a SICK NAV 350
 \end{figure}
 
 
+\subsection{Pioneer 3-DX platform}
+
+The Pioneer 3-DX shown in \cref{fig:localization-system-evaluation_pioneer} is a small lightweight robot equipped with a SICK LMS-200 laser (mounted about 48 cm from the floor) and a Kinect (mounted about 78 cm from the floor). It uses a two-wheel two-motor differential drive locomotion system and can reach a linear speed of 1.2 m/s and angular velocity of 300º/s. The 3 \gls{dof} ground truth was provided by 8 Raptor-E cameras \footnote{\url{http://www.motionanalysis.com/html/movement/raptore.html}} and according to \cite{Sturm2012} it had less than 1 cm in translation error and less than 0.5 degrees in rotation error.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.25\textwidth]{localization-system-evaluation/testing-platforms/pioneer-3dx}
+	\caption{Pioneer 3-DX testing platform}
+	\label{fig:localization-system-evaluation_pioneer}
+\end{figure}
+
+
 \subsection{Guardian platform}
 
-The Guardian platform is an autonomous mobile manipulator equipped with a Hokuyo URG-04LX laser in the front and a Hokuyo URG-04LX\_UG01 laser in the back (both mounted about 0.37 meters from the ground). The front laser had a tilting platform which allows 3D mapping of the environment. The arm is a SCHUNK Powerball LWA 4P and in \cref{fig:localization-system-evaluation_guardian} it is attached to a stud welding machine (in simulation it is attached to a video projector). It uses a differential drive locomotion system and can be moved with wheels or with tracks. This platform didn't have a certified ground truth and as such, the results of the performed tests could not be quantified with an external localization system (the results performed with the Gazebo simulator will be presented instead - robot model shown in \cref{fig:localization-system-evaluation_guardian_gazebo}).
+The Guardian platform is an autonomous mobile manipulator equipped with a Hokuyo URG-04LX laser in the front and a Hokuyo URG-04LX\_UG01 laser in the back (both mounted about 0.37 meters from the ground). The front laser had a tilting platform which allows 3D mapping of the environment. The arm is a SCHUNK Powerball LWA 4P and in \cref{fig:localization-system-evaluation_guardian} it is attached to a stud welding machine (in simulation it is attached to a video projector). It uses a differential drive locomotion system and can be moved with wheels or with tracks. This platform didn't have a certified ground truth and as such, the results could not be quantified with an external localization system (the results performed with the Gazebo simulator will be presented instead - robot model shown in \cref{fig:localization-system-evaluation_guardian_gazebo}).
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\begin{minipage}[h]{0.497\textwidth}
 		\centering
-		\includegraphics[width=0.67\textwidth]{localization-system-evaluation/testing-platforms/guardian}
+		\includegraphics[width=0.85\textwidth]{localization-system-evaluation/testing-platforms/guardian}
 		\caption{Guardian testing platform}
 		\label{fig:localization-system-evaluation_guardian}
 	\end{minipage}\hfill
 	\begin{minipage}[h]{0.497\textwidth}
 		\centering
-		\includegraphics[width=0.67\textwidth]{localization-system-evaluation/testing-platforms/guardian-gazebo}
+		\includegraphics[width=0.85\textwidth]{localization-system-evaluation/testing-platforms/guardian-gazebo}
 		\caption{Guardian Gazebo simulation}
 		\label{fig:localization-system-evaluation_guardian_gazebo}
 	\end{minipage}
 \end{figure}
 
 
-\begin{table}
+\begin{table}[H]
 	\caption{\glsentryplural{lidar} hardware specifications}
-	\tabulinesep = 0.9ex
+	\tabulinesep = 1.2ex
 	\centering
 	\small
 	\begin{tabu} { X[2.5,m,c] | X[m,c] X[m,c] X[m,c] X[m,c] X[m,c] }
@@ -58,6 +70,7 @@ The Guardian platform is an autonomous mobile manipulator equipped with a Hokuyo
 		\hline
 		{\small SICK NAV350} 			& [0.5..250] 	& 360 	& 8 	& 0.25 	& 15 	\\
 		{\small SICK S3000} 			& [0.1..49] 	& 190 	& 8 	& 0.25 	& 150 	\\
+		{\small SICK LMS200} 			& [0.1..80] 	& 180 	& 10 	& 1.0 	& 35 	\\
 		{\small Hokuyo URG-04LX} 		& [0.06..4.095] & 240 	& 10 	& 0.36 	& 10 	\\
 		{\small Hokuyo URG-04LX\_UG01} 	& [0.02..4] 	& 240 	& 10 	& 0.36 	& 30 	\\
 	\end{tabu}
@@ -67,15 +80,15 @@ The Guardian platform is an autonomous mobile manipulator equipped with a Hokuyo
 
 \section{Testing environments}
 
-The localization system was tested using the Jarvis platform in a large room with a RoboCup field and the Guardian platform in a simulated indoor environment with different internal layout variations.
+The localization system was tested in different environments and used the Jarvis platform in a large room with a RoboCup field, the Pioneer 3-DX in a large industrial hall and the Guardian platform in a simulated indoor environment.
 
 
 \subsection{Jarvis in RoboCup field}
 
-The RoboCup field (shown in \cref{fig:localization-system-evaluation_jarvis-tests-environment} occupies half of a large room (with 20.5 meters of length and 7.7 meters of depth). It has two doors, several small windows and two large glass openings into the hallway. Several tests were performed with the robot at different speeds in this environment but the ground truth provided by the SICK NAV 350 was only reliable at low paces. As such, only the results of the robot moving at 5 cm/s will be show (along with the tests performed in the Stage simulator\footnote{\url{http://rtv.github.io/Stage/}}). These tests were performed with two different movement paths. The first is a simple rounded path (shown in \cref{fig:localization-system-evaluation_jarvis-robot-circular-path-5cm-per-sec-velocity-1-scan}) that aimed to test the robot in the region of space that had better ground truth (due to its position in relation to the laser reflectors) and the second path was more complex and contained several sub paths with different velocities and shapes (shown in \cref{fig:localization-system-evaluation_jarvis-robot-complex-path-with-outliers-5cm-per-sec-velocity-2-scans}).
+The RoboCup field (shown in \cref{fig:localization-system-evaluation_jarvis-tests-environment} occupies half of a large room (with 20.5 meters of length and 7.7 meters of depth). It has two doors, several small windows and two large glass openings into the hallway. Several tests were performed with the robot at speeds ranging from 5 cm/s to 50 cm/s in this environment and up to 2 m/s using the Stage simulator\footnote{\url{http://rtv.github.io/Stage/}}). These tests were performed with two different movement paths. The first is a simple rounded path (shown in \cref{subsec:appendix-a_jarvis-robot-tests_rounded-path-using-the-jarvis-robot-at-5-cm-s,subsec:appendix-a_jarvis-robot-tests_rounded-path-using-the-jarvis-robot-at-30-cm-s}) that aimed to test the robot in the region of space that had better ground truth (due to its position in relation to the laser reflectors) and the second path was more complex and contained several sub paths with different velocities and shapes (shown from \crefrange{subsec:appendix-a_jarvis-robot-tests_complex-path-using-the-jarvis-robot-at-5-cm-s}{subsec:appendix-a_jarvis-robot-tests_complex-path-using-the-jarvis-robot-at-50-30-50-10-cm-s-without-laser-spherical-linear-interpolation}).
 
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[h]{.497\textwidth}
 		\centering
@@ -85,7 +98,7 @@ The RoboCup field (shown in \cref{fig:localization-system-evaluation_jarvis-test
 		\centering
 		\includegraphics[width=\textwidth]{localization-system-evaluation/testing-environments/jarvis-environment-front-right}
 	\end{subfigure}
-	\caption{Jarvis tests environment}
+	\caption{Jarvis testing environment}
 	\label{fig:localization-system-evaluation_jarvis-tests-environment}
 \end{figure}
 
@@ -94,7 +107,7 @@ The RoboCup field (shown in \cref{fig:localization-system-evaluation_jarvis-test
 
 The structured environment simulated in Gazebo is a large room with 12.4 meters of length and 8.4 meters of depth. It has 4 doors, several small windows and the walls have small ledges at regular intervals (as can be seen from \crefrange{fig:localization-system-evaluation_guardian-tests-environment}{fig:localization-system-evaluation_guardian-tests-environment-interactive}).
 
-Given that the Guardian mobile manipulator is expected to work on the walls of this environment, several tests were devised with a path following the lower and right wall of the environment (shown in \cref{fig:localization-system-evaluation_ship-interior-cluttered-dinamic-30cm-per-sec}). The first test was done in a static environment clear of unknown objects and was meant to evaluate the best precision that the localization system could achieve. The second test was done in a cluttered environment and was designed to test the robustness of the localization system against static unknown objects, that were placed in the middle of the environment and close to the walls (to block sensor data from reaching known positions and analyze the robustness of matching unknown points that are close to known areas). The last test added a moving car to the scene and aimed to assess the impact of dynamic objects on the point cloud registration algorithms.
+Given that the Guardian mobile manipulator is expected to work on the walls of this environment, several tests were devised with a path following the lower and right wall of the environment (shown from \crefrange{subsec:appendix-a_guardian-simulator-tests_wall-following-path-using-the-simulated-guardian-robot-at-30-cm-s-in-static-environment}{subsec:appendix-a_guardian-simulator-tests_wall-following-path-using-the-simulated-guardian-robot-at-30-cm-s-in-dynamic-cluttered-environment}). The first test was done in a static environment clear of unknown objects and was meant to evaluate the best precision that the localization system could achieve. The second test was done in a cluttered environment and was designed to test the robustness of the localization system against static unknown objects, that were placed in the middle of the environment and close to the walls (to block sensor data from reaching known positions and analyze the robustness of matching unknown points that are close to known areas). The last test added a moving car to the scene and aimed to assess the impact of dynamic objects on the point cloud registration algorithms.
 
 
 \begin{figure}[H]
@@ -145,69 +158,72 @@ Given that the Guardian mobile manipulator is expected to work on the walls of t
 
 \subsection{Overview}
 
-The main results of the 3 \gls{dof} tests performed with the localization system are presented in \cref{tab:localization-system-evaluation_3-dof-results}. It summarizes each test by fitting a normal distribution for each evaluation metric. They were retrieved with a known initial pose using \gls{icp} point-to-point as tracking algorithm and \gls{icp} point-to-plane as tracking recovery method. The Jarvis tests had a map built using the localization system in \gls{slam} mode and were manually corrected to achieve a resolution of 10 mm. The Guardian tests relied on a map built from the \gls{cad} model with resolution of 2 mm. A voxel grid of 75 mm was applied to the assembled laser scans in the Jarvis experiments while in the Guardian tests it was used a voxel grid of 25 mm. The initial pose estimation subsystem used \gls{sift} for keypoint selection, \gls{fpfh} for keypoint description and the feature matching algorithm described in \cref{subsec:localization-system_feature-registration} to estimate the initial position and orientation of the robot (\cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp} shows the accepted initial poses when the robot was in the lower right corner of the Guardian test environment).
+The main results of the 3 \gls{dof} tests performed with the localization system are presented in \cref{tab:localization-system-evaluation_3-dof-results,tab:localization-system-evaluation_3-dof-results-odometry-amcl}. They summarizes each test by fitting a normal distribution for each evaluation metric. They were retrieved with a known initial pose using \gls{icp} point-to-point as tracking algorithm and \gls{icp} point-to-plane as tracking recovery method. The Jarvis and Pioneer tests had a map built using the localization system in \gls{slam} mode and were manually corrected to achieve a resolution of 10 and 25 mm respectively. The Guardian tests relied on a map built from the \gls{cad} model with resolution of 2 mm. A voxel grid of 50 mm was applied to the assembled laser scans in the Jarvis and Pioneer experiments while in the Guardian tests it was used a voxel grid of 25 mm. The initial pose estimation subsystem used \gls{sift} for keypoint selection, \gls{fpfh} for keypoint description and the feature matching algorithm described in \cref{subsec:localization-system_feature-registration} to estimate the initial position and orientation of the robot (\cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp} shows the accepted initial poses when the robot was in the lower right corner of the Guardian test environment).
 
-The next sections contain the main 3 \gls{dof} results of the localization system. To avoid cluttering the next subsections with too many graphs, only the tests with the physical robot platforms will have a detailed analysis (the tests on simulators will only have the movement paths and localization error). In \footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization_tests}} is available the full test results along with videos and the configurations used.
-
-The robot movement paths present in the next sections illustrate the synchronized poses from the localization system (blue arrows), ground truth (green arrows) and odometry (red arrows). A regular grid with one meter spacing was applied on top of the figures to ease their analysis.
+The next sections contain the main 3 \gls{dof} results of the localization system. To avoid cluttering the next subsections with too many graphs, the main results retrieved with each mobile robot platform were moved to \cref{app:appendix-a}. In \footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization_tests}} is available the full test results along with videos and the configurations used.
 
 
 \begin{sidewaystable}
 	\caption{3 \glsentrytext{dof} localization system results}
 	\tabulinesep = 1.2ex
-%	\setlength{\tabcolsep}{0.2em}
+	\setlength{\tabcolsep}{0.2em}
 	\centering
 	\tiny
-	\begin{tabu} to \textwidth { X[m,c] X[m,c] X[m,c] X[1.5m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] }
+	\begin{tabu} to \textwidth { X[m,c] X[m,c] X[m,c] X[1.7m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] }
 		\hline
-		\multicolumn{5}{c}{Test conditions} && \multicolumn{2}{c}{Translation error (millimeters)} && \multicolumn{2}{c}{Rotation error (degrees)} && \multicolumn{2}{c}{Outliers percentage [0..100]} && \multicolumn{2}{c}{Global computation time (milliseconds)} \\
-		\cline{1-5} \cline{7-8} \cline{10-11} \cline{13-14} \cline{16-17}
-		Platform 																& Ambient 													& Path shape 											& Path velocities 		& Nº scans / Nº lasers 			&& Mean  & Standard deviation 	&& Mean  & Standard deviation 	&& Mean  & Standard deviation 	&& Mean   & Standard deviation \\ \hline
-		\multirow{2}{0.05\textwidth}{\centering Jarvis robot} 					& Cluttered 												& Rounded 												& 5 cm/s 				& 1/1 							&& 5.608 & 3.280 				&& 0.634 & 0.169 				&& 12.21 & 4.50 				&& 7.065  & 6.456 	\\ \tabucline[0.5pt on 3pt off 2pt]{2-3}
-																				& Cluttered dynamic 										& Complex 												& 5 cm/s 				& 2/1 							&& 6.235 & 3.242 				&& 0.529 & 0.157 				&& 20.16 & 5.87 				&& 7.827  & 7.990 	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
-		\multirow{6}{0.05\textwidth}{\centering Jarvis simulator (Stage)} 		& \multirow{6}{0.05\textwidth}{\centering Cluttered} 		& \multirow{3}{0.05\textwidth}{\centering Rounded} 		& 5 cm/s 				& 2/1 							&& 2.817 & 1.551 				&& 0.038 & 0.026 				&& 16.11 & 0.93 				&& 12.600 & 12.459 	\\
-																				&  															&  														& 50 cm/s 				& 2/1 							&& 4.479 & 3.769 				&& 0.106 & 0.137 				&& 15.82 & 1.14 				&& 24.500 & 13.592 	\\
-																				&  															&  														& 100 cm/s 				& 1/1 							&& 4.710 & 2.788 				&& 0.135 & 0.134 				&& 16.13 & 0.92 				&& 16.432 & 12.291 	\\ \tabucline[0.5pt on 3pt off 2pt]{3-3}
-																				&  															& \multirow{3}{0.05\textwidth}{\centering Complex} 		& 5 cm/s 				& 2/1 							&& 2.476 & 1.370 				&& 0.017 & 0.017 				&& 17.00 & 0.92 				&& 10.374 & 12.138 	\\
-																				&  															&  														& 50-30-50-20 cm/s 		& 2/1 							&& 3.557 & 1.800 				&& 0.033 & 0.040 				&& 17.61 & 1.33 				&& 14.863 & 15.898 	\\
-																				&  															&  														& 200-30-200-30 cm/s 	& 2/1 							&& 4.199 & 2.596 				&& 0.048 & 0.110 				&& 17.84 & 1.23 				&& 13.150 & 14.351 	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
-		\multirow{6}{0.05\textwidth}{\centering Guardian simulator (Gazebo)} 	& \multirow{2}{0.05\textwidth}{\centering Static} 			& \multirow{6}{0.05\textwidth}{\centering Wall follower}& 5 cm/s 				& 2/2 							&& 2.642 & 0.463 				&& 0.016 & 0.023 				&& 0.0   & 0.0  				&& 5.723  & 1.868 	\\
-																				&  															&  														& 30 cm/s 				& 2/2 							&& 4.961 & 3.953 				&& 0.032 & 0.084 				&& 0.0   & 0.0  				&& 6.365  & 2.906 	\\ \tabucline[0.5pt on 3pt off 2pt]{2-2}
-																				& \multirow{2}{0.05\textwidth}{\centering Cluttered} 		&  														& 5 cm/s 				& 2/2 							&& 2.912 & 0.856 				&& 0.020 & 0.026 				&& 25.05 & 13.30 				&& 11.889 & 9.084 	\\
-																				&  															& 														& 30 cm/s 				& 2/2 							&& 6.713 & 6.380 				&& 0.141 & 0.203 				&& 30.39 & 14.66 				&& 25.367 & 35.724 	\\ \tabucline[0.5pt on 3pt off 2pt]{2-2}
-																				& \multirow{2}{0.05\textwidth}{\centering Cluttered dynamic}&  														& 5 cm/s 				& 2/2 							&& 4.593 & 3.802 				&& 0.069 & 0.072 				&& 33.33 & 9.88  				&& 22.217 & 32.408 	\\
-																				&  															&  														& 30 cm/s 				& 2/2 							&& 5.847 & 5.585 				&& 0.105 & 0.125 				&& 34.20 & 16.64 				&& 26.892 & 35.630 	\\
+		\multicolumn{6}{c}{Test conditions} && \multicolumn{2}{c}{Translation error (millimeters)} && \multicolumn{2}{c}{Rotation error (degrees)} && \multicolumn{2}{c}{Outliers percentage [0..100]} && \multicolumn{2}{c}{Global computation time (milliseconds)} \\
+		\cline{1-6} \cline{8-9} \cline{11-12} \cline{14-15} \cline{17-18}
+		Platform 																& Ambient 													& Path shape 											& Path velocities 		& Map cell resolution 	& Nº scans / Nº lasers 	&& Mean   & Standard deviation 	&& Mean  & Standard deviation 	&& Mean  & Standard deviation 	&& Mean   & Standard deviation \\ \hline
+		\multirow{4}{0.05\textwidth}{\centering Jarvis robot} 					& \multirow{2}{0.05\textwidth}{\centering Cluttered} 		& \multirow{2}{0.05\textwidth}{\centering Rounded} 		& 5 cm/s 				& 10 mm					& 1-4/1 				&& 3.384  & 1.900 				&& 0.549 & 0.087 				&& 15.75 & 3.84 				&& 12.052 & 12.232	\\
+																				&															&														& 30 cm/s				& 10 mm					& 1-4/1					&& 12.250 & 8.901				&& 0.535 & 0.414				&& 16.08 & 3.80					&& 21.295 &	8.352	\\ \tabucline[0.5pt on 3pt off 2pt]{2-3}
+																				& \multirow{2}{0.05\textwidth}{\centering Cluttered dynamic}& \multirow{2}{0.05\textwidth}{\centering Complex} 		& 5 cm/s 				& 10 mm					& 1-4/1			 		&& 4.280  & 2.264 				&& 0.441 & 0.070 				&& 24.35 & 5.17 				&& 11.776 & 12.265	\\
+																				&															&														& 50-30-50-10 cm/s		& 10 mm					& 1-4/1					&& 6.422  &	3.992				&& 0.397 & 0.099				&& 23.84 & 5.59					&& 13.376 &	13.316	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
+		\multirow{4}{0.05\textwidth}{\centering Pioneer robot}					& \multirow{4}{0.05\textwidth}{\centering Cluttered dynamic}& 360º													& 23 cm/s				& 25 mm					& 1/1					&& 20.105 & 10.814				&& 5.704 & 0.662				&& 11.71 & 3.37					&& 5.046  & 2.106	\\
+																				&															& SLAM 1												& 26 cm/s				& 25 mm					& 1/1					&& 22.434 & 12.052				&& 5.429 & 0.676				&& 4.31  & 3.84					&& 4.569  & 2.530	\\
+																				&															& SLAM 2												& 19 cm/s				& 25 mm					& 1/1					&& 19.391 & 12.568				&& 5.518 & 0.818				&& 5.09  & 4.11					&& 4.650  & 2.180	\\
+																				&															& SLAM 3												& 16 cm/s				& 25 mm					& 1/1					&& 17.480 & 8.895				&& 5.455 & 0.732				&& 4.15  & 4.26					&& 4.388  & 2.526	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
+		\multirow{6}{0.05\textwidth}{\centering Jarvis simulator (Stage)} 		& \multirow{6}{0.05\textwidth}{\centering Cluttered} 		& \multirow{3}{0.05\textwidth}{\centering Rounded} 		& 5 cm/s 				& 10 mm					& 2/1					&& 2.817  & 1.551 				&& 0.038 & 0.026 				&& 16.11 & 0.93 				&& 12.600 & 12.459 	\\
+																				&  															&  														& 50 cm/s 				& 10 mm					& 2/1					&& 4.479  & 3.769 				&& 0.106 & 0.137 				&& 15.82 & 1.14 				&& 24.500 & 13.592 	\\
+																				&  															&  														& 100 cm/s 				& 10 mm					& 1/1 					&& 4.710  & 2.788 				&& 0.135 & 0.134 				&& 16.13 & 0.92 				&& 16.432 & 12.291 	\\ \tabucline[0.5pt on 3pt off 2pt]{3-3}
+																				&  															& \multirow{3}{0.05\textwidth}{\centering Complex} 		& 5 cm/s 				& 10 mm					& 2/1 					&& 2.476  & 1.370 				&& 0.017 & 0.017 				&& 17.00 & 0.92 				&& 10.374 & 12.138 	\\
+																				&  															&  														& 50-30-50-20 cm/s 		& 10 mm					& 2/1					&& 3.557  & 1.800 				&& 0.033 & 0.040 				&& 17.61 & 1.33 				&& 14.863 & 15.898 	\\
+																				&  															&  														& 200-30-200-30 cm/s 	& 10 mm					& 2/1					&& 4.199  & 2.596 				&& 0.048 & 0.110 				&& 17.84 & 1.23 				&& 13.150 & 14.351 	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
+		\multirow{6}{0.05\textwidth}{\centering Guardian simulator (Gazebo)} 	& \multirow{2}{0.05\textwidth}{\centering Static} 			& \multirow{6}{0.05\textwidth}{\centering Wall follower}& 5 cm/s 				& 2 mm					& 2/2 					&& 2.642  & 0.463 				&& 0.016 & 0.023 				&& 0.0   & 0.0  				&& 5.723  & 1.868 	\\
+																				&  															&  														& 30 cm/s 				& 2 mm					& 2-4/2					&& 4.654  & 3.893 				&& 0.044 & 0.070 				&& 0.0   & 0.0  				&& 7.784  & 3.178 	\\ \tabucline[0.5pt on 3pt off 2pt]{2-2}
+																				& \multirow{2}{0.05\textwidth}{\centering Cluttered} 		&  														& 5 cm/s 				& 2 mm					& 2/2					&& 2.912  & 0.856 				&& 0.020 & 0.026 				&& 25.05 & 13.30 				&& 11.889 & 9.084 	\\
+																				&  															& 														& 30 cm/s 				& 2 mm					& 2-4/2					&& 6.092  & 3.834 				&& 0.096 & 0.085 				&& 25.65 & 11.02 				&& 23.925 & 27.959 	\\ \tabucline[0.5pt on 3pt off 2pt]{2-2}
+																				& \multirow{2}{0.05\textwidth}{\centering Cluttered dynamic}&  														& 5 cm/s 				& 2 mm					& 2/2					&& 4.593  & 3.802 				&& 0.069 & 0.072 				&& 33.33 & 9.88  				&& 22.217 & 32.408 	\\
+																				&  															&  														& 30 cm/s 				& 2 mm					& 2/2					&& 5.897  & 4.452 				&& 0.095 & 0.104 				&& 27.28 & 13.04 				&& 24.409 & 33.459 	\\
 		\hline
 	\end{tabu}
 	\label{tab:localization-system-evaluation_3-dof-results}
 \end{sidewaystable}
 
 
-\clearpage
-\subsection{Jarvis robot tests}
+\begin{sidewaystable}
+	\caption{3 \glsentrytext{dof} odometry and \glsentrytext{amcl} results}
+	\tabulinesep = 1.2ex
+	\setlength{\tabcolsep}{0.2em}
+	\centering
+	\tiny
+	\begin{tabu} to \textwidth { X[m,c] X[m,c] X[m,c] X[1.7m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] }
+		\hline
+		\multicolumn{5}{c}{Test conditions} && \multicolumn{2}{c}{Odometry translation error (millimeters)} && \multicolumn{2}{c}{Odometry rotation error (degrees)} && \multicolumn{2}{c}{\glsentrytext{amcl} translation error (millimeters)} && \multicolumn{2}{c}{\glsentrytext{amcl} rotation error (degrees)} \\
+		\cline{1-5} \cline{7-8} \cline{10-11} \cline{13-14} \cline{16-17}
+		Platform 																& Ambient 													& Path shape 											& Path velocities 		& Map cell resolution 	&& Mean   	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean   & Standard deviation \\ \hline
+		\multirow{4}{0.05\textwidth}{\centering Jarvis robot} 					& \multirow{2}{0.05\textwidth}{\centering Cluttered} 		& \multirow{2}{0.05\textwidth}{\centering Rounded} 		& 5 cm/s 				& 10 mm					&& 25.353 	& 10.075 				&& 0.352 	& 0.206 				&& 51.417	& 20.829 				&& 0.442  & 0.174	\\
+																				&															&														& 30 cm/s				& 10 mm					&& 103.676	& 50.992				&& 2.173 	& 1.916					&& 81.368	& 36.548				&& 1.388  &	1.085	\\ \tabucline[0.5pt on 3pt off 2pt]{2-3}
+																				& \multirow{2}{0.05\textwidth}{\centering Cluttered dynamic}& \multirow{2}{0.05\textwidth}{\centering Complex} 		& 5 cm/s 				& 10 mm					&& 21.506 	& 11.937 				&& 0.535 	& 0.360 				&& 64.300	& 13.750 				&& 0.316  & 0.214	\\
+																				&															&														& 50-30-50-10 cm/s		& 10 mm					&& 124.269	&	79.775				&& 2.723 	& 1.496					&& 84.230	& 29.134				&& 0.595  &	0.581	\\ \tabucline[0.5pt on 3pt off 2pt]{1-3}
+		\multirow{4}{0.05\textwidth}{\centering Pioneer robot}					& \multirow{4}{0.05\textwidth}{\centering Cluttered dynamic}& 360º													& 23 cm/s				& 25 mm					&& 482.439	& 163.657				&& 12.810	& 4.468					&& 135.442	& 66.445				&& 6.462  & 1.290	\\
+																				&															& SLAM 1												& 26 cm/s				& 25 mm					&& 370.283 	& 163.734				&& 8.351 	& 2.825					&& 111.470 	& 46.783				&& 6.496  & 1.386	\\
+																				&															& SLAM 2												& 19 cm/s				& 25 mm					&& 686.983 	& 361.666				&& 11.333 	& 5.423					&& 95.537  	& 47.560				&& 6.957  & 2.294	\\
+																				&															& SLAM 3												& 16 cm/s				& 25 mm					&& 295.714 	& 151.793				&& 8.858 	& 3.331					&& 108.690 	& 52.341				&& 6.463  & 1.363	\\
+		\hline
+	\end{tabu}
+	\label{tab:localization-system-evaluation_3-dof-results-odometry-amcl}
+\end{sidewaystable}
 
-\input{tex/chapters/localization-system-evaluation/jarvis-robot-circular-path-5cm-per-sec-velocity-1-scan.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-robot-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex} \clearpage
-
-
-\subsection{Jarvis simulator tests}
-
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-5cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-50cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-circular-path-100-per-sec-velocity-1-scan.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-5cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-50-30-50-20cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/jarvis-simulator-complex-path-with-outliers-200-30-200-30cm-per-sec-velocity-2-scans.tex} \clearpage
-
-
-\subsection{Guardian simulator tests}
-
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-static-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-static-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-dynamic-front-and-back-laser-5cm-per-sec-velocity-2-scans.tex} \clearpage
-\input{tex/chapters/localization-system-evaluation/guardian-simulator-cluttered-dynamic-front-and-back-laser-30cm-per-sec-velocity-2-scans.tex} \clearpage
 
 
 \subsection{Initial pose estimation tests}
@@ -238,7 +254,7 @@ The blue circles presented in \cref{fig:localization-system-evaluation_jarvis-in
 \end{figure}
 
 
-
+\clearpage
 \subsection{Results discussion}
 
 The results achieved with the proposed 3 \gls{dof} localization system showed sub centimeter pose tracking and reliable initial pose estimation. As expected, the simulator tests at lower velocities had less mean error than the ones at higher speeds while requiring slightly less computation time. Also, the tests on the Jarvis robot had more mean error than the corresponding simulator tests. This is due to laser scan deformation that couldn't be simulated and also because the simulators were only able to add Gaussian noise to the laser measurements. To compensate the simulators limitations, the error in odometry and laser measurements in simulation was deliberately higher than the expected values for the physical platforms. This explains why the localization system needed more time to perform the pose estimations in the simulator tests. It can also be seen that adding unknown objects increased the mean error and required computation time while adding dynamic objects increased these values even further (given that a moving object appears in a laser scan as a deformed version of its static shape).
@@ -246,17 +262,17 @@ The results achieved with the proposed 3 \gls{dof} localization system showed su
 The ability to switch registration algorithms at runtime based on the quality of the estimated pose proved to be an efficient and flexible architecture choice, since it allowed high precision pose tracking with fast registration algorithms and occasional pose tracking recovery with more robust methods (which happened more often in the tests at higher velocities, in which the odometry was significantly worse). The initial pose estimation using feature matching was very reliable and successfully found the robot location even in low feature surroundings (as can be seen in \cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp}). Moreover, the output of the accepted initial pose estimations allows the detection of similar map locations by a navigation supervisor, which can then plot a path to disambiguate the initial pose guess and avoid dangerous operations at a wrong position. The statistical error of the lasers was mitigated by merging several laser scans before performing a point cloud registration. This is based on the fact that a considerable amount of laser noise follows a Gaussian distribution, and as such, the effective measurement error can be significantly reduced by retrieving the centroids of a voxel grid applied over the laser data. However, assembling too much laser scans can lead to worse pose tracking if the robot is moving at high speeds, because the lasers would be projected into the map frame with a high position error (because odometry accuracy decreases when the robot speed increases and the localization system will not correct it). As such, the laser assembler has dynamic reconfiguration of the number of laser scans to assemble (or the period of assembly time) based on the robot estimated velocity. This feature besides improving the pose tracking it also allows a navigation supervisor to regulate the rate at which the localization system operates. This can be very useful for mobile manipulators because the localization system can have a high update rate when the robot is moving fast and a low update rate when it is moving slower or when it is stopped. This allows a more efficient usage of the platform hardware resources while also improving the localization system accuracy. The dynamic map update capability helped lowering the point cloud registration time while also increasing the accuracy by a small margin. Moreover, it improved the robustness of the initial pose estimations and allowed better path planning for the navigation system.
 
 
-
-\section{6 \glsentrytext{dof} localization system tests}
-
-\subsection{Overview}
-
-FF.
-
-\subsection{Results}
-
-FF.
-
-\subsection{Results discussion}
-
-FF.
+%
+%\section{6 \glsentrytext{dof} localization system tests}
+%
+%\subsection{Overview}
+%
+%FF.
+%
+%\subsection{Results}
+%
+%FF.
+%
+%\subsection{Results discussion}
+%
+%FF.
