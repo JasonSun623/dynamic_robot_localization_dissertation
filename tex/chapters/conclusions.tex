@@ -1,12 +1,71 @@
-\chapter{Conclusions and future work} \label{chap:conclusions-and-future-work}
+\chapter{Conclusions} \label{chap:conclusions-and-future-work}
 
 
 
 \section*{}
 
-The proposed localization system is able to maintain pose tracking with less than one cm in translation error at several velocities even in cluttered and dynamic environments. Moreover, when tracking is lost or no initial pose is given, the system is able to find a valid global pose estimate by switching to more robust registration algorithms that use feature matching. This approach achieved fast pose tracking and reliable initial pose estimation while also providing the distribution of the accepted initial poses before registration refinement, which can be very valuable information for a navigation supervisor when the robot is in an ambiguous region that can be registered in similar zones in the known map. The system also allows dynamic reconfiguration of the number of laser scans to assemble in order to mitigate laser measurement errors and can adapt its rate of operation according to the robot estimated velocity.
+The proposed localization system is able to maintain pose tracking with less than one cm in translation error and less than a degree in rotation error at several velocities even in cluttered and dynamic environments. Moreover, when tracking is lost or no initial pose is given, the system is able to find a valid global pose estimate by switching to more robust registration algorithms that use feature matching. This approach achieved fast pose tracking and reliable initial pose estimation while also providing the set of the accepted initial poses before registration refinement, which can be very valuable information for a navigation supervisor when the robot is in an ambiguous region that can be registered in similar zones in the known map. The system also allows dynamic reconfiguration of the number of laser scans to assemble in order to mitigate laser measurement errors and can adapt its rate of operation according to the robot estimated velocity.
 
-The sub centimeter accuracy achieved by the proposed localization system along with the dynamic map update capability and the need of no artificial landmarks will allow the fast deployment of mobile manipulators capable to operate safely and accurately in cluttered environments.
+The sub centimeter accuracy achieved by the proposed localization system along with the dynamic map update capability and the need of no artificial landmarks / ambient modifications will allow the fast deployment of mobile manipulators capable to operate safely and accurately in cluttered environments.
 
 
-The current implementation of the self-localization system can be further improved with loop closing algorithms \cite{Grisetti2012} and \gls{gpu} support \cite{Tamaki2010} in order to become a true \gls{slam} system and allow the creation of accurate maps of very large environments. Moreover, it cloud be extended to support image based localization \cite{Labb2014} and semantic perception \cite{Rusu2010a} and mapping of the environment \cite{Santos2013}.
+
+\section{Main contributions}
+
+
+The following list presents the main contributions of the presented work:
+
+\begin{itemize}
+	\item A \gls{lidar} assembler capable of:
+	\begin{itemize}
+		\item Merging measurements from several sensors
+		\item Dynamic adjust its configurations based on the speed of the robot in order to merge more scans when the robot is moving slower
+		\item Use spherical linear interpolation to reduce scan deformation
+		\item Emulate a 3D sensor when the \gls{lidar} is mounted on a tilting platform
+	\end{itemize}
+
+	\item An localization system that:
+	\begin{itemize}
+		\item Is efficient, modular and extensible to new algorithms
+		\item Is capable to operate in 3 and 6 \gls{dof}
+		\item Can dynamically and incrementally update the localization map
+		\item Provides the set of acceptable initial poses when reseting tracking (useful for localization supervisors)
+		\item Gives several localization quality metrics such as percentage, \gls{rmse} and angular distribution of the correctly registered points
+		\item Gives the possibility to use 3 different point cloud algorithms based on the tracking state:
+			\begin{itemize}
+				\item Normal tracking
+				\item Tracking recovery
+				\item Initial pose estimation
+			\end{itemize}
+	\end{itemize}
+
+	\item Development of a testing infrastructure to automate the collection, analysis and generation of localization results
+
+	\item 3 \gls{dof} Localization datasets:
+	\begin{itemize}
+		\item 4 datasets with subcentimeter ground truth in static and dynamic environments using a robot moving at different speeds
+		\item 6 Gazebo and 6 Stage simulation datasets
+		\item Improvement of external RGB-D dataset (ground truth time synchronization and laser transformation calibration)
+	\end{itemize}
+
+	\item Test of the localization system on public datasets and comparison with:
+	\begin{itemize}
+		\item Ground truth systems from two different mobile robots
+		\item Widely used localization systems (\gls{amcl})
+		\item Well known \gls{slam} systems (GMapping)
+	\end{itemize}
+ 	
+	\item In the context of the \gls{carlos} project:
+	\begin{itemize}
+		\item The robot hardware configuration proved adequate for the intended tasks and environment
+		\item The 3 \gls{dof} localization system was able to run in real time on the low computational power on-board computer
+	\end{itemize}
+	
+	\item The 6 \gls{dof} component of the proposed localization system was tested and is ready to be used (it was not included in the this document due to time restrictions)
+\end{itemize}
+
+
+
+\section{Future work}
+The current implementation of the self-localization system can be further improved with loop closing algorithms \cite{Grisetti2012} and \gls{gpu} support \cite{Tamaki2010} in order to become a complete \gls{slam} system and allow the creation of accurate maps of very large environments. Moreover, it cloud be extended to support image based localization \cite{Labb2014} and semantic perception and mapping of the environment \cite{Santos2013}.
+

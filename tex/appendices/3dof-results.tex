@@ -6,8 +6,9 @@
 
 The next sections present in detail the results achieved with the localization system configured to 3 \gls{dof}.
 
-The robot movement paths present in the next sections illustrate the synchronized poses from the localization system (blue arrows), ground truth (green arrows) and odometry (red arrows). A regular grid with one meter spacing was applied on top of the figures to ease their analysis.
+Each test starts by presenting an interactive sequence of images in order to give an overview of the sensor data retrieved along the movement path of the robot (a regular grid with 1 meter spacing and a inner grid with 5 cm were applied on top of the figures). To allow a more broad analysis of the point cloud registration quality achieved with the proposed localization system, it is also provided figures with all the lasers assembled using the estimated robot poses. For a more visual inspection, the synchronized poses from the localization system (blue arrows), ground truth (green arrows), odometry (red arrows) and \gls{amcl} (brown arrows) are also presented. To have a much more detailed description of the robot movement path, several more graphs are shown with information about the evolution of the x and y position, along with the distance that the robot traveled between pose estimations and the associated linear / angular velocities / accelerations. Later on, the translation and rotation errors and their respective probability distributions are shown. To give an overview of the impact of the localization system over the odometry movement estimations, the translation and rotation corrections are also given. In the end, it is presented some graphs with information about the point clouds size in each of the main processing stages of the localization system pipeline, along with the number of registered points, inliers analysis (percentage, \gls{rmse} and angular distribution) and finally some more graphs showing how much time the localization system required for each pose estimation.
 
+Only the most representative tests are shown in the next sections. In \footnote{\url{https://github.com/carlosmccosta/dynamic_robot_localization_tests}} is available the full test results along with videos and the configurations used.
 
 
 \clearpage
@@ -18,8 +19,8 @@ The next subsections show some of the most relevant results retrieved with the J
 \input{tex/appendices/jarvis-robot/circular-path-5cm-per-sec-velocity-1-4-scans.tex}
 \input{tex/appendices/jarvis-robot/circular-path-30cm-per-sec-velocity-1-4-scans.tex}
 \input{tex/appendices/jarvis-robot/complex-path-with-outliers-5cm-per-sec-velocity-1-4-scans}
-\input{tex/appendices/jarvis-robot/complex-path-with-outliers-5cm-per-sec-velocity-1-4-scans-without-laser-spherical-linear-interpolation}
 \input{tex/appendices/jarvis-robot/complex-path-with-outliers-50-30-50-10cm-per-sec-velocity-1-4-scans}
+\input{tex/appendices/jarvis-robot/complex-path-with-outliers-5cm-per-sec-velocity-1-4-scans-without-laser-spherical-linear-interpolation}
 \input{tex/appendices/jarvis-robot/complex-path-with-outliers-50-30-50-10cm-per-sec-velocity-1-4-scans-without-laser-spherical-linear-interpolation}
 
 

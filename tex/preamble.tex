@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,twoside,openright]{report} % add [draft] option to replace images with a placeholder -> speeds up compilation
+\documentclass[draft,11pt,a4paper,twoside,openright]{report} % add [draft] option to replace images with a placeholder -> speeds up compilation
 
 \usepackage[utf8]{inputenc}
 \usepackage[portuguese,english]{babel}
@@ -61,6 +61,7 @@
 \usepackage{siunitx}
 \usepackage{url}
 \usepackage{caption}
+\numberwithin{figure}{subsection}
 \usepackage{subcaption} 
 \usepackage{footnote}
 \usepackage{footmisc}
@@ -87,7 +88,7 @@
 
 % To fix list of figures / tables numbering when there are more than 100 elements
 \makeatletter
-\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{3em}}
+\renewcommand*\l@figure{\@dottedtocline{1}{1.5em}{4em}}
 \let\l@table\l@figure
 \makeatother
 
