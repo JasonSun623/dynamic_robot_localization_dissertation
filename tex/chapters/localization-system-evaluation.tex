@@ -155,7 +155,7 @@ Given that the Guardian mobile manipulator is expected to work on the walls of t
 
 \subsection{Pioneer in industrial hall}
 
-The industrial hall is a large room with several tables and objects spread around. 4 tests were performed with the Pioneer in this environment. The first was a 360º path with few objects in the middle of the room, while the remaining 3 were done with a lot of large objects, that significantly reduced the field of view of the robot laser (as can be seen in \cref{fig:localization-system-evaluation_industrial-hall}).
+The industrial hall is a large room with several tables and objects spread around. Four tests were performed with the Pioneer in this environment. The first was a 360º path with few objects in the middle of the room, while the remaining 3 were done with a lot of large objects, that significantly reduced the field of view of the robot laser (as can be seen in \cref{fig:localization-system-evaluation_industrial-hall}).
 
 \begin{figure}[H]
 	\centering
@@ -173,12 +173,26 @@ The industrial hall is a large room with several tables and objects spread aroun
 
 
 
+\subsection{Kinect in flying arena}
+
+The flying arena shown in \cref{fig:localization-system-evaluation_flying-arena} is a large room in which several objects were added to test 6 \gls{dof} pose tracking. In these tests the Kinect was moved by the operator in three different paths. The first was a smooth fly movement over the testing scene, while the other two aimed to test paths with mainly translations and rotations. This environment had a ground truth provided by Vicon cameras and according to the authors of the dataset \cite{Pomerleau2011} it had sub-centimeter accuracy \footnote{\url{http://www.vicon.com/}}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{localization-system-evaluation/testing-environments/kinect-flying-arena}
+	\caption{Flying arena environment \cite{Pomerleau2011}}
+	\label{fig:localization-system-evaluation_flying-arena}
+\end{figure}
+
+
+
+
 \section{3 \glsentrytext{dof} localization system tests}
 
 
 \subsection{Overview}
 
-The main results of the 3 \gls{dof} tests performed with the localization system are presented in \cref{tab:localization-system-evaluation_3-dof-results,tab:localization-system-evaluation_3-dof-results-odometry-amcl}. They summarizes each test by fitting a normal distribution for each evaluation metric. They were retrieved with a known initial pose using \gls{icp} point-to-point as tracking algorithm and \gls{icp} point-to-plane as tracking recovery method. The Jarvis and Pioneer tests had a map built using the localization system in \gls{slam} mode and were manually corrected to achieve a resolution of 10 and 25 mm respectively. The Guardian tests relied on a map built from the \gls{cad} model with resolution of 2 mm. A voxel grid of 50 mm was applied to the assembled laser scans in order to reduce the impact of sensor measurement noise and also control the level of detaild of the point clouds. The initial pose estimation subsystem used \gls{sift} for keypoint selection, \gls{fpfh} for keypoint description and the feature matching algorithm described in \cref{subsec:localization-system_feature-registration} to estimate the initial position and orientation of the robot (\cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp} shows the accepted initial poses when the robot was in the lower right corner of the Guardian test environment).
+The main results of the 3 \gls{dof} tests performed with the localization system are presented in \cref{tab:localization-system-evaluation_3-dof-results,tab:localization-system-evaluation_3-dof-results-odometry-amcl}. They summarizes each test by fitting a normal distribution for each evaluation metric. They were retrieved with a known initial pose and used \gls{icp} point-to-point as tracking algorithm and \gls{icp} point-to-plane as tracking recovery method. The Jarvis and Pioneer tests had a map built using the localization system in \gls{slam} mode and were manually corrected to achieve a resolution of 10 and 25 mm respectively. The Guardian tests relied on a map built from the \gls{cad} model with resolution of 2 mm. A voxel grid of 50 mm was applied to the assembled laser scans in order to reduce the impact of sensor measurement noise and also control the level of detaild of the point clouds. The initial pose estimation subsystem used \gls{sift} for keypoint selection, \gls{fpfh} for keypoint description and the feature matching algorithm described in \cref{subsec:localization-system_feature-registration} to estimate the initial position and orientation of the robot (\cref{fig:localization-system-evaluation_ship-interior-initial-pose-estimation-sift-fpfh-ransac-gicp} shows the accepted initial poses when the robot was in the lower right corner of the Guardian test environment).
 
 The next sections will provide an overview analysis of the main 3 \gls{dof} results achieved with the proposed localization system (available in \cref{app:appendix-a}). It will start by explaining how laser spherical interpolation can mitigate point cloud deformation. Later on it will analyze the point cloud preprocessing stage and why it should be carefully tuned to the sensors and ambient geometry. Next it will present the \gls{slam} problem and why it is necessary to have accurate maps in order to achieve precise localization. Finally it will be presented a detailed analysis of 3 of the most representative tests, in which the results achieved by the proposed localization system will be compared with the ground truth, odometry and \gls{amcl}.
 
@@ -462,17 +476,64 @@ The global computation time is mostly associated with the point cloud registrati
 
 
 
-%
-%\section{6 \glsentrytext{dof} localization system tests}
-%
-%\subsection{Overview}
-%
-%FF.
-%
-%\subsection{Results}
-%
-%FF.
-%
-%\subsection{Results discussion}
-%
-%FF.
+\clearpage
+
+\section{6 \glsentrytext{dof} localization system tests}
+
+\subsection{Overview}
+
+The main 6 \gls{dof} results retrieved with the localization system are shown in \cref{tab:localization-system-evaluation_6-dof-results} and \cref{app:appendix-b}. The first two experiments were done to evaluate the accuracy of the point cloud registration algorithms while the last one aimed to test the robustness against temporary absence of valid sensor data (in this test the Kinect had periods in which most of its field of view was outside the map).
+
+These tests were retrieved with a known initial pose and used \gls{icp} point-to-point as tracking algorithm and \gls{icp} point-to-plane as tracking recovery method. The 3D map was done with the localization system in \gls{slam} mode and used continuous surface reconstruction in order to create an accurate representation of the environment and reduce the impact of the measurements noise. This map was later downsampled using a voxel grid with 20 mm cells in order to allow real-time processing of the Kinect data.
+
+The next sections will provide an analysis of the 6 \gls{dof} results achieved with the proposed localization system (shown in \cref{app:appendix-b}). It will start by explaining the importance of point cloud processing and how it helps reduce the cloud registration time. Then it will give an overview of the 3D map building capabilities and it will finished with an analysis of the translation and rotation errors along with the computation time.
+
+
+\begin{sidewaystable}
+	\caption{6 \glsentrytext{dof} results}
+	\tabulinesep = 1.2ex
+	\setlength{\tabcolsep}{0.2em}
+	\centering
+	\tiny
+	\begin{tabu} to \textwidth { X[m,c] X[m,c] X[1.7m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] X[0.01m,c] X[m,c] X[m,c] }
+		\hline
+		\multicolumn{4}{c}{Test conditions} && \multicolumn{2}{c}{Translation error (millimeters)} && \multicolumn{2}{c}{Rotation error (degrees)} && \multicolumn{2}{c}{Outliers percentage [0..100]} && \multicolumn{2}{c}{Global computation time (milliseconds)} \\
+		\cline{1-4} \cline{6-7} \cline{9-10} \cline{12-13} \cline{13-16}
+		Section 	& Path shape 											& Path velocities 		& Map cell resolution 	&& Mean   	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean   & Standard deviation  \\ \hline
+		B.1.1		& Overview fly											& 30 cm/s				& 20 mm					&& 18.536	& 9.829					&& 3.03 	& 0.669					&& 0.227	& 0.251					&& 23.619 &	7.378				\\
+		B.1.2		& Mainly translations									& 20 cm/s				& 20 mm					&& 16.590	& 10.002				&& 2.727 	& 0.566					&& 1.271	& 3.417					&& 26.893 &	8.389				\\
+		B.1.3		& Mainly rotations										& 10 cm/s				& 20 mm					&& 109.957	& 247.457				&& 30.399 	& 3.554					&& 4.320	& 7.496					&& 34.584 &	13.728				\\
+		\hline
+	\end{tabu}
+	\label{tab:localization-system-evaluation_6-dof-results}
+\end{sidewaystable}
+
+
+\subsection{Point cloud preprocessing}
+
+Point cloud preprocessing can have a very significant role when performing cloud registration for self-localization. This is due to real-time requirements and also because the computation time increases substantially when registering large point clouds. One way to control this problem is by preprocessing the point cloud with a voxel grid to adjust the level of detail and also assign a limit to the number of points that come from sensors (this can be achieved with random sampling or similar point selection techniques). Moreover, depending on the sensor used, it may be wise to restrict the points to a given range, and discard the rest that are too far way (given that these measurements will have more errors).
+
+
+\subsection{\glsentrytext{slam}}
+
+The proposed localization system can perform mapping of the environment and is able to build very detailed point clouds. These point clouds can be continuously re-sampled with the Moving Least Squares algorithm in order to reconstruct the surfaces of the environment and attenuate the double wall effects and high sensor noise.
+
+The localization system can also dynamic update the 3D map in order to remove missing objects from the reference point cloud and also add new ones.
+
+
+\subsection{Point cloud registration}
+
+Looking at the animated figures in \cref{app:appendix-b} and the assembly of the registered point clouds, it is clear that the proposed localization system was able to register point clouds with high accuracy, even when they were severely downsampled (due to real-time processing constraints). Moreover, analyzing \cref{fig:localization-system-evaluation_kinect_rotations} it can be seen that the localization system is robust against temporary absence of sensor data (when the field of view of the Kinect was outside the known map) and was able to quickly recover to accurate tracking when valid sensor data was given. In these situations the recovery algorithms were activated, switching the registration algorithm from \gls{icp} point-to-point to \gls{icp} point-to-plane. Given that these sensor data outages were temporary, the initial pose algorithms weren't necessary. Nevertheless, if the Kinect remained outside the map for a longer period of time, the localization system would alert that the tracking was lost and it would try to find its current pose using feature matching.
+
+
+
+\subsection{Translation and rotation errors}
+
+The results presented in \cref{tab:localization-system-evaluation_6-dof-results} and in the translation error figures in \cref{app:appendix-b}, shown that the localization system can maintain high accuracy pose tracking, with translation error bellow two centimeters and rotation error around 3 degrees when good sensor data is available. Moreover it can quickly recover from temporary registration problems caused by occlusions or accelerations.
+
+\Cref{fig:localization-system-evaluation_kinect_translation_path,fig:localization-system-evaluation_kinect_translation_path2} also shows that the proposed localization system achieved less overall translation error than the tracking system proposed by the authors of this Kinect dataset \cite{Pomerleau2011}.
+
+
+\subsection{Computation time}
+
+The localization system was able to track the Kinect pose in real-time, achieving a mean computation time low enough to allow the processing of all the Kinect point clouds (that were being published at 30 Hz). Depending on the accuracy requirements, the computation time can be lowered even further by using the preprocessing filters described in \cref{fig:localization_system_filtering-and-down-sampling}, in order to reduce the number of points used in the cloud registration.

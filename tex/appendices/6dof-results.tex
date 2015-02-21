@@ -1,0 +1,19 @@
+\chapter{6 \glsentrytext{dof} localization system results} \label{app:appendix-b}
+
+
+
+\section*{}
+
+The next sections present in detail the results achieved with the localization system configured to 6 \gls{dof}.
+
+Each test starts by presenting an interactive sequence of images in order to give an overview of the sensor data retrieved along the movement path of the Kinect. To allow a more broad analysis of the point cloud registration quality achieved with the proposed localization system, it is also provided figures with all the Kinect point clouds assembled using the estimated poses. For a more visual inspection, the synchronized poses from the localization system (blue arrows) and ground truth (green arrows) are also presented. To have a much more detailed description of the Kinect movement path, several more graphs are shown with information about the evolution of the x, y and z position, along with the distance that the Kinect traveled between pose estimations and the associated linear / angular velocities / accelerations. Later on, the translation and rotation errors and their respective probability distributions are shown. In the end, it is presented some graphs with information about the point clouds size in each of the main processing stages of the localization system pipeline, along with the number of registered points, inliers analysis (percentage and \gls{rmse}) and finally some more graphs showing how much time the localization system required for each pose estimation.
+
+
+\clearpage
+\section{Kinect tests}
+
+The next subsections show some of the most relevant results achieved with the ETHZ-ASL Kinect dataset \cite{Pomerleau2011}.
+
+\input{tex/appendices/kinect/kinect-fly-30cm-per-sec-velocity.tex}
+\input{tex/appendices/kinect/kinect-translations-20cm-per-sec-velocity.tex}
+\input{tex/appendices/kinect/kinect-rotations-10cm-per-sec-velocity.tex}

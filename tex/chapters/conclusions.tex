@@ -4,16 +4,16 @@
 
 \section*{}
 
-The proposed localization system is able to maintain pose tracking with less than one cm in translation error and less than a degree in rotation error at several velocities even in cluttered and dynamic environments. Moreover, when tracking is lost or no initial pose is given, the system is able to find a valid global pose estimate by switching to more robust registration algorithms that use feature matching. This approach achieved fast pose tracking and reliable initial pose estimation while also providing the set of the accepted initial poses before registration refinement, which can be very valuable information for a navigation supervisor when the robot is in an ambiguous region that can be registered in similar zones of the known map. The system also allows dynamic reconfiguration of the number of laser scans to assemble in order to mitigate laser measurement errors and can adapt its rate of operation according to the robot estimated velocity.
+The proposed localization system is able to maintain pose tracking with less 1-2 centimeters of translation error and less than a 1-3 degrees of rotation error (in 3 and 6 DoF respectively) at several velocities even in cluttered and dynamic environments. Moreover, when tracking is lost or no initial pose is given, the system is able to find a valid global pose estimate by switching to more robust registration algorithms that use feature matching. This approach achieved fast pose tracking and reliable initial pose estimation while also providing the set of the accepted initial poses before registration refinement, which can be very valuable information for a navigation supervisor when the robot is in an ambiguous region that can be registered in similar zones of the known map. The system also allows dynamic reconfiguration of the number of laser scans to assemble in order to mitigate laser measurement errors and can adapt its rate of operation according to the robot estimated velocity.
 
-The sub centimeter accuracy achieved by the proposed localization system along with the dynamic map update capability and the need of no artificial landmarks / ambient modifications will allow the fast deployment of mobile robots capable to operate safely and accurately in cluttered environments.
+The sub-centimeter accuracy achieved by the proposed localization system along with the dynamic map update capability and the need of no artificial landmarks / ambient modifications will allow the fast deployment of mobile robots capable to operate safely and accurately in cluttered environments.
 
 
 
 \section{Main contributions}
 
 
-The following list presents the main contributions of the presented work:
+The following list gives an overview of the main contributions of the presented work:
 
 \begin{itemize}
 	\item A \gls{lidar} assembler\footnote{\url{https://github.com/carlosmccosta/laserscan_to_pointcloud}} capable of:
@@ -39,13 +39,13 @@ The following list presents the main contributions of the presented work:
 	\begin{itemize}
 		\item 4 datasets with subcentimeter ground truth in static and dynamic environments using a robot moving at different speeds
 		\item 6 Gazebo and 6 Stage simulation datasets
-		\item Improvement of external RGB-D dataset (ground truth time synchronization and laser transformation calibration)
+		\item Improvement of external 3/6 \gls{dof} datasets (ground truth time synchronization and laser transformations calibration)
 	\end{itemize}
 
 	\item Test of the localization system on public datasets and comparison with:
 	\begin{itemize}
-		\item Ground truth systems from two different mobile robots
-		\item Widely used localization system (\gls{amcl})
+		\item Ground truth systems from three different testing environments
+		\item Widely used localization systems (\gls{amcl} and ethzasl-icp-mapper)
 		\item Well known \gls{slam} system (GMapping)
 	\end{itemize}
  	
@@ -54,12 +54,10 @@ The following list presents the main contributions of the presented work:
 		\item The robot hardware configuration proved adequate for the intended tasks and environment
 		\item The 3 \gls{dof} localization system was able to run in real time on the low computational power on-board computer
 	\end{itemize}
-	
-	\item The 6 \gls{dof} component of the proposed localization system was tested and is ready to be used (it was not included in the this document due to time restrictions)
 \end{itemize}
 
 
 
 \section{Future work}
-The current implementation of the self-localization system can be further improved \gls{gpu} support and with loop closing algorithms \cite{Grisetti2012} \cite{Tamaki2010} in order to become a complete \gls{slam} system and allow the creation of accurate maps of very large environments. Moreover, it cloud be extended to support image based localization \cite{Labb2014} and semantic perception and mapping of the environment \cite{Santos2013}.
+The current implementation of the self-localization system can be further improved with \gls{gpu} support in order to achieve higher update rates in 6 \gls{dof} and also with loop closing algorithms \cite{Grisetti2012,Tamaki2010} in order to become a complete \gls{slam} system and allow the creation of accurate maps of very large environments. Moreover, it cloud be extended to support image based localization \cite{Labb2014} and semantic perception and mapping of the environment \cite{Santos2013}.
 
