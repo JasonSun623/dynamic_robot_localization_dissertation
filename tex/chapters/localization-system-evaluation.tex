@@ -500,9 +500,9 @@ The next sections will provide an analysis of the 6 \gls{dof} results achieved w
 		\multicolumn{4}{c}{Test conditions} && \multicolumn{2}{c}{Translation error (millimeters)} && \multicolumn{2}{c}{Rotation error (degrees)} && \multicolumn{2}{c}{Outliers percentage [0..100]} && \multicolumn{2}{c}{Global computation time (milliseconds)} \\
 		\cline{1-4} \cline{6-7} \cline{9-10} \cline{12-13} \cline{13-16}
 		Section 	& Path shape 											& Path velocities 		& Map cell resolution 	&& Mean   	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean  	& Standard deviation 	&& Mean   & Standard deviation  \\ \hline
-		B.1.1		& Overview fly											& 30 cm/s				& 20 mm					&& 18.536	& 9.829					&& 3.03 	& 0.669					&& 0.227	& 0.251					&& 23.619 &	7.378				\\
-		B.1.2		& Mainly translations									& 20 cm/s				& 20 mm					&& 16.590	& 10.002				&& 2.727 	& 0.566					&& 1.271	& 3.417					&& 26.893 &	8.389				\\
-		B.1.3		& Mainly rotations										& 10 cm/s				& 20 mm					&& 19.511	& 9.441					&& 29.489 	& 1.479					&& 1.050	& 1.737					&& 33.038 &	10.060				\\
+		B.1.1		& Overview fly											& 30 cm/s				& 20 mm					&& 17.926	& 9.789					&& 3.027 	& 0.638					&& 0.165	& 0.172					&& 30.714 &	11.407				\\
+		B.1.2		& Mainly translations									& 20 cm/s				& 20 mm					&& 14.162	& 7.990					&& 2.486 	& 0.975					&& 0.983	& 1.874					&& 32.296 &	10.757				\\
+		B.1.3		& Mainly rotations										& 10 cm/s				& 20 mm					&& 16.576	& 9.389					&& 2.738 	& 0.583					&& 1.214	& 3.148					&& 29.818 &	9.134				\\
 		\hline
 	\end{tabu}
 	\label{tab:localization-system-evaluation_6-dof-results}
@@ -536,4 +536,4 @@ The results presented in \cref{tab:localization-system-evaluation_6-dof-results}
 
 \subsection{Computation time}
 
-The localization system was able to track the Kinect pose in real-time, achieving a mean computation time low enough to allow the processing of all the Kinect point clouds (that were being published at 30 Hz). Depending on the accuracy requirements, the computation time can be lowered even further by using the preprocessing filters described in \cref{fig:localization_system_filtering-and-down-sampling}, in order to reduce the number of points used in the cloud registration.
+The localization system was able to achieve a mean computation time low enough to allow real time processing of the Kinect point cloud sensor data (that was being published at 30 Hz). Depending on the accuracy requirements, the computation time can be lowered even further by tuning the preprocessing filters described in \cref{fig:localization_system_filtering-and-down-sampling}, in order to reduce the number of points used in the cloud registration.
