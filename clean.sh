@@ -7,20 +7,8 @@ echo "##########################################################################
 
 
 rm -rf ./build
-mkdir build
+mkdir -p build/references
 
-cd build
-mkdir -p macros
-mkdir -p references
-mkdir -p styles
-mkdir -p tex
-
-cd tex
-mkdir -p appendices
-mkdir -p chapters
-mkdir -p prolog
-
-cd ../../
 ln -s `pwd`/references/references.bib `pwd`/build/references/references.bib
 
 
